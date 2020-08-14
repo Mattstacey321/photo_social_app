@@ -1,12 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/constraint.dart';
 import 'package:photo_social/controller/home_controller.dart';
+import 'package:photo_social/repository/user_repository.dart';
 import 'package:photo_social/style.dart';
 import 'package:photo_social/ui/list_photo/list_photo.dart';
-import 'package:photo_social/widgets/circle_icon.dart';
 import 'package:photo_social/widgets/customAppbar.dart';
 import 'package:photo_social/widgets/custom_button.dart';
 import 'package:photo_social/widgets/custom_netword_image.dart';
@@ -17,6 +15,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    super.initState();
+    UserRepository.signIn(username: "hello123", password: "Dhpro1998@").then((value) {
+      print(value);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
