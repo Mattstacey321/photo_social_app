@@ -1,8 +1,10 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/style.dart';
+import 'package:photo_social/theme/gradient.dart';
 import 'package:photo_social/utils/social_icon.dart';
 import 'package:photo_social/widgets/clickable_text.dart';
 import 'package:photo_social/widgets/custom_button.dart';
@@ -153,26 +155,34 @@ class Login extends StatelessWidget {
                                   BotToast.showText(text: "On working feature");
                                 },
                                 tooltip: "Login with Google",
-                                iconColor: Colors.amber[900],
+                                iconColor: Colors.white,
+                                backgroundColor: Color(0xffFC5243),
                                 icon: SocialIcon.google,
-                                width: 55,
-                                height: 45,
+                                width: 50,
+                                height: 50,
                               ),
                               CustomButton(
-                                onPress: () {},
+                                onPress: () {
+                                  BotToast.showText(text: "On working feature");
+                                },
                                 tooltip: "Login with Facebook",
-                                iconColor: Colors.blue,
-                                icon: SocialIcon.facebook_circled,
-                                width: 55,
-                                height: 45,
+                                iconColor: Colors.white,
+                                backgroundColor: Color(0xff3b5998),
+                                icon: FeatherIcons.facebook,
+                                width: 50,
+                                height: 50,
                               ),
                               CustomButton(
-                                onPress: () {},
+                                onPress: () {
+                                  BotToast.showText(text: "On working feature");
+                                },
                                 tooltip: "Login with Instagram",
-                                iconColor: Colors.pink,
+                                iconColor: Colors.white,
+                                backgroundColor: Colors.white,
+                                gradient: AppGradient.instagram,
                                 icon: SocialIcon.instagram,
-                                width: 55,
-                                height: 45,
+                                width: 50,
+                                height: 50,
                               ),
                             ],
                           ),
