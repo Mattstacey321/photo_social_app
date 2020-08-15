@@ -3,6 +3,9 @@ class ForumModel {
   String name;
   String banner;
   ForumModel({this.id, this.name, this.banner});
+  factory ForumModel.fromMap(Map forum) {
+    return ForumModel(id: forum['_id'], banner: forum['banner'], name: forum['name']);
+  }
 }
 
 class Forums {
@@ -12,10 +15,9 @@ class Forums {
     var _forums = <ForumModel>[];
     try {
       for (var forum in data) {
-        _forums.add(ForumModel(id: forum['id'], banner: forum['banner'], name: forum['name']));
+        _forums.add(ForumModel.fromMap(forum));
       }
     } catch (e) {
-      print(e);
       return Forums(forums: []);
     }
     return Forums(forums: _forums);

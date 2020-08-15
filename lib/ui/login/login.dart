@@ -53,7 +53,7 @@ class Login extends StatelessWidget {
                       Container(
                         height: 50,
                         child: TextField(
-                          controller: _.userName,
+                          controller: _.userNameCtrl,
                           decoration: InputDecoration(
                               hintText: "Username or email",
                               contentPadding: EdgeInsets.symmetric(horizontal: 10),
@@ -79,7 +79,7 @@ class Login extends StatelessWidget {
                       Container(
                         height: 50,
                         child: TextField(
-                          controller: _.password,
+                          controller: _.passwordCtrl,
                           decoration: InputDecoration(
                               hintText: "Password",
                               contentPadding: EdgeInsets.symmetric(horizontal: 10),

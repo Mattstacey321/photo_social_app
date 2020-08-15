@@ -11,25 +11,19 @@ class ForumRepository {
 
   static Future<int> countForumPost({String forumId}) async {
     String token = Get.find<SharedPreferences>().getString('token');
-   
-    if(loginAsGuest){
-       var result = await _guestClient.countForumPost(forumId: forumId);
-       return result.data['countForumPost'];
-    }else {
-       var result = await _client(token).countForumPost(forumId: forumId);
-       return result.data['countForumPost'];
-    } 
+
+    var result = loginAsGuest
+        ? await _guestClient.countForumPost(forumId: forumId)
+        : await _client(token).countForumPost(forumId: forumId);
+    return result.data['countForumPost'];
   }
 
   static Future<List<ForumModel>> getForums({int page = 1, int limit = 10}) async {
     String token = Get.find<SharedPreferences>().getString('token');
-    bool loginAsGuest = Get.find<SharedPreferences>().getBool('isSkipLogin');
-    if (loginAsGuest) {
-      var result = await _guestClient.getForums(page: page, limit: limit);
-      return Forums.fromList(result.data['getForums']).forums;
-    } else {
-      var result = await _client(token).getForums(page: page, limit: limit);
-      return Forums.fromList(result.data).forums;
-    }
+    
+    var result = loginAsGuest
+        ? await _guestClient.getForums(page: page, limit: limit)
+        : await _client(token).getForums(page: page, limit: limit);
+    return Forums.fromList(result.data['getForums']).forums;
   }
 }

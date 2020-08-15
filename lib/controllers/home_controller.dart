@@ -1,9 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/constraint.dart';
 import 'package:photo_social/models/forumModel.dart';
-import 'package:photo_social/models/photoModel.dart';
 import 'package:photo_social/repository/forum_repository.dart';
 import 'package:photo_social/repository/user_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';

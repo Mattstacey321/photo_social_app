@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/models/forumModel.dart';
 import 'package:photo_social/style.dart';
-import 'package:photo_social/ui/list_photo/list_photo.dart';
+import 'package:photo_social/ui/forum_post/forum_post.dart';
+import 'package:photo_social/ui/login/widgets/skip_login_dialog.dart';
 import 'package:photo_social/widgets/custom_appBar.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 import 'package:photo_social/widgets/custom_button.dart';
@@ -38,7 +39,9 @@ class _HomeState extends State<Home> {
                 ),
                 Spacer(),
                 CustomButton(
-                  onPress: () {},
+                  onPress: () {
+                    //Get.dialog(SkipLoginDialog(onBack: () {}, onSkip: () {}));
+                  },
                   tooltip: "Request forum",
                   iconColor: Colors.red,
                   icon: FeatherIcons.zap,
@@ -69,7 +72,10 @@ class _HomeState extends State<Home> {
                           List<ForumModel> forum = _.forumsData;
                           return CustomNetworkImage(
                             onTap: () {
-                              Get.to(ListPhoto());
+                              Get.to(ForumPost(
+                                forumId: forum[index].id,
+                                forumName: forum[index].name,
+                              ));
                             },
                             id: forum[index].id,
                             url: forum[index].banner,
