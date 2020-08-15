@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_social/repository/forum_repository.dart';
 import 'package:photo_social/style.dart';
 
 class CustomNetworkImage extends StatelessWidget {
+  final String id;
   final String url;
   final String title;
   final int number;
@@ -13,6 +15,7 @@ class CustomNetworkImage extends StatelessWidget {
   final Function onTap;
   const CustomNetworkImage(
       {@required this.url,
+      @required this.id,
       this.imageBorder = 15,
       @required this.title,
       this.number = 0,
@@ -75,10 +78,20 @@ class CustomNetworkImage extends StatelessWidget {
                       SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        "${number.toString()} photos",
-                        style: AppStyle.bannerNumber,
-                      )
+                      FutureBuilder(
+                          future: ForumRepository.countForumPost(forumId: id),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Text(
+                                "loading...",
+                                style: AppStyle.bannerNumber,
+                              );
+                            } else
+                              return Text(
+                                "${snapshot.data.toString()} photos",
+                                style: AppStyle.bannerNumber,
+                              );
+                          })
                     ],
                   ),
                 ),

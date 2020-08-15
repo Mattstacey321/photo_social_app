@@ -1,7 +1,9 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/controller.dart';
+import 'package:photo_social/models/forumModel.dart';
 import 'package:photo_social/style.dart';
 import 'package:photo_social/ui/list_photo/list_photo.dart';
 import 'package:photo_social/widgets/custom_appBar.dart';
@@ -25,53 +27,63 @@ class _HomeState extends State<Home> {
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (_) {
-      return Scaffold(
+        return Scaffold(
           appBar: CustomAppBar(
               homeIcon: Icon(FeatherIcons.hash),
               onTap: () {},
               childs: [
                 Text(
-                  "Available Game",
+                  "Available Forum",
                   style: AppStyle.appBarTitle,
                 ),
                 Spacer(),
                 CustomButton(
                   onPress: () {},
-                  tooltip: "Request game",
+                  tooltip: "Request forum",
                   iconColor: Colors.red,
                   icon: FeatherIcons.zap,
-                  width: 50,
-                  height: 30,
+                  width: 40,
+                  height: 40,
                 ),
                 SizedBox(width: 10),
                 CustomAvatar(
                   url: _.getAvatar(),
                   onTap: () {},
-                  toolTip:"Profile",
+                  toolTip: "Profile",
                   size: 40,
                 )
               ],
               height: 50),
           body: Container(
-              height: Get.height,
-              width: Get.width,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(height: 15),
-                  itemCount: _.countMockData,
-                  itemBuilder: (context, index) {
-                    var game = _.mockData;
-                    return CustomNetworkImage(
-                      onTap: () {
-                        print("tap $index");
-                        Get.to(ListPhoto());
-                      },
-                      url: game[index],
-                      title: "$index",
-                      imageHeight: 135,
-                      imageWidth: Get.width,
-                    );
-                  })));
-    });
+            height: Get.height,
+            width: Get.width,
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Center(
+              child: Obx(
+                () => _.forumsData == null
+                    ? SpinKitCubeGrid(color: Colors.black, size: 20)
+                    : ListView.separated(
+                        separatorBuilder: (context, index) => SizedBox(height: 15),
+                        itemCount: _.countForum,
+                        itemBuilder: (context, index) {
+                          List<ForumModel> forum = _.forumsData;
+                          return CustomNetworkImage(
+                            onTap: () {
+                              Get.to(ListPhoto());
+                            },
+                            id: forum[index].id,
+                            url: forum[index].banner,
+                            title: forum[index].name,
+                            imageHeight: 130,
+                            imageWidth: Get.width,
+                          );
+                        },
+                      ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

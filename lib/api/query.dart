@@ -4,7 +4,7 @@ import 'package:photo_social/api/client_provider.dart';
 class GraphQL {
   GraphQLClient authClient() => authAPI();
   GraphQLClient mainClient(String token) => mainAPI(token);
-  GraphQLClient anonymousClient() => anonymousAPI();
+  GraphQLClient guestClient() => anonymousAPI();
 }
 
 extension AuthQuery on GraphQLClient {

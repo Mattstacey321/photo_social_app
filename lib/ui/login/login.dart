@@ -168,7 +168,7 @@ class Login extends StatelessWidget {
                                 tooltip: "Login with Facebook",
                                 iconColor: Colors.white,
                                 backgroundColor: Color(0xff3b5998),
-                                icon: FeatherIcons.facebook,
+                                icon: SocialIcon.facebook_f,
                                 width: 50,
                                 height: 50,
                               ),

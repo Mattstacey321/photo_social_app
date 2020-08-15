@@ -10,8 +10,13 @@ class Forums {
   Forums({this.forums});
   factory Forums.fromList(List data) {
     var _forums = <ForumModel>[];
-    for (var forum in data) {
-      _forums.add(forum);
+    try {
+      for (var forum in data) {
+        _forums.add(ForumModel(id: forum['id'], banner: forum['banner'], name: forum['name']));
+      }
+    } catch (e) {
+      print(e);
+      return Forums(forums: []);
     }
     return Forums(forums: _forums);
   }

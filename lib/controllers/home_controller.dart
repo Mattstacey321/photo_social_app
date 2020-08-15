@@ -10,21 +10,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.find();
-  Rx<PhotoModel> data = Rx<PhotoModel>();
-  Rx<List<ForumModel>> forumData = Rx<List<ForumModel>>();
+  //Rx<PhotoModel> data = Rx<PhotoModel>();
+  Rx<List<ForumModel>> _forumsData = Rx<List<ForumModel>>();
   RxBool _isSkipLogin = false.obs;
 
-  @override
-  void onStart() {
-    print("onStart call");
-    super.onStart();
-  }
-
-  @override
-  void onInit() => intForum();
+  bool get loginAsGuest => _isSkipLogin.value;
+  int get countForum => _forumsData.value.length;
+  List<ForumModel> get forumsData => _forumsData.value;
 
   @override
   void onReady() {
+    intForum();
     bool isSkipLogin = Get.find<SharedPreferences>().getBool("isSkipLogin");
     _isSkipLogin.value = isSkipLogin;
     isSkipLogin
@@ -41,16 +37,9 @@ class HomeController extends GetxController {
           );
   }
 
-  Future intForum() async{
-    forumData.value = await ForumRepository.getForums();
-    
+  Future intForum() async {
+    _forumsData.value = (await ForumRepository.getForums());
   }
-
-
-  var mockData = [AppConstraint.urlDemo1, AppConstraint.urlDemo2, AppConstraint.urlDemo3];
-
-  int get countMockData => mockData.length;
-  bool get loginAsGuest => _isSkipLogin.value;
 
   String getAvatar() {
     if (loginAsGuest) {
