@@ -2,11 +2,10 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/controller/home_controller.dart';
 import 'package:photo_social/models/photoModel.dart';
 import 'package:photo_social/services/api_services.dart';
 import 'package:photo_social/style.dart';
-import 'package:photo_social/widgets/customAppbar.dart';
+import 'package:photo_social/widgets/custom_appBar.dart';
 
 class ListPhoto extends StatefulWidget {
   @override

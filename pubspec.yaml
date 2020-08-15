@@ -20,6 +20,7 @@ dependencies:
   pull_to_refresh: ^1.6.1
   graphql_flutter: ^3.1.0
   shared_preferences: ^0.5.8
+  bot_toast: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -49,3 +50,7 @@ flutter:
   - family: GoogleSans-Bold-Italic
     fonts:
     - asset: assets/fonts/GoogleSans-BoldItalic.ttf
+  - family:  SocialIcon
+    fonts:
+    - asset: assets/custom/SocialIcon.ttf
+   

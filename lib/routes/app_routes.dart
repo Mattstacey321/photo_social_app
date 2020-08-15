@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:photo_social/controller/base_controller.dart';
+import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/ui/home/home.dart';
 import 'package:photo_social/ui/login/login.dart';
 import 'package:photo_social/ui/sign_up/sign_up.dart';
