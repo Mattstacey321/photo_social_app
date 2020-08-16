@@ -11,6 +11,7 @@ import 'package:photo_social/widgets/custom_appBar.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 import 'package:photo_social/widgets/custom_button.dart';
 import 'package:photo_social/widgets/custom_netword_image.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -65,26 +66,35 @@ class _HomeState extends State<Home> {
               child: Obx(
                 () => _.forumsData == null
                     ? SpinKitCubeGrid(color: Colors.black, size: 20)
-                    : ListView.separated(
-                        separatorBuilder: (context, index) => SizedBox(height: 15),
-                        itemCount: _.countForum,
-                        itemBuilder: (context, index) {
-                          List<ForumModel> forum = _.forumsData;
-                          return CustomNetworkImage(
-                            onTap: () {
-                              Get.to(ForumPost(
-                                forumId: forum[index].id,
-                                forumName: forum[index].name,
-                              ));
-                            },
-                            id: forum[index].id,
-                            url: forum[index].banner,
-                            title: forum[index].name,
-                            imageHeight: 130,
-                            imageWidth: Get.width,
-                          );
-                        },
-                      ),
+                    : _.forumsData.isEmpty
+                        ? Text("No forums now")
+                        : SmartRefresher(
+                            controller: _.refreshController,
+                            enablePullUp: true,
+                            enablePullDown: true,
+                            onRefresh: () {},
+                            onLoading: () {},
+                            child: ListView.separated(
+                              separatorBuilder: (context, index) => SizedBox(height: 15),
+                              itemCount: _.countForum,
+                              itemBuilder: (context, index) {
+                                List<ForumModel> forum = _.forumsData;
+                                return CustomNetworkImage(
+                                  onTap: () {
+                                    Get.to(ForumPost(
+                                      forumId: forum[index].id,
+                                      forumName: forum[index].name,
+                                    ));
+                                  },
+                                  id: forum[index].id,
+                                  url: forum[index].banner,
+                                  title: forum[index].name,
+                                  imageHeight: 130,
+                                  imageWidth: Get.width,
+                                );
+                              },
+                            ),
+                          ),
               ),
             ),
           ),

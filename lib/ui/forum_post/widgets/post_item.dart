@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -10,7 +9,6 @@ import 'package:photo_social/constraint.dart';
 import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/models/postModel.dart';
 import 'package:photo_social/widgets/circle_icon.dart';
-import 'package:photo_social/widgets/clickable_text.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 import 'package:photo_social/widgets/custom_button.dart';
 
@@ -27,7 +25,7 @@ class PostItem extends StatelessWidget {
     double imageWidth = Get.width;
     return GetBuilder<PostController>(builder: (_) {
       return Container(
-        height: 280,
+        height: 250,
         width: Get.width,
         child: Stack(
           children: [
@@ -120,7 +118,7 @@ class PostItem extends StatelessWidget {
                         CustomAvatar(
                           url: AppConstraint.defaultAvatar,
                           onTap: () {
-                            //go to profle 
+                            //go to profle
                           },
                           size: 30,
                           toolTip: "Avatar",
@@ -131,70 +129,79 @@ class PostItem extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-                bottom: 45,
-                left: 20,
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(),
-                  child: Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Row(
-                      children: [
-                        /*Row(
-                        children: [Icon(FeatherIcons.heart), SizedBox(width: 10), Text("10")],
-                      ),*/
-                        CustomButton(
-                          onPress: () {
-                             //show like
-                          },
-                          tooltip: "",
-                          opacity: 0,
-                          iconColor: Colors.white,
-                          icon: EvaIcons.heartOutline,
-                          width: 50,
-                          childs: [
-                            Text(
-                              "10",
-                              style: TextStyle(color: Colors.white),
-                            )
-                          ],
-                        ),
-                        SizedBox(width: 10),
-                        CustomButton(
-                          onPress: () {
-                            //show comment
-                          },
-                          tooltip: "",
-                          opacity: 0,
-                          iconColor: Colors.white,
-                          icon: EvaIcons.messageCircleOutline,
-                          width: 50,
-                          childs: [
-                            Text(
-                              "0",
-                              style: TextStyle(color: Colors.white),
-                            )
-                          ],
-                        ),
-                        /* Row(
-                        children: [Icon(FeatherIcons.command), SizedBox(width: 10), Text("0")],
-                      )*/
-                      ],
-                    ),
-                  ),
-                )),
-            Positioned(
+            Positioned.fill(
+              bottom: 20,
+              left: 20,
               right: 20,
-              bottom: 45,
-              child: CustomButton(
-                onPress: () {
-                  _.likePost(postId: model.postId);
-                },
-                tooltip: "Mlem mlem",
-                iconColor: Colors.pink,
-                icon: isLike ? EvaIcons.heart : EvaIcons.heartOutline,
-                width: 30,
-                height: 30,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Container(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(),
+                          child: Row(
+                            children: [
+                              /*Row(
+                            children: [Icon(FeatherIcons.heart), SizedBox(width: 10), Text("10")],
+                          ),*/
+                              CustomButton(
+                                onPress: () {
+                                  //show reaction
+                                },
+                                tooltip: "",
+                                opacity: 0,
+                                iconColor: Colors.white,
+                                icon: EvaIcons.heartOutline,
+                                width: 50,
+                                childs: [
+                                  Text(
+                                    model.totalReaction.toString(),
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                ],
+                              ),
+                              SizedBox(width: 10),
+                              CustomButton(
+                                onPress: () {
+                                  //show comment
+                                },
+                                tooltip: "",
+                                opacity: 0,
+                                iconColor: Colors.white,
+                                icon: EvaIcons.messageCircleOutline,
+                                width: 50,
+                                childs: [
+                                  Text(
+                                    model.totalComment.toString(),
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: CustomButton(
+                        onPress: () {
+                          _.likePost(postId: model.postId);
+                        },
+                        tooltip: "Mlem mlem",
+                        iconColor: Colors.pink,
+                        icon: isLike ? EvaIcons.heart : EvaIcons.heartOutline,
+                        width: 30,
+                        height: 30,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Positioned(

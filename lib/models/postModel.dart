@@ -5,7 +5,7 @@ class PostModel {
   String postTitle;
   List<Media> medias;
   List tags;
-  int totalLike;
+  int totalReaction;
   int totalComment;
   DateTime createdTime;
   int get countMedia => medias.length;
@@ -16,7 +16,7 @@ class PostModel {
       this.tags,
       this.medias,
       this.createdTime,
-      this.totalLike,
+      this.totalReaction,
       this.totalComment});
   factory PostModel.fromMap(Map post) {
     return PostModel(
@@ -24,7 +24,10 @@ class PostModel {
         postTitle: post['title'],
         tags: post['tag'],
         createdTime: DateTime.parse(post['created_time']),
-        medias: Medias.fromList(post['media']).medias);
+        medias: Medias.fromList(post['media']).medias,
+        totalReaction: post['total_reaction'],
+        totalComment: post['total_comment']
+        );
   }
 }
 

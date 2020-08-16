@@ -47,6 +47,8 @@ extension GqlQuery on GraphQLClient {
             }
             tag
             created_time
+            total_comment
+            total_reaction
           }
       }
     """;

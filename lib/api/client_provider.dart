@@ -24,7 +24,7 @@ GraphQLClient mainAPI(String token) {
   );
 }
 GraphQLClient anonymousAPI() {
-  HttpLink httpLink = HttpLink(uri: "http://192.168.1.37:3000/graphql", headers: {"anonymous": 'true'});
+  HttpLink httpLink = HttpLink(uri: "http://192.168.1.37:3000/graphql", headers: {"guest": 'true'});
 
   return GraphQLClient(
     cache: NormalizedInMemoryCache(dataIdFromObject: typenameDataIdFromObject),

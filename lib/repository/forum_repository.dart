@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:photo_social/api/query.dart';
@@ -9,7 +10,7 @@ class ForumRepository {
   static GraphQLClient _client(String token) => GraphQL().mainClient(token);
   static GraphQLClient get _guestClient => GraphQL().guestClient();
 
-  static Future<int> countForumPost({String forumId}) async {
+  static Future<int> countForumPost({@required String forumId}) async {
     String token = Get.find<SharedPreferences>().getString('token');
 
     var result = loginAsGuest
