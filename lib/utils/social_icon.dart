@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 class SocialIcon {
   SocialIcon._();
 
-  static const _kFontFam = 'Social';
+  static const _kFontFam = 'SocialIcon';
   static const _kFontPkg = null;
 
   static const IconData twitter = IconData(0xf099, fontFamily: _kFontFam, fontPackage: _kFontPkg);

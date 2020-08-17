@@ -61,7 +61,7 @@ class CustomButton extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     icon != null
-                        ? Icon(icon, color: iconColor, size: height * 0.55)
+                        ? Icon(icon, color: iconColor, size: height * 0.60)
                         : SizedBox(width: 0),
                     childs != null
                         ? icon != null ? SizedBox(width: 10) : SizedBox(width: 0)

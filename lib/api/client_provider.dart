@@ -1,4 +1,5 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:photo_social/api/config.dart';
 
 String uuidFromObject(Object object) {
   if (object is Map<String, Object>) {
@@ -16,15 +17,16 @@ final OptimisticCache cache = OptimisticCache(
 );
 
 GraphQLClient mainAPI(String token) {
-  HttpLink httpLink = HttpLink(uri: "http://192.168.1.37:3000/graphql", headers: {"authentication": token});
+  HttpLink httpLink = HttpLink(uri: getEndpoint.main, headers: {"authentication": token});
 
   return GraphQLClient(
     cache: cache,
     link: httpLink,
   );
 }
+
 GraphQLClient anonymousAPI() {
-  HttpLink httpLink = HttpLink(uri: "http://192.168.1.37:3000/graphql", headers: {"guest": 'true'});
+  HttpLink httpLink = HttpLink(uri: getEndpoint.main, headers: {"guest": 'true'});
 
   return GraphQLClient(
     cache: NormalizedInMemoryCache(dataIdFromObject: typenameDataIdFromObject),
@@ -33,7 +35,7 @@ GraphQLClient anonymousAPI() {
 }
 
 GraphQLClient authAPI() {
-  HttpLink httpLink = HttpLink(uri: "http://192.168.1.37:3000/auth");
+  HttpLink httpLink = HttpLink(uri:  getEndpoint.auth);
 
   return GraphQLClient(
     cache: NormalizedInMemoryCache(dataIdFromObject: typenameDataIdFromObject),

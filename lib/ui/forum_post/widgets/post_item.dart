@@ -195,6 +195,7 @@ class PostItem extends StatelessWidget {
                         },
                         tooltip: "Mlem mlem",
                         iconColor: Colors.pink,
+                        backgroundColor: Colors.white,
                         icon: isLike ? EvaIcons.heart : EvaIcons.heartOutline,
                         width: 30,
                         height: 30,
