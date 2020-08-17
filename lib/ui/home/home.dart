@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
             child: Center(
               child: Obx(
                 () => _.forumsData.isEmpty
-                    ? SpinKitDoubleBounce(color: Colors.black, size: 25)
+                    ? SpinKitDoubleBounce(color: Colors.black, size: 35)
                     : _.forumsData.isEmpty
                         ? Text("No forums now")
                         : SmartRefresher(

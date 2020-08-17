@@ -47,9 +47,6 @@ class ForumPost extends StatelessWidget {
                             var posts = _.postData.value;
                             return PostItem(
                               model: posts[index],
-                              onTap: () {
-                                //view image in large view
-                              },
                               isLike: false,
                             );
                           },

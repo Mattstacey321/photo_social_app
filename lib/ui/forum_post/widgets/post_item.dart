@@ -14,24 +14,44 @@ import 'package:photo_social/widgets/custom_button.dart';
 
 class PostItem extends StatelessWidget {
   final PostModel model;
-  final Function onTap;
   final double imageBorder;
   final bool isLike;
+  final String imageQuality;
   PostItem(
-      {@required this.model, @required this.onTap, @required this.isLike, this.imageBorder = 10});
+      {@required this.model,
+      @required this.isLike,
+      this.imageQuality = 'medium',
+      this.imageBorder = 10});
   @override
   Widget build(BuildContext context) {
-    double imageHeight = 250;
-    double imageWidth = Get.width;
     return GetBuilder<PostController>(builder: (_) {
       return Container(
         height: 250,
         width: Get.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 0,
+              blurRadius: 15,
+              offset: Offset(0,2)
+              
+            )
+          ]
+        ),
         child: Stack(
           children: [
             CarouselSlider.builder(
               itemCount: model.countMedia,
               itemBuilder: (context, index) {
+                double imageHeight = model.medias[index].height;
+                double imageWidth = Get.width;
+                String imageUrl = imageQuality == "hight"
+                    ? model.medias[index].original
+                    : imageQuality == "medium"
+                        ? model.medias[index].thumb1
+                        : model.medias[index].thumb2;
                 return Padding(
                   padding: EdgeInsets.all(10),
                   child: Material(
@@ -39,11 +59,14 @@ class PostItem extends StatelessWidget {
                       child: InkWell(
                         splashColor: Colors.grey.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(imageBorder),
-                        onTap: onTap,
+                        onTap: () {
+                          //view image in large view
+                          viewFullScreen(imageUrl);
+                        },
                         child: Stack(
                           children: [
                             CachedNetworkImage(
-                              imageUrl: model.medias[index].original,
+                              imageUrl: imageUrl,
                               fit: BoxFit.cover,
                               placeholder: (context, url) => Container(
                                 height: imageHeight,
@@ -79,7 +102,7 @@ class PostItem extends StatelessWidget {
                                 color: Colors.transparent,
                                 child: InkWell(
                                   splashColor: Colors.grey.withOpacity(0.2),
-                                  onTap: onTap,
+                                  onTap: () {},
                                 ),
                               ),
                             ),
@@ -89,7 +112,7 @@ class PostItem extends StatelessWidget {
                 );
               },
               options: CarouselOptions(
-                height: imageHeight,
+                height: 250,
                 enableInfiniteScroll: false,
                 enlargeCenterPage: true,
                 enlargeStrategy: CenterPageEnlargeStrategy.height,
@@ -213,6 +236,7 @@ class PostItem extends StatelessWidget {
                 child: Icon(
                   EvaIcons.info,
                   color: Colors.white,
+                  size: 25,
                 ),
               ),
             )
@@ -220,5 +244,9 @@ class PostItem extends StatelessWidget {
         ),
       );
     });
+  }
+
+  viewFullScreen(String url) {
+    //Get.dialog(child);
   }
 }

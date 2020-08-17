@@ -26,8 +26,7 @@ class PostModel {
         createdTime: DateTime.parse(post['created_time']),
         medias: Medias.fromList(post['media']).medias,
         totalReaction: post['total_reaction'],
-        totalComment: post['total_comment']
-        );
+        totalComment: post['total_comment']);
   }
 }
 
@@ -36,10 +35,21 @@ class Media {
   String id;
   String name;
   Float size; //in Kb
+  double height;
+  double width;
   String thumb1;
   String thumb2;
   String format;
-  Media({this.original, this.id, this.name, this.size, this.thumb1, this.thumb2, this.format});
+  Media(
+      {this.original,
+      this.id,
+      this.name,
+      this.size,
+      this.height,
+      this.width,
+      this.thumb1,
+      this.thumb2,
+      this.format});
 
   factory Media.fromMap(Map data) {
     try {
@@ -49,6 +59,8 @@ class Media {
           name: data['name'],
           original: data['original'],
           size: data['size'],
+          height: data['height'],
+          width: data['width'],
           thumb1: data['thumb1'],
           thumb2: data['thumb2']);
     } catch (e) {

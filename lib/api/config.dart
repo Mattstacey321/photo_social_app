@@ -10,9 +10,9 @@ class Config {
 }
 
 Config get getEndpoint {
-  String mode = "dev";
+  String mode = "prod";
   if (mode == "dev") {
-    return Config(auth: 'http://192.168.1.23:3000/auth', main: 'http://192.168.1.23:3000/graphql');
+    return Config(auth: 'http://192.168.1.16:3000/auth', main: 'http://192.168.1.16:3000/graphql');
   } else
     return Config(
         auth: 'https://photo-server.glitch.me/auth',

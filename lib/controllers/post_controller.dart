@@ -52,5 +52,7 @@ class PostController extends GetxController {
     }
   }
 
-  void getImageInfo() {}
+  void getImageInfo() {
+    
+  }
 }
