@@ -7,22 +7,17 @@ class SignInController extends GetxController {
   TextEditingController userNameCtrl = TextEditingController();
   TextEditingController passwordCtrl = TextEditingController();
 
-  void skipLogin() {
-    Get.dialog(
-        SkipLoginDialog(
-          onBack: () => Get.back(),
-          onSkip: () {
-            Get.find<SharedPreferences>().setBool("isSkipLogin", true);
-            Get.find<SharedPreferences>().setString("token", "");
-            return Get.toNamed('/home');
-          },
-        ),
-        barrierDismissible: false,
-        useRootNavigator: true);
-  }
 
   void login() {
     var userName = userNameCtrl.value;
     var password = passwordCtrl.value;
+    
+  }
+
+  void signInWithGoogle() {
+
+  }
+  void signInWithInstagram(){
+    
   }
 }

@@ -35,7 +35,7 @@ GraphQLClient anonymousAPI() {
 }
 
 GraphQLClient authAPI() {
-  HttpLink httpLink = HttpLink(uri:  getEndpoint.auth);
+  HttpLink httpLink = HttpLink(uri: getEndpoint.auth);
 
   return GraphQLClient(
     cache: NormalizedInMemoryCache(dataIdFromObject: typenameDataIdFromObject),

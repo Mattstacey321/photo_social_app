@@ -9,12 +9,12 @@ class PostRepository {
   static bool loginAsGuest = Get.find<SharedPreferences>().getBool('isSkipLogin');
 
   static GraphQLClient get _client => GraphQL().mainClient(token);
-  static GraphQLClient get _guestClient => GraphQL().guestClient();
+  static GraphQLClient  get _guestClient => GraphQL().guestClient();
 
   static Future<List<PostModel>> getForumPost({String forumId, int page, int limit}) async {
     var result = loginAsGuest
-        ? await _guestClient.getForumPost(forumId: forumId, page: page, limit: limit)
-        : await _client.getForumPost(forumId: forumId, page: page, limit: limit);
-    return PostsModel.fromList(result.data['getForumPost']).posts;
+        ? ( _guestClient).getForumPost(forumId: forumId, page: page, limit: limit)
+        : (_client).getForumPost(forumId: forumId, page: page, limit: limit);
+    return PostsModel.fromList((await result).data['getForumPost']).posts;
   }
 }

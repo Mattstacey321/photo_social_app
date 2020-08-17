@@ -63,16 +63,16 @@ class _HomeState extends State<Home> {
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Center(
               child: Obx(
-                () => _.forumsData == null
-                    ? SpinKitCubeGrid(color: Colors.black, size: 20)
+                () => _.forumsData.isEmpty
+                    ? SpinKitDoubleBounce(color: Colors.black, size: 25)
                     : _.forumsData.isEmpty
                         ? Text("No forums now")
                         : SmartRefresher(
                             controller: _.refreshController,
                             enablePullUp: true,
                             enablePullDown: true,
-                            onRefresh: () {},
-                            onLoading: () {},
+                            onRefresh: () => _.refreshForum(),
+                            onLoading: () => _.loadMoreForum(),
                             child: ListView.separated(
                               separatorBuilder: (context, index) => SizedBox(height: 15),
                               itemCount: _.countForum,

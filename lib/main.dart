@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:photo_social/middleware/middleware.dart';
 import 'package:photo_social/routes/app_routes.dart';
 import 'package:photo_social/theme/theme.dart';
 import 'package:photo_social/ui/login/login.dart';
@@ -12,6 +13,7 @@ import 'ui/home/home.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //setEndpoint();
   runApp(MyApp(home: await isAuth() ? Login() : Home()));
   SystemChrome.setEnabledSystemUIOverlays([]);
 }

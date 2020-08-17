@@ -2,12 +2,18 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:photo_social/api/client_provider.dart';
 
 class GraphQL {
-  GraphQLClient authClient() => authAPI();
-  GraphQLClient mainClient(String token) => mainAPI(token);
-  GraphQLClient guestClient() => anonymousAPI();
+  GraphQLClient authClient()  =>  authAPI();
+  GraphQLClient mainClient(String token)  =>  mainAPI(token);
+  GraphQLClient guestClient()  =>  anonymousAPI();
 }
 
 extension AuthQuery on GraphQLClient {
+
+  Future<QueryResult> get deployStatus async {
+    final String deployStatus = """query{getDeployStatus}""";
+    return this.query(QueryOptions(documentNode: gql(deployStatus)));
+  }
+
   Future<QueryResult> login({String username, String password}) async {
     final String login = """
       query{

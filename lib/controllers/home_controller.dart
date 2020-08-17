@@ -17,6 +17,9 @@ class HomeController extends GetxController {
   int get countPostForum => ForumController.to.countPostForum;
   int get countForum => ForumController.to.countForum;
   List<ForumModel> get forumsData => ForumController.to.forums;
+  
+  refreshForum() => ForumController.to.refresh(refreshController);
+  loadMoreForum() => ForumController.to.loadMore(refreshController);
 
   @override
   void onReady() {
