@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/models/postModel.dart';
 import 'package:photo_social/repository/post_repository.dart';

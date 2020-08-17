@@ -5,20 +5,14 @@ import 'package:get/get.dart';
 import 'package:photo_social/routes/app_routes.dart';
 import 'package:photo_social/theme/theme.dart';
 import 'package:photo_social/ui/login/login.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:photo_social/utils/check_token.dart';
 
 import 'controllers/controller.dart';
 import 'ui/home/home.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String token = prefs.getString("token") ?? "";
-  bool isSkipLogin = prefs.getBool("isSkipLogin") ?? false;
-
-  runApp(MyApp(home: (token == "" && isSkipLogin == false) ? Login() : Home()));
-
+  runApp(MyApp(home: await isAuth() ? Login() : Home()));
   SystemChrome.setEnabledSystemUIOverlays([]);
 }
 

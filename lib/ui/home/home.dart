@@ -6,7 +6,6 @@ import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/models/forumModel.dart';
 import 'package:photo_social/style.dart';
 import 'package:photo_social/ui/forum_post/forum_post.dart';
-import 'package:photo_social/ui/login/widgets/skip_login_dialog.dart';
 import 'package:photo_social/widgets/custom_appBar.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 import 'package:photo_social/widgets/custom_button.dart';

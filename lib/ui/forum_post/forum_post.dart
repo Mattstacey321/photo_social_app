@@ -1,9 +1,7 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/controller.dart';
-import 'package:photo_social/models/postModel.dart';
 import 'package:photo_social/style.dart';
 import 'package:photo_social/ui/forum_post/widgets/post_item.dart';
 import 'package:photo_social/widgets/custom_appBar.dart';
