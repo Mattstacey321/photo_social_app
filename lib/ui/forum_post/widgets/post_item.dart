@@ -27,7 +27,7 @@ class PostItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<PostController>(builder: (_) {
       return Container(
-        height: 250,
+        height: 300,
         width: Get.width,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), boxShadow: [
           BoxShadow(
@@ -48,6 +48,8 @@ class PostItem extends StatelessWidget {
               isClickable: false,
               tooltip: "",
               iconColor: Colors.pink,
+              height: 30,
+              width: 100,
               childs: [Text(getTime(time: model.createdTime.toString(), locale: 'vi'))],
             ),
             CarouselSlider.builder(
