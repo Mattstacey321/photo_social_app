@@ -9,6 +9,8 @@ class PostController extends GetxController {
   RefreshController refreshController = RefreshController();
   RxList<PostModel> postData = List<PostModel>().obs;
   var _currentPage = 1.obs;
+  var _currentIndicatorIndex = 0.obs;
+
   @override
   void onReady() {
     initPost();
@@ -17,6 +19,7 @@ class PostController extends GetxController {
   @override
   void onInit() {}
   int get currentPage => _currentPage.value;
+  int get currentIndicatorIndex => _currentIndicatorIndex.value;
 
   void initPost() async {
     refreshController.requestRefresh();
@@ -29,6 +32,10 @@ class PostController extends GetxController {
   }
 
   int get countPost => postData.value.length;
+
+  void setIndicatorIndex(int index) {
+    _currentIndicatorIndex.value = index;
+  }
 
   void likePost({String postId}) async {}
 
@@ -52,7 +59,5 @@ class PostController extends GetxController {
     }
   }
 
-  void getImageInfo() {
-    
-  }
+  void getImageInfo() {}
 }

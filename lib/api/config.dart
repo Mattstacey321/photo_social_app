@@ -1,7 +1,4 @@
-import 'dart:io';
 
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:photo_social/api/query.dart';
 
 class Config {
   String auth;

@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
@@ -8,10 +8,12 @@ import 'package:get/get.dart';
 import 'package:photo_social/constraint.dart';
 import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/models/postModel.dart';
-import 'package:photo_social/utils/tiime_ago.dart';
+import 'package:photo_social/ui/forum_post/widgets/post_image_info.dart';
+import 'package:photo_social/utils/time_ago.dart';
 import 'package:photo_social/widgets/circle_icon.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 import 'package:photo_social/widgets/custom_button.dart';
+import 'package:photo_social/widgets/custom_netword_image.dart';
 
 class PostItem extends StatelessWidget {
   final PostModel model;
@@ -29,234 +31,237 @@ class PostItem extends StatelessWidget {
       return Container(
         height: 300,
         width: Get.width,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), boxShadow: [
-          BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 0,
-              blurRadius: 15,
-              offset: Offset(0, 2))
-        ]),
-        child: Stack(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /* Row(
-              children: [
-                Text(model.createdTime)
-              ],
-            )*/
-            CustomButton(
-              onPress: null,
-              isClickable: false,
-              tooltip: "",
-              iconColor: Colors.pink,
-              height: 30,
-              width: 100,
-              childs: [Text(getTime(time: model.createdTime.toString(), locale: 'vi'))],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0.0),
+              child: Row(
+                children: [
+                  CustomAvatar(
+                    url: AppConstraint.defaultAvatar,
+                    onTap: () {
+                      //go to profle
+                    },
+                    size: 35,
+                    toolTip: "Avatar",
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    "Mattstacey",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                  Spacer(),
+                  SizedBox(width: 10),
+                  Text(getTime(time: model.createdTime.toString(), locale: 'en')),
+                ],
+              ),
             ),
-            CarouselSlider.builder(
-              itemCount: model.countMedia,
-              itemBuilder: (context, index) {
-                double imageHeight = model.medias[index].height;
-                double imageWidth = Get.width;
-                String imageUrl = imageQuality == "hight"
-                    ? model.medias[index].original
-                    : imageQuality == "medium"
-                        ? model.medias[index].thumb1
-                        : model.medias[index].thumb2;
-                return Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        splashColor: Colors.grey.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(imageBorder),
-                        onTap: () {
-                          //view image in large view
-                          viewFullScreen(imageUrl);
-                        },
-                        child: Stack(
+            SizedBox(
+              height: 10,
+            ),
+            model.postTitle != "" ? Text(model.postTitle) : Container(),
+            SizedBox(
+              height: 10,
+            ),
+            Flexible(
+              child: Stack(
+                children: [
+                  CarouselSlider.builder(
+                    itemCount: model.countMedia,
+                    itemBuilder: (context, index) {
+                      double imageHeight = model.medias[index].height;
+                      double imageWidth = Get.width;
+                      String imageUrl = imageQuality == "hight"
+                          ? model.medias[index].original
+                          : imageQuality == "medium"
+                              ? model.medias[index].thumb1
+                              : model.medias[index].thumb2;
+                      return CustomNetworkImage(
+                          url: imageUrl,
+                          onTap: () {
+                            //view image in large view
+                            viewFullScreen(
+                              medias: model.medias,
+                              blurHash: model.medias[index].blurHash,
+                            );
+                          },
+                          imageHeight: imageHeight,
+                          imageWidth: imageWidth);
+                    },
+                    options: CarouselOptions(
+                        height: 250,
+                        enableInfiniteScroll: false,
+                        enlargeCenterPage: true,
+                        enlargeStrategy: CenterPageEnlargeStrategy.scale,
+                        viewportFraction: 0.98,
+                        onPageChanged: (index, reason) => _.setIndicatorIndex(index)),
+                  ),
+                  Positioned.fill(
+                    right: 0,
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            CachedNetworkImage(
-                              imageUrl: imageUrl,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) => Container(
-                                height: imageHeight,
-                                width: imageWidth,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(imageBorder),
-                                ),
-                              ),
-                              placeholderFadeInDuration: Duration(milliseconds: 300),
-                              errorWidget: (context, url, error) => Container(
-                                height: imageHeight,
-                                width: imageWidth,
-                                alignment: Alignment.center,
-                                decoration:
-                                    BoxDecoration(borderRadius: BorderRadius.circular(imageBorder)),
-                                child: Icon(FeatherIcons.x),
-                              ),
-                              imageBuilder: (context, imageProvider) => Container(
-                                height: imageHeight,
-                                width: imageWidth,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(imageBorder),
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover,
-                                    )),
-                              ),
-                            ),
-                            // must add here to give splash effect
-                            Positioned.fill(
-                              child: Material(
-                                color: Colors.transparent,
-                                child: InkWell(
-                                  splashColor: Colors.grey.withOpacity(0.2),
-                                  onTap: () {},
-                                ),
+                            model.medias.length > 1
+                                ? Obx(
+                                    () => Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        children: model.medias.map((url) {
+                                          int index = model.medias.indexOf(url);
+                                          return Container(
+                                            width: 10,
+                                            height: 10,
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 0.0, horizontal: 5.0),
+                                            decoration: BoxDecoration(
+                                              
+                                              shape: BoxShape.circle,
+                                              color: _.currentIndicatorIndex == index
+                                                  ? Colors.white
+                                                  : Colors.white.withOpacity(0.2),
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ),
+                                  )
+                                : SizedBox(),
+                            Spacer(),
+                            CircleIcon(
+                              onTap: () => _.getImageInfo(),
+                              child: Icon(
+                                EvaIcons.info,
+                                color: Colors.white,
+                                size: 25,
                               ),
                             ),
                           ],
                         ),
-                      )),
-                );
-              },
-              options: CarouselOptions(
-                height: 250,
-                enableInfiniteScroll: false,
-                enlargeCenterPage: true,
-                enlargeStrategy: CenterPageEnlargeStrategy.height,
-                viewportFraction: 1,
-              ),
-            ),
-            Positioned(
-              top: 20,
-              right: 10,
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            "Mattstacey",
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        CustomAvatar(
-                          url: AppConstraint.defaultAvatar,
-                          onTap: () {
-                            //go to profle
-                          },
-                          size: 30,
-                          toolTip: "Avatar",
-                        )
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
-            Positioned.fill(
-              bottom: 20,
-              left: 20,
-              right: 20,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Container(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(),
-                          child: Row(
-                            children: [
-                              /*Row(
-                            children: [Icon(FeatherIcons.heart), SizedBox(width: 10), Text("10")],
-                          ),*/
-                              CustomButton(
-                                onPress: () {
-                                  //show reaction
-                                },
-                                tooltip: "",
-                                opacity: 0,
-                                iconColor: Colors.white,
-                                icon: EvaIcons.heartOutline,
-                                width: 50,
-                                childs: [
-                                  Text(
-                                    model.totalReaction.toString(),
-                                    style: TextStyle(color: Colors.white),
-                                  )
+                  //blur like and comment icon
+                  Positioned.fill(
+                    bottom: 10,
+                    left: 10,
+                    right: 10,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        //crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Container(
+                              height: 35,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  BackdropFilter(
+                                    filter: ImageFilter.blur(),
+                                    child: Container(
+                                      height: 38,
+                                      width: 125,
+                                      decoration: BoxDecoration(
+                                          color: Colors.black.withOpacity(0.35),
+                                          borderRadius: BorderRadius.circular(15)),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      CustomButton(
+                                        onPress: () {
+                                          //show reaction
+                                        },
+                                        tooltip: "",
+                                        opacity: 0,
+                                        iconColor: Colors.white,
+                                        icon: FeatherIcons.heart,
+                                        width: 50,
+                                        childs: [
+                                          Text(
+                                            model.totalReaction.toString(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 17),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(width: 10),
+                                      CustomButton(
+                                        onPress: () {
+                                          //show comment
+                                        },
+                                        tooltip: "",
+                                        opacity: 0,
+                                        iconColor: Colors.white,
+                                        icon: FeatherIcons.message_circle,
+                                        width: 50,
+                                        childs: [
+                                          Text(
+                                            model.totalComment.toString(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 17),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
-                              SizedBox(width: 10),
-                              CustomButton(
-                                onPress: () {
-                                  //show comment
-                                },
-                                tooltip: "",
-                                opacity: 0,
-                                iconColor: Colors.white,
-                                icon: EvaIcons.messageCircleOutline,
-                                width: 50,
-                                childs: [
-                                  Text(
-                                    model.totalComment.toString(),
-                                    style: TextStyle(color: Colors.white),
-                                  )
-                                ],
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
+                          Spacer(),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: CustomButton(
+                              onPress: () {
+                                _.likePost(postId: model.postId);
+                              },
+                              tooltip: "Mlem mlem",
+                              iconColor: Colors.pink,
+                              backgroundColor: Colors.white,
+                              icon: isLike ? EvaIcons.heart : EvaIcons.heartOutline,
+                              width: 30,
+                              height: 30,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Spacer(),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: CustomButton(
-                        onPress: () {
-                          _.likePost(postId: model.postId);
-                        },
-                        tooltip: "Mlem mlem",
-                        iconColor: Colors.pink,
-                        backgroundColor: Colors.white,
-                        icon: isLike ? EvaIcons.heart : EvaIcons.heartOutline,
-                        width: 30,
-                        height: 30,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            Positioned(
-              left: 5,
-              top: 5,
-              child: CircleIcon(
-                onTap: () => _.getImageInfo(),
-                child: Icon(
-                  EvaIcons.info,
-                  color: Colors.white,
-                  size: 25,
-                ),
-              ),
-            ),
+            Row(
+              children: [
+                for (var item in model.tags)
+                  Chip(
+                    label: Text(item),
+                  ),
+                SizedBox(width: 20)
+              ],
+            )
           ],
         ),
       );
     });
   }
 
-  viewFullScreen(String url) {
-    //Get.dialog(child);
+  viewFullScreen({List<Media> medias, String blurHash}) {
+    Get.dialog(PostImageInfo(
+      blurHash: blurHash,
+      media: medias,
+    ));
   }
 }

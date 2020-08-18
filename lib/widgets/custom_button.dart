@@ -57,6 +57,7 @@ class CustomButton extends StatelessWidget {
                     color:
                         backgroundColor == null ? iconColor.withOpacity(opacity) : backgroundColor),
                 child: Row(
+                  
                   mainAxisAlignment: mainAxisAlignment,
                   mainAxisSize: MainAxisSize.max,
                   children: [

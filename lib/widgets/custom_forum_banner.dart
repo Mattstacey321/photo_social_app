@@ -1,18 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
+import 'package:photo_social/repository/forum_repository.dart';
+import 'package:photo_social/style.dart';
 import 'package:photo_social/widgets/custom_loading_state.dart';
 
-class CustomNetworkImage extends StatelessWidget {
+class CustomForumBanner extends StatelessWidget {
+  final String id;
   final String url;
+  final String title;
+  final int number;
   final double imageBorder;
   final double imageHeight;
   final double imageWidth;
   final String blurHash;
   final Function onTap;
-  const CustomNetworkImage(
+  const CustomForumBanner(
       {@required this.url,
+      @required this.id,
       this.imageBorder = 15,
+      @required this.title,
+      this.number = 0,
       this.blurHash = "",
       @required this.onTap,
       @required this.imageHeight,
@@ -58,6 +66,41 @@ class CustomNetworkImage extends StatelessWidget {
                       image: imageProvider,
                       fit: BoxFit.cover,
                     )),
+              ),
+            ),
+            Positioned.fill(
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        title,
+                        style: AppStyle.bannerTitle,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      FutureBuilder(
+                          future: ForumRepository.countForumPost(forumId: id),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Text(
+                                "loading...",
+                                style: AppStyle.bannerNumber,
+                              );
+                            } else
+                              return Text(
+                                "${snapshot.data.toString()} photos",
+                                style: AppStyle.bannerNumber,
+                              );
+                          })
+                    ],
+                  ),
+                ),
               ),
             ),
             // must add here to give splash effect

@@ -10,7 +10,7 @@ import 'package:photo_social/ui/saved_post/saved.dart';
 import 'package:photo_social/widgets/custom_appBar.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 import 'package:photo_social/widgets/custom_button.dart';
-import 'package:photo_social/widgets/custom_netword_image.dart';
+import 'package:photo_social/widgets/custom_forum_banner.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class Home extends StatefulWidget {
@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
                               itemCount: _.countForum,
                               itemBuilder: (context, index) {
                                 List<ForumModel> forum = _.forumsData;
-                                return CustomNetworkImage(
+                                return CustomForumBanner(
                                   onTap: () {
                                     Get.to(ForumPost(
                                       forumId: forum[index].id,

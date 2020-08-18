@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/models/forumModel.dart';
 import 'package:photo_social/repository/forum_repository.dart';
