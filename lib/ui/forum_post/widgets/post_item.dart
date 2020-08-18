@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:photo_social/constraint.dart';
 import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/models/postModel.dart';
+import 'package:photo_social/utils/tiime_ago.dart';
 import 'package:photo_social/widgets/circle_icon.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 import 'package:photo_social/widgets/custom_button.dart';
@@ -28,20 +29,27 @@ class PostItem extends StatelessWidget {
       return Container(
         height: 250,
         width: Get.width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), boxShadow: [
+          BoxShadow(
               color: Colors.black.withOpacity(0.1),
               spreadRadius: 0,
               blurRadius: 15,
-              offset: Offset(0,2)
-              
-            )
-          ]
-        ),
+              offset: Offset(0, 2))
+        ]),
         child: Stack(
           children: [
+            /* Row(
+              children: [
+                Text(model.createdTime)
+              ],
+            )*/
+            CustomButton(
+              onPress: null,
+              isClickable: false,
+              tooltip: "",
+              iconColor: Colors.pink,
+              childs: [Text(getTime(time: model.createdTime.toString(), locale: 'vi'))],
+            ),
             CarouselSlider.builder(
               itemCount: model.countMedia,
               itemBuilder: (context, index) {
@@ -239,7 +247,7 @@ class PostItem extends StatelessWidget {
                   size: 25,
                 ),
               ),
-            )
+            ),
           ],
         ),
       );

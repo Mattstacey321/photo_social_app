@@ -51,14 +51,6 @@ class CustomAvatar extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                height: size,
-                width: size,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(avatarBorder),
-                  border: Border.all(color: Colors.black,width: 1)
-                ),
-              ),
               Positioned.fill(
                 child: Material(
                   color: Colors.transparent,

@@ -6,6 +6,7 @@ import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/models/forumModel.dart';
 import 'package:photo_social/style.dart';
 import 'package:photo_social/ui/forum_post/forum_post.dart';
+import 'package:photo_social/ui/saved_post/saved.dart';
 import 'package:photo_social/widgets/custom_appBar.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 import 'package:photo_social/widgets/custom_button.dart';
@@ -40,6 +41,7 @@ class _HomeState extends State<Home> {
                 Spacer(),
                 CustomButton(
                   onPress: () {
+                    Get.to(SavedPost());
                     //Get.dialog(SkipLoginDialog(onBack: () {}, onSkip: () {}));
                   },
                   tooltip: "Request forum",
