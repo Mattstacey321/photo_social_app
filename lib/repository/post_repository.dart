@@ -17,4 +17,10 @@ class PostRepository {
         : (_client).getForumPost(forumId: forumId, page: page, limit: limit);
     return PostsModel.fromList((await result).data['getForumPost']).posts;
   }
+  static Future<bool> likePost({String postId,String forumId}) async {
+    var result = loginAsGuest
+        ? ( _guestClient).likePost(postId: postId,forumId: forumId)
+        : (_client).likePost(postId: postId,forumId: forumId);
+    //return PostsModel.fromList((await result).data['getForumPost']).posts;
+  }
 }

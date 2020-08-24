@@ -1,7 +1,6 @@
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/constraint.dart';
 import 'package:photo_social/controllers/account_controller.dart';
 import 'package:photo_social/style.dart';
 import 'package:photo_social/ui/profile/widgets/custom_setting.dart';
@@ -15,8 +14,9 @@ class Profile extends StatelessWidget {
         init: AccountController(),
         builder: (_) {
           return Scaffold(
+            backgroundColor: Color(0xffE5EAF6),
             appBar: CustomAppBar(
-                color: Color(0xff5E6BFC).withOpacity(0.7),
+                color: Color(0xffE5EAF6).withOpacity(0.7),
                 childs: [
                   Text(
                     "Profile",
@@ -30,34 +30,25 @@ class Profile extends StatelessWidget {
             body: Container(
               height: Get.height,
               width: Get.width,
-              child: Stack(
+              child: Column(
                 children: [
                   Container(
-                    height: 300,
+                    height: 250,
                     width: Get.width,
                     decoration: BoxDecoration(
-                      color: Color(0xff5E6BFC).withOpacity(0.7),
+                      color: Color(0xffE5EAF6).withOpacity(0.7),
                     ),
                     alignment: Alignment.center,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          decoration:
-                              BoxDecoration(borderRadius: BorderRadius.circular(15), boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                blurRadius: 10,
-                                offset: Offset(1, 1),
-                                spreadRadius: 4)
-                          ]),
-                          child: CustomAvatar(
-                            url: _.getAvatar(),
-                            onTap: () {},
-                            size: 140,
-                            toolTip: "Your avatar",
-                            borderRadius: 15,
-                          ),
+                        CustomAvatar(
+                          url: _.getAvatar(),
+                          onTap: () {},
+                          size: 120,
+                          enableElevation: true,
+                          toolTip: "Your avatar",
+                          borderRadius: 1000,
                         ),
                         SizedBox(height: 20),
                         Text(
@@ -70,50 +61,62 @@ class Profile extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Flexible(
-                        child: Container(
-                          height: Get.height - 300,
-                          padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30),
-                              topRight: Radius.circular(30),
+                  Expanded(
+                    flex: 6,
+                    child: Column(
+                      children: [
+                        Flexible(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(25),
+                                topRight: Radius.circular(25),
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                CustomSetting(
+                                  iconColor: Colors.orange,
+                                  iconSize: 40,
+                                  icon: EvaIcons.arrowCircleDown,
+                                  onTap: () {},
+                                  title: "Check for update",
+                                ),
+                                CustomSetting(
+                                  iconColor: Colors.blue,
+                                  iconSize: 40,
+                                  icon: EvaIcons.globe2,
+                                  onTap: () {},
+                                  title: "Language",
+                                ),
+                                CustomSetting(
+                                  iconColor: Colors.black,
+                                  iconSize: 40,
+                                  icon: EvaIcons.colorPalette,
+                                  onTap: () {},
+                                  title: "Theme",
+                                ),
+                                Spacer(),
+                                Divider(),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: CustomSetting(
+                                    iconSize: 40,
+                                    iconColor: Colors.red,
+                                    icon: EvaIcons.logOut,
+                                    onTap: () {},
+                                    title: "Log out",
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          child: Column(
-                            children: <Widget>[
-                              CustomSetting(
-                                icon: FeatherIcons.globe,
-                                onTap: () {},
-                                title: "Language",
-                              ),
-                              CustomSetting(
-                                icon: FeatherIcons.image,
-                                onTap: () {},
-                                title: "Image Resolution",
-                              ),
-                              CustomSetting(
-                                icon: FeatherIcons.moon,
-                                onTap: () {},
-                                title: "Theme Mode",
-                              ),
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: CustomSetting(
-                                  icon: FeatherIcons.log_out,
-                                  onTap: () {},
-                                  title: "Log out",
-                                ),
-                              ),
-                            ],
-                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   )
                 ],
               ),

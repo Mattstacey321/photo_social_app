@@ -1,15 +1,15 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/post_detail_controller.dart';
 import 'package:photo_social/models/postModel.dart';
 import 'package:photo_social/widgets/custom_button.dart';
-import 'package:photo_social/widgets/custom_netword_image.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 
 class PostImageInfo extends StatelessWidget {
-  
   final int index;
   final List<Media> media;
   final String blurHash;
@@ -18,16 +18,28 @@ class PostImageInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PostDetailController>(
-      init: PostDetailController(pageIndex: index),    
-      builder: (_) {
-      return Scaffold(
-        backgroundColor: Colors.black,
-        body: Container(
-          height: Get.height,
-          width: Get.width,
-          child: Stack(
-            children: [
-              CarouselSlider.builder(
+        init: PostDetailController(pageIndex: index),
+        builder: (_) {
+          return Scaffold(
+            backgroundColor: Colors.black,
+            body: Container(
+              height: Get.height,
+              width: Get.width,
+              child: Stack(
+                children: [
+                  PhotoViewGallery.builder(
+                    pageController: _.pageController,
+                    itemCount: media.length,
+                    builder: (context, index) {
+                      return PhotoViewGalleryPageOptions(
+                        imageProvider: NetworkImage(media[index].original),
+                        initialScale: PhotoViewComputedScale.contained * 1,
+                        tightMode: true,
+                        heroAttributes: PhotoViewHeroAttributes(tag: media[index].id),
+                      );
+                    },
+                  ),
+                  /*CarouselSlider.builder(
                 carouselController: _.buttonCarouselController,
                 itemCount: media.length,
                 itemBuilder: (context, index) {
@@ -46,61 +58,61 @@ class PostImageInfo extends StatelessWidget {
                 options: CarouselOptions(
                   height: Get.height,
                   enableInfiniteScroll: false,
-                  enlargeCenterPage: true,
+                  enlargeCenterPage: false,
                   enlargeStrategy: CenterPageEnlargeStrategy.height,
                   viewportFraction: 1,
                 ),
-              ),
-              Positioned(
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      CustomButton(
-                        onPress: () {
-                          Get.back();
-                        },
-                        tooltip: "Close",
-                        iconColor: Colors.black.withOpacity(0.5),
-                        backgroundColor: Colors.white.withOpacity(0.3),
-                        showElevation: true,
-                        height: 40,
-                        width: 40,
-                        radius: 10,
-                        childs: [
-                          Icon(
-                            FeatherIcons.x,
+              ),*/
+                  Positioned(
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        children: [
+                          CustomButton(
+                            onPress: () {
+                              Get.back();
+                            },
+                            tooltip: "Close",
+                            iconColor: Colors.black.withOpacity(0.4),
+                            backgroundColor: Colors.white.withOpacity(0.6),
+                            showElevation: true,
+                            height: 40,
+                            width: 40,
+                            radius: 10,
+                            childs: [
+                              Icon(
+                                FeatherIcons.x,
+                              ),
+                            ],
+                          ),
+                          Spacer(),
+                          CustomButton(
+                            onPress: () {
+                              BotToast.showText(text: "On Working feature.");
+                            },
+                            isClickable: false,
+                            tooltip: "More",
+                            iconColor: Colors.black.withOpacity(0.4),
+                            backgroundColor: Colors.white.withOpacity(0.6),
+                            showElevation: true,
+                            height: 40,
+                            width: 60,
+                            radius: 10,
+                            childs: [
+                              Text(
+                                "More",
+                                style: TextStyle(),
+                              )
+                            ],
                           ),
                         ],
                       ),
-                      Spacer(),
-                      CustomButton(
-                        onPress: () {
-                          BotToast.showText(text: "On Working feature.");
-                        },
-                        isClickable: false,
-                        tooltip: "More",
-                        iconColor: Colors.black.withOpacity(0.5),
-                        backgroundColor: Colors.white.withOpacity(0.3),
-                        showElevation: true,
-                        height: 40,
-                        width: 60,
-                        radius: 10,
-                        childs: [
-                          Text(
-                            "More",
-                            style: TextStyle(),
-                          )
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ),
-      );
-    });
+            ),
+          );
+        });
   }
 }

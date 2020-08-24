@@ -5,6 +5,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:like_button/like_button.dart';
 import 'package:photo_social/constraint.dart';
 import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/models/postModel.dart';
@@ -32,6 +33,7 @@ class PostItem extends StatefulWidget {
 
 class _PostItemState extends State<PostItem> {
   int _currentPage = 0;
+  bool _isLike = false;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PostController>(builder: (_) {
@@ -125,26 +127,25 @@ class _PostItemState extends State<PostItem> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             widget.model.medias.length > 1
-                                ?  Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 10),
-                                      child: Row(
-                                        children: widget.model.medias.map((url) {
-                                          int index = widget.model.medias.indexOf(url);
-                                          return Container(
-                                            width: 10,
-                                            height: 10,
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: 0.0, horizontal: 5.0),
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: _currentPage == index
-                                                  ? Colors.white
-                                                  : Colors.white.withOpacity(0.2),
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    
+                                ? Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 10),
+                                    child: Row(
+                                      children: widget.model.medias.map((url) {
+                                        int index = widget.model.medias.indexOf(url);
+                                        return Container(
+                                          width: 10,
+                                          height: 10,
+                                          margin:
+                                              EdgeInsets.symmetric(vertical: 0.0, horizontal: 5.0),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: _currentPage == index
+                                                ? Colors.white
+                                                : Colors.white.withOpacity(0.2),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
                                   )
                                 : SizedBox(),
                             Spacer(),
@@ -191,24 +192,39 @@ class _PostItemState extends State<PostItem> {
                                   ),
                                   Row(
                                     children: [
-                                      CustomButton(
-                                        onPress: () {
-                                          //show reaction
-                                        },
-                                        tooltip: "",
-                                        opacity: 0,
-                                        iconColor: Colors.white,
-                                        icon: FeatherIcons.heart,
-                                        width: 50,
-                                        childs: [
-                                          Text(
-                                            widget.model.totalReaction.toString(),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 17),
-                                          )
-                                        ],
+                                      Container(
+                                        child: LikeButton(
+                                          size: 30,
+                                          circleColor: CircleColor(
+                                              start: Colors.pink,
+                                              end: Colors.pink.withOpacity(0.5)),
+                                          bubblesColor: BubblesColor(
+                                            dotPrimaryColor: Colors.pink,
+                                            dotSecondaryColor: Colors.pink.withOpacity(0.5),
+                                          ),
+                                          /*onTap: (isLiked) =>
+                                              _.likePost(postId: widget.model.postId),*/
+                                          likeBuilder: (bool isLiked) {
+                                            return Icon(
+                                              isLiked ? EvaIcons.heart : EvaIcons.heartOutline,
+                                              color: isLiked ? Colors.pink : Colors.white,
+                                              size: 26,
+                                            );
+                                          },
+                                          likeCount: widget.model.totalReaction,
+                                          countBuilder: (int count, bool isLiked, String text) {
+                                            Widget result;
+                                            result = Text(
+                                              text,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 17),
+                                            );
+                                            return result;
+                                          },
+                                          animationDuration: Duration(milliseconds: 500),
+                                        ),
                                       ),
                                       SizedBox(width: 10),
                                       CustomButton(
@@ -236,21 +252,7 @@ class _PostItemState extends State<PostItem> {
                               ),
                             ),
                           ),
-                          Spacer(),
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: CustomButton(
-                              onPress: () {
-                                _.likePost(postId: widget.model.postId);
-                              },
-                              tooltip: "Mlem mlem",
-                              iconColor: Colors.pink,
-                              backgroundColor: Colors.white,
-                              icon: widget.isLike ? EvaIcons.heart : EvaIcons.heartOutline,
-                              width: 30,
-                              height: 30,
-                            ),
-                          ),
+                          Spacer()
                         ],
                       ),
                     ),
@@ -258,14 +260,19 @@ class _PostItemState extends State<PostItem> {
                 ],
               ),
             ),
-            Row(
-              children: [
-                for (var item in widget.model.tags)
-                  Chip(
-                    label: Text(item),
-                  ),
-                SizedBox(width: 20)
-              ],
+            Container(
+              height: 50,
+              width: Get.width,
+              child: ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                separatorBuilder: (context, index) => SizedBox(width: 10),
+                itemCount: widget.model.tags.length,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => Chip(
+                  label: Text(widget.model.tags[index]),
+                ),
+              ),
             )
           ],
         ),
@@ -274,10 +281,12 @@ class _PostItemState extends State<PostItem> {
   }
 
   viewFullScreen({int index, List<Media> medias, String blurHash}) {
-    Get.dialog(PostImageInfo(
-      index: index,
-      blurHash: blurHash,
-      media: medias,
-    ),useRootNavigator: true);
+    Get.dialog(
+        PostImageInfo(
+          index: index,
+          blurHash: blurHash,
+          media: medias,
+        ),
+        useRootNavigator: true);
   }
 }

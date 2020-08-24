@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/models/postModel.dart';
 import 'package:photo_social/repository/post_repository.dart';
+import 'package:photo_social/utils/check_token.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PostController extends GetxController {
@@ -12,6 +13,7 @@ class PostController extends GetxController {
   RxList<PostModel> postData = List<PostModel>().obs;
   var _currentPage = 1.obs;
   var _currentIndicatorIndex = 0.obs;
+  var _isLike = false.obs;
 
   @override
   void onReady() {
@@ -22,6 +24,7 @@ class PostController extends GetxController {
   void onInit() {}
   int get currentPage => _currentPage.value;
   int get currentIndicatorIndex => _currentIndicatorIndex.value;
+  bool get isLike => _isLike.value;
 
   void initPost() async {
     refreshController.requestRefresh();
@@ -39,7 +42,19 @@ class PostController extends GetxController {
     _currentIndicatorIndex.value = index;
   }
 
-  void likePost({String postId}) async {}
+  Future<bool> likePost({String forumId, String postId}) async {
+    if (await isAuth()) {
+      _isLike.value = await PostRepository.likePost(forumId: forumId, postId: postId);
+      update();
+      Get.defaultDialog(title: "Thanks");
+      return true;
+    } else {
+      Get.defaultDialog(
+          title: "Remember. You can only see and can't react to this post, please log in");
+      return false;
+    }
+    //_isLike.value = await PostRepository.likePost(forumId: forumId, postId: postId);
+  }
 
   void refresh() async {
     postData.clear();

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:photo_social/routes/app_routes.dart';
 import 'package:photo_social/theme/theme.dart';
 import 'package:photo_social/ui/login/login.dart';
+import 'package:photo_social/ui/start_up/startup_screen.dart';
 import 'package:photo_social/utils/check_token.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -20,7 +21,7 @@ Future main() async {
   timeago.setLocaleMessages('vi', timeago.ViMessages());
   timeago.setLocaleMessages('vi_short', timeago.ViShortMessages());
   //redirect if not auth
-  runApp(MyApp(home: await isAuth() ? Login() : Home()));
+  runApp(MyApp(home: StartUpScreen()));
   SystemChrome.setEnabledSystemUIOverlays([]);
 }
 

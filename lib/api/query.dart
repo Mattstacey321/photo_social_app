@@ -88,4 +88,17 @@ extension GqlQuery on GraphQLClient {
     """;
     return this.query(QueryOptions(documentNode: gql(countForumPost)));
   }
+  
+   Future<QueryResult> likePost({String postId,String forumId}) async {
+    final String likePost = """
+      mutation{
+          likePost(forumId:"$forumId",postId:"$postId"){
+                status
+                success
+                message
+          }
+        }
+    """;
+    return this.query(QueryOptions(documentNode: gql(likePost)));
+  }
 }

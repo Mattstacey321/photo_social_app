@@ -50,7 +50,7 @@ class CustomNetworkImage extends StatelessWidget {
               errorWidget: (context, url, error) => defaultErrorHolder,
               placeholderFadeInDuration: Duration(milliseconds: 300),
               imageBuilder: (context, imageProvider) => Container(
-                height: imageHeight,
+                height: imageHeight > imageWidth ? imageHeight / 2 : imageHeight,
                 width: imageWidth,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(imageBorder),
@@ -62,12 +62,14 @@ class CustomNetworkImage extends StatelessWidget {
             ),
             // must add here to give splash effect
             Positioned.fill(
-                child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      splashColor: Colors.grey.withOpacity(0.2),
-                      onTap: onTap,
-                    ))),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  splashColor: Colors.grey.withOpacity(0.2),
+                  onTap: onTap,
+                ),
+              ),
+            ),
           ],
         ),
       ),

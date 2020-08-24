@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class PostModel {
   String postId;
   String postTitle;

@@ -24,7 +24,7 @@ class CustomButton extends StatelessWidget {
       this.gradient,
       this.mainAxisAlignment = MainAxisAlignment.center,
       @required this.onPress,
-      @required this.tooltip,
+      this.tooltip = "",
       @required this.iconColor,
       this.isClickable = true,
       this.opacity = 0.2,
