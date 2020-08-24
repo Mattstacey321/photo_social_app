@@ -34,7 +34,7 @@ class Media {
   String original;
   String id;
   String name;
-  Float size; //in Kb
+  int size; //in Kb
   String blurHash;
   double height;
   double width;
@@ -61,12 +61,13 @@ class Media {
           name: data['name'],
           original: data['original'],
           size: data['size'],
-          blurHash: data['blur_hash'],
-          height: data['height'],
-          width: data['width'],
+          blurHash: data['blur_hash'] ??= "",
+          height: data['height'].toDouble(),
+          width: data['width'].toDouble(),
           thumb1: data['thumb1'],
           thumb2: data['thumb2']);
     } catch (e) {
+      print(e);
       return Media();
     }
   }

@@ -1,3 +1,4 @@
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_social/widgets/circle_icon.dart';
 
@@ -6,11 +7,13 @@ class CustomAppBar extends PreferredSize {
   final double height;
   final Widget homeIcon;
   final Function onTap;
+  final Color color;
 
   CustomAppBar(
       {@required this.childs,
       @required this.height,
-      this.homeIcon,
+      this.color = Colors.transparent,
+      this.homeIcon: const Icon(FeatherIcons.arrow_left),
       @required this.onTap});
 
   @override
@@ -21,10 +24,10 @@ class CustomAppBar extends PreferredSize {
     return Container(
       height: preferredSize.height,
       padding: EdgeInsets.only(right: 10),
-      decoration: BoxDecoration(boxShadow: []),
+      decoration: BoxDecoration(color: color, boxShadow: []),
       child: Row(
         children: [
-          CircleIcon(onTap: () => onTap(),tooltip: "Home", child: homeIcon),
+          CircleIcon(onTap: () => onTap(), tooltip: "Home", child: homeIcon),
           SizedBox(
             width: 10,
           ),

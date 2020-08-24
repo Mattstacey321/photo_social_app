@@ -2,7 +2,7 @@ abstract class Routes {
   static const INITIAL = '/';
   static const HOME = '/home';
   static const LOGIN = '/login';
-  static const PROFILE = '/profie';
+  static const PROFILE = '/profile';
   static const SIGNUP = '/signup';
   static const EDITPROFILE = '/editprofile';
   static const FORUMPOST = '/forumpost';

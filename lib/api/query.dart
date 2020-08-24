@@ -44,12 +44,19 @@ extension GqlQuery on GraphQLClient {
         getForumPost(forumId:"$forumId",page:$page,limit:$limit){
             _id
             title
+            user_id
             content
             media{
+              id
               original
               thumb1
               thumb2
               format
+              name
+              size
+              blur_hash
+              height
+              width
             }
             tag
             created_time

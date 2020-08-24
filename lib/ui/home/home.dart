@@ -53,7 +53,9 @@ class _HomeState extends State<Home> {
                 SizedBox(width: 10),
                 CustomAvatar(
                   url: _.getAvatar(),
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed('/profile');
+                  },
                   toolTip: "Profile",
                   size: 40,
                 )

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/models/postModel.dart';
 import 'package:photo_social/repository/post_repository.dart';
@@ -7,6 +8,7 @@ class PostController extends GetxController {
   String forumId = "";
   PostController({this.forumId});
   RefreshController refreshController = RefreshController();
+  ScrollController pageIndexController = ScrollController();
   RxList<PostModel> postData = List<PostModel>().obs;
   var _currentPage = 1.obs;
   var _currentIndicatorIndex = 0.obs;

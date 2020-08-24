@@ -15,7 +15,7 @@ import 'package:photo_social/widgets/custom_avatar.dart';
 import 'package:photo_social/widgets/custom_button.dart';
 import 'package:photo_social/widgets/custom_netword_image.dart';
 
-class PostItem extends StatelessWidget {
+class PostItem extends StatefulWidget {
   final PostModel model;
   final double imageBorder;
   final bool isLike;
@@ -25,6 +25,13 @@ class PostItem extends StatelessWidget {
       @required this.isLike,
       this.imageQuality = 'medium',
       this.imageBorder = 10});
+
+  @override
+  _PostItemState createState() => _PostItemState();
+}
+
+class _PostItemState extends State<PostItem> {
+  int _currentPage = 0;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PostController>(builder: (_) {
@@ -55,14 +62,14 @@ class PostItem extends StatelessWidget {
                   ),
                   Spacer(),
                   SizedBox(width: 10),
-                  Text(getTime(time: model.createdTime.toString(), locale: 'en')),
+                  Text(getTime(time: widget.model.createdTime.toString(), locale: 'en')),
                 ],
               ),
             ),
             SizedBox(
               height: 10,
             ),
-            model.postTitle != "" ? Text(model.postTitle) : Container(),
+            widget.model.postTitle != "" ? Text(widget.model.postTitle) : Container(),
             SizedBox(
               height: 10,
             ),
@@ -70,24 +77,29 @@ class PostItem extends StatelessWidget {
               child: Stack(
                 children: [
                   CarouselSlider.builder(
-                    itemCount: model.countMedia,
+                    itemCount: widget.model.countMedia,
                     itemBuilder: (context, index) {
-                      double imageHeight = model.medias[index].height;
+                      double imageHeight = widget.model.medias[index].height;
                       double imageWidth = Get.width;
-                      String imageUrl = imageQuality == "hight"
-                          ? model.medias[index].original
-                          : imageQuality == "medium"
-                              ? model.medias[index].thumb1
-                              : model.medias[index].thumb2;
+                      String imageUrl = widget.imageQuality == "hight"
+                          ? widget.model.medias[index].original
+                          : widget.imageQuality == "medium"
+                              ? widget.model.medias[index].thumb1
+                              : widget.model.medias[index].thumb2;
+                      String blurHash = widget.model.medias[index].blurHash;
+                      List<Media> medias = widget.model.medias;
+
                       return CustomNetworkImage(
                           url: imageUrl,
                           onTap: () {
                             //view image in large view
                             viewFullScreen(
-                              medias: model.medias,
-                              blurHash: model.medias[index].blurHash,
+                              index: _currentPage,
+                              medias: medias,
+                              blurHash: blurHash,
                             );
                           },
+                          blurHash: blurHash,
                           imageHeight: imageHeight,
                           imageWidth: imageWidth);
                     },
@@ -97,7 +109,12 @@ class PostItem extends StatelessWidget {
                         enlargeCenterPage: true,
                         enlargeStrategy: CenterPageEnlargeStrategy.scale,
                         viewportFraction: 0.98,
-                        onPageChanged: (index, reason) => _.setIndicatorIndex(index)),
+                        onPageChanged: (index, reason) {
+                          //print("${widget.model.medias[index].name} $index");
+                          setState(() {
+                            _currentPage = index;
+                          });
+                        }),
                   ),
                   Positioned.fill(
                     right: 0,
@@ -107,29 +124,27 @@ class PostItem extends StatelessWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            model.medias.length > 1
-                                ? Obx(
-                                    () => Padding(
+                            widget.model.medias.length > 1
+                                ?  Padding(
                                       padding: EdgeInsets.symmetric(horizontal: 10),
                                       child: Row(
-                                        children: model.medias.map((url) {
-                                          int index = model.medias.indexOf(url);
+                                        children: widget.model.medias.map((url) {
+                                          int index = widget.model.medias.indexOf(url);
                                           return Container(
                                             width: 10,
                                             height: 10,
                                             margin: EdgeInsets.symmetric(
                                                 vertical: 0.0, horizontal: 5.0),
                                             decoration: BoxDecoration(
-                                              
                                               shape: BoxShape.circle,
-                                              color: _.currentIndicatorIndex == index
+                                              color: _currentPage == index
                                                   ? Colors.white
                                                   : Colors.white.withOpacity(0.2),
                                             ),
                                           );
                                         }).toList(),
                                       ),
-                                    ),
+                                    
                                   )
                                 : SizedBox(),
                             Spacer(),
@@ -187,7 +202,7 @@ class PostItem extends StatelessWidget {
                                         width: 50,
                                         childs: [
                                           Text(
-                                            model.totalReaction.toString(),
+                                            widget.model.totalReaction.toString(),
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -207,7 +222,7 @@ class PostItem extends StatelessWidget {
                                         width: 50,
                                         childs: [
                                           Text(
-                                            model.totalComment.toString(),
+                                            widget.model.totalComment.toString(),
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -226,12 +241,12 @@ class PostItem extends StatelessWidget {
                             alignment: Alignment.bottomRight,
                             child: CustomButton(
                               onPress: () {
-                                _.likePost(postId: model.postId);
+                                _.likePost(postId: widget.model.postId);
                               },
                               tooltip: "Mlem mlem",
                               iconColor: Colors.pink,
                               backgroundColor: Colors.white,
-                              icon: isLike ? EvaIcons.heart : EvaIcons.heartOutline,
+                              icon: widget.isLike ? EvaIcons.heart : EvaIcons.heartOutline,
                               width: 30,
                               height: 30,
                             ),
@@ -245,7 +260,7 @@ class PostItem extends StatelessWidget {
             ),
             Row(
               children: [
-                for (var item in model.tags)
+                for (var item in widget.model.tags)
                   Chip(
                     label: Text(item),
                   ),
@@ -258,10 +273,11 @@ class PostItem extends StatelessWidget {
     });
   }
 
-  viewFullScreen({List<Media> medias, String blurHash}) {
+  viewFullScreen({int index, List<Media> medias, String blurHash}) {
     Get.dialog(PostImageInfo(
+      index: index,
       blurHash: blurHash,
       media: medias,
-    ));
+    ),useRootNavigator: true);
   }
 }
