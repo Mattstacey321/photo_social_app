@@ -1,17 +1,20 @@
-
-
 class Config {
   String auth;
   String main;
-  Config({this.auth, this.main});
+  String pub;
+  Config({this.auth, this.main,this.pub});
 }
 
 Config get getEndpoint {
   String mode = "prod";
   if (mode == "dev") {
-    return Config(auth: 'http://192.168.1.16:3000/auth', main: 'http://192.168.1.16:3000/graphql');
+    return Config(
+        auth: 'http://192.168.1.16:3000/auth',
+        main: 'http://192.168.1.16:3000/graphql',
+        pub: 'http://192.168.1.16:3000/public');
   } else
     return Config(
         auth: 'https://photo-server.glitch.me/auth',
-        main: 'https://photo-server.glitch.me/graphql');
+        main: 'https://photo-server.glitch.me/graphql',
+        pub: 'http://photo-server.glitch.me/public');
 }

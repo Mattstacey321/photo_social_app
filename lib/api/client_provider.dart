@@ -25,6 +25,15 @@ GraphQLClient mainAPI(String token) {
   );
 }
 
+GraphQLClient pubAPI() {
+  HttpLink httpLink = HttpLink(uri: getEndpoint.pub);
+
+  return GraphQLClient(
+    cache: cache,
+    link: httpLink,
+  );
+}
+
 GraphQLClient anonymousAPI() {
   HttpLink httpLink = HttpLink(uri: getEndpoint.main, headers: {"guest": 'true'});
 

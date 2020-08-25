@@ -5,14 +5,10 @@ class GraphQL {
   GraphQLClient authClient()  =>  authAPI();
   GraphQLClient mainClient(String token)  =>  mainAPI(token);
   GraphQLClient guestClient()  =>  anonymousAPI();
+  GraphQLClient pubClient()  =>  pubAPI();
 }
 
 extension AuthQuery on GraphQLClient {
-
-  Future<QueryResult> get deployStatus async {
-    final String deployStatus = """query{getDeployStatus}""";
-    return this.query(QueryOptions(documentNode: gql(deployStatus)));
-  }
 
   Future<QueryResult> login({String username, String password}) async {
     final String login = """
@@ -100,5 +96,25 @@ extension GqlQuery on GraphQLClient {
         }
     """;
     return this.query(QueryOptions(documentNode: gql(likePost)));
+  }
+   Future<QueryResult> checkLatest({String currentVersion}) async {
+    final String checkLatest = """
+      query{
+           checkLatest{
+              download_url
+              version
+              publishDate
+            }
+        }
+    """;
+    return this.query(QueryOptions(documentNode: gql(checkLatest)));
+  }
+   Future<QueryResult> checkServerStatus() async {
+    final String checkServerStatus = """
+      query{
+          status
+        }
+    """;
+    return this.query(QueryOptions(documentNode: gql(checkServerStatus)));
   }
 }
