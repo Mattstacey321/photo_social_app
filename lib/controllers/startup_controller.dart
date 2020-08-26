@@ -3,11 +3,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:package_info/package_info.dart';
 import 'package:photo_social/api/query.dart';
 import 'package:photo_social/models/AppVersionModel.dart';
-import 'package:photo_social/ui/home/home.dart';
-import 'package:photo_social/ui/login/login.dart';
-import 'package:photo_social/ui/start_up/widgets/update_dialog.dart';
-import 'package:photo_social/utils/check_token.dart';
 import 'package:photo_social/repository/base_repository.dart';
+import 'package:photo_social/screens/start_up/widgets/update_dialog.dart';
+import 'package:photo_social/utils/check_token.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 class StartUpController extends GetxController {
@@ -49,6 +47,6 @@ class StartUpController extends GetxController {
   }
 
   void goToDestinationPage() async {
-    Get.off(await isAuth() ? Login() : Home());
+    Get.offAllNamed(await isAuth() ? '/' : '/home');
   }
 }

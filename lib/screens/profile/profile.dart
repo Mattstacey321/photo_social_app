@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/account_controller.dart';
 import 'package:photo_social/style.dart';
-import 'package:photo_social/ui/profile/widgets/custom_setting.dart';
+import 'package:photo_social/screens/profile/widgets/custom_setting.dart';
 import 'package:photo_social/widgets/custom_appBar.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 

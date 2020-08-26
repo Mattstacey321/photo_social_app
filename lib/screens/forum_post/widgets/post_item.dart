@@ -9,12 +9,13 @@ import 'package:like_button/like_button.dart';
 import 'package:photo_social/constraint.dart';
 import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/models/postModel.dart';
-import 'package:photo_social/ui/forum_post/widgets/post_image_info.dart';
 import 'package:photo_social/utils/time_ago.dart';
 import 'package:photo_social/widgets/circle_icon.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 import 'package:photo_social/widgets/custom_button.dart';
 import 'package:photo_social/widgets/custom_netword_image.dart';
+
+import 'post_image_info.dart';
 
 class PostItem extends StatefulWidget {
   final PostModel model;

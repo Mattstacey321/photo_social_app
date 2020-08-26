@@ -20,12 +20,12 @@ class ForumController extends GetxController {
 
   @override
   void onReady() {
-    intForum();
+    initForum();
   }
 
-  void intForum() async {
+  void initForum() async {
     try {
-      forumsData.value = (await ForumRepository.getForums(page: currentPage, limit: 10));
+      forumsData.value = await ForumRepository.getForums(page: currentPage, limit: 10);
       _countForumPost.value = await ForumRepository.countForumPost(forumId: forumId);
     } catch (e) {
       forumsData.value = [];
@@ -34,7 +34,7 @@ class ForumController extends GetxController {
 
   Future refresh(RefreshController controller) async {
     forumsData.clear();
-    intForum();
+    initForum();
     _currentPage.value = 1;
     controller.refreshCompleted();
   }

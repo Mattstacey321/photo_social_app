@@ -11,6 +11,7 @@ class ForumRepository {
 
   static Future<List<ForumModel>> getForums({int page = 1, int limit = 10}) async {
     var result = await BaseRepository.selectClient.getForums(page: page, limit: limit);
+    print(result);
     return Forums.fromList(result.data['getForums']).forums;
   }
 }

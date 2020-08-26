@@ -2,12 +2,13 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/routes/app_routes.dart';
-import 'package:photo_social/theme/theme.dart';
-import 'package:photo_social/ui/start_up/startup_screen.dart';
+
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'controllers/controller.dart';
+import 'routes/app_routes.dart';
+import 'screens/start_up/startup_screen.dart';
+import 'theme/theme.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -11,7 +11,7 @@ class BaseRepository {
   static GraphQLClient get _guestClient => GraphQL().guestClient();
 
   static GraphQLClient get selectClient {
-    if (_loginAsGuest == null ) {
+    if (_loginAsGuest == null) {
       return _guestClient;
     } else
       return _client;

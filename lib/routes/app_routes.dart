@@ -1,10 +1,6 @@
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/controller.dart';
-import 'package:photo_social/ui/forum_post/forum_post.dart';
-import 'package:photo_social/ui/home/home.dart';
-import 'package:photo_social/ui/login/login.dart';
-import 'package:photo_social/ui/profile/profile.dart';
-import 'package:photo_social/ui/sign_up/sign_up.dart';
+import 'package:photo_social/screens/index.dart';
 
 import 'routes.dart';
 
