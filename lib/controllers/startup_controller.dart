@@ -29,14 +29,13 @@ class StartUpController extends GetxController {
 
   void checkAppVersion() async {
     var packageInfo = await PackageInfo.fromPlatform();
-    String appName = packageInfo.appName;
-    String packageName = packageInfo.packageName;
+    //String appName = packageInfo.appName;
+    //String packageName = packageInfo.packageName;
     String version = packageInfo.version;
-    String buildNumber = packageInfo.buildNumber;
+    //String buildNumber = packageInfo.buildNumber;
 
-    //print("$appName,$packageName,$version,$buildNumber}");
-    _waitGetLatest.value =
-        await BaseRepository.pubClient.checkLatest(currentVersion: version) ?? null;
+    _waitGetLatest.value = await BaseRepository.pubClient.checkLatest();
+    print(_waitGetLatest.value);
     var result = AppVersionModel.fromMap(waitGetLatest.data['checkLatest']);
     bool isNeedUpdate =
         Version.prioritize(Version.parse(result.version), Version.parse(version)) == 1
@@ -45,8 +44,8 @@ class StartUpController extends GetxController {
     _isNeedUpdate.value = isNeedUpdate;
   }
 
-  Future updateDialog() {
-    return Get.dialog(UpdateDialog());
+  Future updateDialog() async {
+    return await Get.dialog(UpdateDialog());
   }
 
   void goToDestinationPage() async {

@@ -16,5 +16,5 @@ Config get getEndpoint {
     return Config(
         auth: 'https://photo-server.glitch.me/auth',
         main: 'https://photo-server.glitch.me/graphql',
-        pub: 'http://photo-server.glitch.me/public');
+        pub: 'https://photo-server.glitch.me/public');
 }

@@ -97,7 +97,7 @@ extension GqlQuery on GraphQLClient {
     """;
     return this.query(QueryOptions(documentNode: gql(likePost)));
   }
-   Future<QueryResult> checkLatest({String currentVersion}) async {
+   Future<QueryResult> checkLatest() async {
     final String checkLatest = """
       query{
            checkLatest{

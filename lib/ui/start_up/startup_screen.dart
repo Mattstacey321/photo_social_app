@@ -1,12 +1,9 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/startup_controller.dart';
 import 'package:photo_social/widgets/custom_button.dart';
-
-import 'widgets/update_dialog.dart';
 
 class StartUpScreen extends StatefulWidget {
   @override
@@ -77,8 +74,4 @@ class _StartUpScreenState extends State<StartUpScreen> with TickerProviderStateM
       ),
     ));
   }
-}
-
-Future updateDialog() {
-  return Get.dialog(UpdateDialog());
 }

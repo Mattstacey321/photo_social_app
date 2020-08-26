@@ -33,7 +33,6 @@ class PostItem extends StatefulWidget {
 
 class _PostItemState extends State<PostItem> {
   int _currentPage = 0;
-  bool _isLike = false;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PostController>(builder: (_) {
