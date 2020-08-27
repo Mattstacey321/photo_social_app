@@ -19,16 +19,16 @@ extension AuthQuery on GraphQLClient {
     return this.query(QueryOptions(documentNode: gql(login)));
   }
   Future<QueryResult> register({String username, String password}) async {
-    final String login = """
+    final String register = """
       mutation{
           register(username:"$username",password:"$password"){
-                status
-                success
-                message
+              status
+              success
+              message
           }
         }
     """;
-    return this.query(QueryOptions(documentNode: gql(login)));
+    return this.query(QueryOptions(documentNode: gql(register)));
   }
 
 }
@@ -113,7 +113,7 @@ extension GqlQuery on GraphQLClient {
     final String checkServerStatus = """
       query{
           status
-        }
+        } 
     """;
     return this.query(QueryOptions(documentNode: gql(checkServerStatus)));
   }
