@@ -10,12 +10,14 @@ class StartUpScreen extends StatefulWidget {
   _StartUpScreenState createState() => _StartUpScreenState();
 }
 
-class _StartUpScreenState extends State<StartUpScreen> with TickerProviderStateMixin {
+class _StartUpScreenState extends State<StartUpScreen>
+    with TickerProviderStateMixin {
   AnimationController _animationController;
   Animation _animation;
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController)
       ..addListener(() {
         setState(() {});
@@ -33,45 +35,52 @@ class _StartUpScreenState extends State<StartUpScreen> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: GetBuilder<StartUpController>(
-      init: StartUpController(),
-      builder: (_) => Container(
-        height: Get.height,
-        width: Get.width,
-        child: Center(
-          child: Obx(() => _.waitGetLatest == null
-              ? FadeTransition(
-                  opacity: _animation,
-                  child: Column(
+      body: GetBuilder<StartUpController>(
+        init: StartUpController(),
+        builder: (_) => Container(
+          height: Get.height,
+          width: Get.width,
+          child: Center(
+            child: Obx(() => _.waitGetLatest == null
+                ? FadeTransition(
+                    opacity: _animation,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SpinKitPulse(
+                          color: Colors.black,
+                          size: 50,
+                        ),
+                        SizedBox(height: 10),
+                        Text("Check server...")
+                      ],
+                    ),
+                  )
+                : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SpinKitPulse(
-                        color: Colors.black,
-                        size: 50,
+                      CustomButton(
+                        onPress: null,
+                        isClickable: false,
+                        iconColor: Colors.green,
+                        height: 60,
+                        width: 60,
+                        icon: EvaIcons.checkmarkCircle,
                       ),
-                      SizedBox(height: 10),
-                      Text("Check server...")
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Checking complete",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ],
-                  ),
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CustomButton(
-                      onPress: null,
-                      isClickable: false,
-                      iconColor: Colors.green,
-                      height: 60,width: 60,
-                      icon: EvaIcons.checkmarkCircle,
-                    ),
-                    SizedBox(height: 10,),
-                    Text("Checking complete",style: TextStyle(fontWeight: FontWeight.bold),),
-                  ],
-                )),
+                  )),
+          ),
         ),
       ),
-    ));
+    );
   }
 }

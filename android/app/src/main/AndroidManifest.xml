@@ -2,6 +2,8 @@
     package="com.mattstacey.photo_social">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="Photo Social"
@@ -36,5 +38,15 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <provider
+        android:name="vn.hunghd.flutterdownloader.DownloadedFileProvider"
+        android:authorities="${applicationId}.flutter_downloader.provider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
     </application>
+    
 </manifest>

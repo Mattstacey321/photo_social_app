@@ -28,6 +28,7 @@ class ForumController extends GetxController {
       forumsData.value = await ForumRepository.getForums(page: currentPage, limit: 10);
       _countForumPost.value = await ForumRepository.countForumPost(forumId: forumId);
     } catch (e) {
+      print(e);
       forumsData.value = [];
     }
   }

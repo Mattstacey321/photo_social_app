@@ -2,14 +2,13 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:photo_social/api/client_provider.dart';
 
 class GraphQL {
-  GraphQLClient authClient()  =>  authAPI();
-  GraphQLClient mainClient(String token)  =>  mainAPI(token);
-  GraphQLClient guestClient()  =>  anonymousAPI();
-  GraphQLClient pubClient()  =>  pubAPI();
+  GraphQLClient authClient() => authAPI();
+  GraphQLClient mainClient(String token) => mainAPI(token);
+  GraphQLClient guestClient() => anonymousAPI();
+  GraphQLClient pubClient() => pubAPI();
 }
 
 extension AuthQuery on GraphQLClient {
-
   Future<QueryResult> login({String username, String password}) async {
     final String login = """
       query{
@@ -18,6 +17,7 @@ extension AuthQuery on GraphQLClient {
     """;
     return this.query(QueryOptions(documentNode: gql(login)));
   }
+
   Future<QueryResult> register({String username, String password}) async {
     final String register = """
       mutation{
@@ -30,11 +30,11 @@ extension AuthQuery on GraphQLClient {
     """;
     return this.query(QueryOptions(documentNode: gql(register)));
   }
-
 }
 
 extension GqlQuery on GraphQLClient {
-  Future<QueryResult> getForumPost({String forumId, int page = 1, int limit = 10}) async {
+  Future<QueryResult> getForumPost(
+      {String forumId, int page = 1, int limit = 10}) async {
     final String getForumPost = """
       query{
         getForumPost(forumId:"$forumId",page:$page,limit:$limit){
@@ -76,6 +76,7 @@ extension GqlQuery on GraphQLClient {
     """;
     return this.query(QueryOptions(documentNode: gql(getForums)));
   }
+
   Future<QueryResult> countForumPost({String forumId}) async {
     final String countForumPost = """
       query{
@@ -84,8 +85,8 @@ extension GqlQuery on GraphQLClient {
     """;
     return this.query(QueryOptions(documentNode: gql(countForumPost)));
   }
-  
-   Future<QueryResult> likePost({String postId,String forumId}) async {
+
+  Future<QueryResult> likePost({String postId, String forumId}) async {
     final String likePost = """
       mutation{
           likePost(forumId:"$forumId",postId:"$postId"){
@@ -97,19 +98,22 @@ extension GqlQuery on GraphQLClient {
     """;
     return this.query(QueryOptions(documentNode: gql(likePost)));
   }
-   Future<QueryResult> checkLatest() async {
+
+  Future<QueryResult> checkLatest() async {
     final String checkLatest = """
       query{
            checkLatest{
               download_url
               version
+              file_name
               publishDate
             }
         }
     """;
     return this.query(QueryOptions(documentNode: gql(checkLatest)));
   }
-   Future<QueryResult> checkServerStatus() async {
+
+  Future<QueryResult> checkServerStatus() async {
     final String checkServerStatus = """
       query{
           status

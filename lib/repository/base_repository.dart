@@ -9,6 +9,7 @@ class BaseRepository {
 
   static GraphQLClient get _client => GraphQL().mainClient(_token);
   static GraphQLClient get _guestClient => GraphQL().guestClient();
+  static GraphQLClient get pubClient => GraphQL().pubClient();
 
   static GraphQLClient get selectClient {
     if (_loginAsGuest == null) {
@@ -16,5 +17,4 @@ class BaseRepository {
     } else
       return _client;
   }
-  static GraphQLClient get pubClient => GraphQL().pubClient(); 
 }
