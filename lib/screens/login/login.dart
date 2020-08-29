@@ -58,12 +58,14 @@ class Login extends StatelessWidget {
                           controller: _.userNameCtrl,
                           decoration: InputDecoration(
                               hintText: "Username or email",
-                              contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 10),
                               fillColor: Colors.grey.withOpacity(0.2),
                               filled: true,
                               errorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(width: 1, color: Colors.grey[400])),
+                                  borderSide: BorderSide(
+                                      width: 1, color: Colors.grey[400])),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none),
@@ -84,12 +86,14 @@ class Login extends StatelessWidget {
                           controller: _.passwordCtrl,
                           decoration: InputDecoration(
                               hintText: "Password",
-                              contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 10),
                               fillColor: Colors.grey.withOpacity(0.2),
                               filled: true,
                               errorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(width: 1, color: Colors.grey[400])),
+                                  borderSide: BorderSide(
+                                      width: 1, color: Colors.grey[400])),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none),
@@ -123,9 +127,11 @@ class Login extends StatelessWidget {
                                 Positioned(
                                   child: Align(
                                       alignment: Alignment.center,
-                                      child: Text("Sign In", style: AppStyle.signInButtonText)),
+                                      child: Text("Sign In",
+                                          style: AppStyle.signInButtonText)),
                                 ),
-                                Positioned(right: 0, bottom: 0, child: CustomSVG()),
+                                Positioned(
+                                    right: 0, bottom: 0, child: CustomSVG()),
                               ],
                             ),
                           )
@@ -205,7 +211,7 @@ void skipLogin() {
         onSkip: () {
           Get.find<SharedPreferences>().setBool("isSkipLogin", true);
           Get.find<SharedPreferences>().setString("token", "");
-          return Get.toNamed('/home');
+          return Get.offAndToNamed('/home');
         },
       ),
       barrierDismissible: false,

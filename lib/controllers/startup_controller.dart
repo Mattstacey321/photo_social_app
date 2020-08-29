@@ -20,6 +20,8 @@ class StartUpController extends GetxController {
   var _waitGetLatest = Rx<QueryResult>();
   var _isNeedUpdate = false.obs;
   var _downloadPath = "".obs;
+  var _currentVersion = "".obs;
+  var _latestVersion = "";
   Rx<AppVersionModel> _updateResult = Rx<AppVersionModel>();
 
   @override
@@ -35,20 +37,22 @@ class StartUpController extends GetxController {
   QueryResult get waitGetLatest => _waitGetLatest.value;
   bool get isNeedUpdate => _isNeedUpdate.value;
   AppVersionModel get updateResult => _updateResult.value;
+  String get curentVersion => _currentVersion.value;
+  String get latestVersion => _latestVersion;
 
   void getAndCheckAppVersion() async {
     var packageInfo = await PackageInfo.fromPlatform();
     //String appName = packageInfo.appName;
     //String packageName = packageInfo.packageName;
     //String buildNumber = packageInfo.buildNumber;
-
-    String currentVersion = packageInfo.version;
+    _currentVersion.value = packageInfo.version;
 
     _waitGetLatest.value = await BaseRepository.pubClient.checkLatest();
     _updateResult.value =
         AppVersionModel.fromMap(waitGetLatest.data['checkLatest']);
+    _latestVersion = _updateResult.value.version;
 
-    checkUpdate(currentVersion);
+    checkUpdate(curentVersion);
   }
 
   void checkUpdate(String currentVersion) {
@@ -70,8 +74,11 @@ class StartUpController extends GetxController {
 
   Future downloadUpdate() async {
     if (_downloadPath == null) {}
-    var _localPath =
-        (await _findLocalPath()) + Platform.pathSeparator + 'Download';
+    var _localPath = (await _findLocalPath()) +
+        Platform.pathSeparator +
+        'Download' +
+        Platform.pathSeparator +
+        'PhotoSocial_Update';
     var savedDir = Directory(_localPath);
     bool hasDirectoryExisted = await savedDir.exists();
     if (!hasDirectoryExisted) {

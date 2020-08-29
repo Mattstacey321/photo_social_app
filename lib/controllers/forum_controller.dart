@@ -4,7 +4,7 @@ import 'package:photo_social/repository/forum_repository.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ForumController extends GetxController {
-  String forumId;
+  String forumId = "";
   ForumController({this.forumId});
 
   static ForumController get to => Get.find();
@@ -25,8 +25,10 @@ class ForumController extends GetxController {
 
   void initForum() async {
     try {
-      forumsData.value = await ForumRepository.getForums(page: currentPage, limit: 10);
-      _countForumPost.value = await ForumRepository.countForumPost(forumId: forumId);
+      forumsData.value =
+          await ForumRepository.getForums(page: currentPage, limit: 10);
+      _countForumPost.value =
+          await ForumRepository.countForumPost(forumId: forumId);
     } catch (e) {
       print(e);
       forumsData.value = [];

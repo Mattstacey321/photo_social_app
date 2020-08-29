@@ -28,17 +28,46 @@ class UpdateDialog extends StatelessWidget {
                   EvaIcons.cloudDownload,
                   size: 35,
                 ),
-                Text(
-                  "There is an update now. Do you want to update ?",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  textAlign: TextAlign.center,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "There is an update now. Do you want to update ?",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 10),
+                    RichText(
+                        text: TextSpan(children: [
+                      TextSpan(
+                          text: "Current version: ",
+                          style: TextStyle(color: Colors.black)),
+                      TextSpan(
+                          text: _.curentVersion,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black))
+                    ])),
+                    SizedBox(height: 10),
+                    RichText(
+                        text: TextSpan(children: [
+                      TextSpan(
+                          text: "Latest version: ",
+                          style: TextStyle(color: Colors.black)),
+                      TextSpan(
+                          text: _.latestVersion,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black))
+                    ]))
+                  ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     FlatButton(
                       onPressed: () {
-                        Get.toNamed('/login');
+                        _.goToDestinationPage();
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),

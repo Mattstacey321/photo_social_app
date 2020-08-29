@@ -10,7 +10,7 @@ class BaseController extends Bindings {
       final prefs = await SharedPreferences.getInstance();
       return prefs;
     });
-    Get.lazyPut(()=>BaseRepository());
+    Get.put(() => BaseRepository());
     Get.put(ForumController());
     Get.lazyPut(() => HomeController());
   }
