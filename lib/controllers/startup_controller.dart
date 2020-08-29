@@ -22,6 +22,7 @@ class StartUpController extends GetxController {
   var _downloadPath = "".obs;
   var _currentVersion = "".obs;
   var _latestVersion = "";
+  var _installLater = false.obs;
   Rx<AppVersionModel> _updateResult = Rx<AppVersionModel>();
 
   @override
@@ -31,6 +32,10 @@ class StartUpController extends GetxController {
       return result
           ? Future.delayed(Duration(seconds: 1), () => showUpdateDialog())
           : goToDestinationPage();
+    });
+    once(_installLater, (result) {
+      print(result);
+      return goToDestinationPage();
     });
   }
 
@@ -69,7 +74,7 @@ class StartUpController extends GetxController {
   }
 
   void goToDestinationPage() async {
-    await Get.offAllNamed(await isAuth() ? '/' : '/home');
+    await Get.offAllNamed(await isAuth() ? '/login' : '/home');
   }
 
   Future downloadUpdate() async {

@@ -66,7 +66,7 @@ class UpdateDialog extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     FlatButton(
-                      onPressed: () {
+                      onPressed: () async {
                         _.goToDestinationPage();
                       },
                       shape: RoundedRectangleBorder(
