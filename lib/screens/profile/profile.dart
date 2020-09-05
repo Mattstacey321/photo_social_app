@@ -1,9 +1,12 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/account_controller.dart';
-import 'package:photo_social/style.dart';
 import 'package:photo_social/screens/profile/widgets/custom_setting.dart';
+import 'package:photo_social/screens/start_up/widgets/update_dialog.dart';
+import 'package:photo_social/style.dart';
 import 'package:photo_social/widgets/custom_appBar.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 
@@ -83,15 +86,60 @@ class Profile extends StatelessWidget {
                                   iconColor: Colors.orange,
                                   iconSize: 40,
                                   icon: EvaIcons.arrowCircleDown,
-                                  onTap: () {},
-                                  title: "Check for update",
+                                  onTap: () async {
+                                    CancelFunc cancelFunc =
+                                        BotToast.showCustomLoading(
+                                            onClose: () {
+                                              WidgetsBinding.instance
+                                                  .addPostFrameCallback(
+                                                      (timeStamp) {
+                                                _.checkingUpdate.value
+                                                    ? Get.dialog(UpdateDialog(
+                                                        isNeedUpdate: true,
+                                                      ))
+                                                    : Get.dialog(UpdateDialog(
+                                                        isNeedUpdate: false,
+                                                      ));
+                                              });
+                                            },
+                                            toastBuilder: (builder) {
+                                              return Container(
+                                                height: 100,
+                                                width: 250,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    SpinKitThreeBounce(
+                                                        size: 20,
+                                                        color: Colors.black),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text("Checking update ...")
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                            allowClick: true,
+                                            crossPage: false,
+                                            clickClose: true);
+                                    _.checkUpdate(cancelFunc);
+                                  },
+                                  title: "Check update",
                                 ),
                                 CustomSetting(
                                   iconColor: Colors.blue,
                                   iconSize: 40,
-                                  icon: EvaIcons.globe2,
+                                  icon: EvaIcons.globe3,
                                   onTap: () {},
                                   title: "Language",
+                                  widget: Text("English"),
                                 ),
                                 CustomSetting(
                                   iconColor: Colors.black,
@@ -99,7 +147,18 @@ class Profile extends StatelessWidget {
                                   icon: EvaIcons.colorPalette,
                                   onTap: () {},
                                   title: "Theme",
+                                  widget: Text("Light"),
                                 ),
+                                ObxValue<RxInterface>(
+                                    (data) => CustomSetting(
+                                          iconColor: Colors.purple,
+                                          iconSize: 40,
+                                          icon: EvaIcons.info,
+                                          onTap: () {},
+                                          title: "About",
+                                          widget: Text(data.value),
+                                        ),
+                                    _.currentVersion),
                                 Spacer(),
                                 Divider(),
                                 Align(

@@ -60,10 +60,11 @@ class CustomNetworkImage extends StatelessWidget {
                       alignment: (imageHeight < imageWidth)
                           ? Alignment.center
                           : Alignment.topCenter,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fitWidth,
                     )),
               ),
             ),
+
             // must add here to give splash effect
             Positioned.fill(
               child: Material(

@@ -12,7 +12,7 @@ class UpdateDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(builder: (_) {
+    return GetBuilder<AccountController>(builder: (_) {
       return Center(
         child: Material(
           borderRadius: BorderRadius.circular(10),
@@ -46,7 +46,7 @@ class UpdateDialog extends StatelessWidget {
                           text: "Current version: ",
                           style: TextStyle(color: Colors.black)),
                       TextSpan(
-                          text: _.curentVersion,
+                          text: _.currentVersion.value,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.black))
                       /*FutureBuilder(
@@ -84,7 +84,7 @@ class UpdateDialog extends StatelessWidget {
                   children: [
                     FlatButton(
                       onPressed: () async {
-                        _.skipUpdate();
+                        Get.back();
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),

@@ -9,11 +9,13 @@ class CustomSetting extends StatelessWidget {
   final String title;
   final Function onTap;
   final double padding;
+  final Widget widget;
   CustomSetting(
       {@required this.icon,
       @required this.title,
       this.iconSize,
       this.iconColor,
+      this.widget = const SizedBox(),
       @required this.onTap,
       this.padding = 10});
   @override
@@ -42,7 +44,9 @@ class CustomSetting extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(fontWeight: FontWeight.bold),
-              )
+              ),
+              Spacer(),
+              widget
             ],
           ),
         ),

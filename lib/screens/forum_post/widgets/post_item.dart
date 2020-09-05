@@ -2,16 +2,13 @@ import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
 import 'package:photo_social/constraint.dart';
 import 'package:photo_social/controllers/controller.dart';
-import 'package:photo_social/fonts.dart';
 import 'package:photo_social/models/postModel.dart';
 import 'package:photo_social/utils/time_ago.dart';
-import 'package:photo_social/widgets/circle_icon.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 import 'package:photo_social/widgets/custom_button.dart';
 import 'package:photo_social/widgets/custom_netword_image.dart';
@@ -35,7 +32,6 @@ class PostItem extends StatefulWidget {
 
 class _PostItemState extends State<PostItem> {
   int _currentPage = 0;
-
   Widget buildTotalImage() {
     return Container(
         height: 30,
@@ -52,7 +48,7 @@ class _PostItemState extends State<PostItem> {
             ),
           ),
           Text(
-            "$_currentPage / ${widget.model.medias.length}",
+            "${_currentPage + 1} / ${widget.model.medias.length}",
             style: TextStyle(color: Colors.white),
           ),
         ]));
@@ -215,8 +211,11 @@ class _PostItemState extends State<PostItem> {
                                 dotPrimaryColor: Colors.pink,
                                 dotSecondaryColor: Colors.pink.withOpacity(0.5),
                               ),
-                              /*onTap: (isLiked) =>
-                                              _.likePost(postId: widget.model.postId),*/
+                              onTap: (isLiked) {
+                                return _.likePost(
+                                    postId: widget.model.postId,
+                                    isLiked: isLiked);
+                              },
                               likeBuilder: (bool isLiked) {
                                 return Icon(
                                   isLiked ? EvaIcons.heart : EvaIcons.heart,

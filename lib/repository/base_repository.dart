@@ -1,6 +1,6 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:photo_social/api/query.dart';
-import 'package:photo_social/controllers/preferencesController.dart';
+import 'package:photo_social/controllers/preferences_controller.dart';
 
 class BaseRepository {
   //static String _token = Get.find<SharedPreferences>().getString('token') ?? "";

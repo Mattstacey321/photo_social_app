@@ -60,14 +60,20 @@ class CustomButton extends StatelessWidget {
                           ]
                         : null,
                     color: backgroundColor == null
-                        ? iconColor.withOpacity(opacity)
-                        : backgroundColor),
+                        ? (isClickable != null || isClickable
+                            ? iconColor.withOpacity(opacity)
+                            : iconColor)
+                        : (isClickable
+                            ? backgroundColor.withOpacity(opacity * 3.5)
+                            : backgroundColor)),
                 child: Row(
                   mainAxisAlignment: mainAxisAlignment,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     icon != null
-                        ? Icon(icon, color: iconColor, size: height * 0.60)
+                        ? Icon(icon,
+                            color: isClickable ? iconColor : iconColor,
+                            size: height * 0.60)
                         : SizedBox(width: 0),
                     childs != null
                         ? icon != null
@@ -84,7 +90,7 @@ class CustomButton extends StatelessWidget {
                       child: InkWell(
                         splashColor: Colors.grey.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(radius),
-                        onTap: onPress,
+                        onTap: isClickable ? () => onPress() : null,
                       ))),
             ],
           ),

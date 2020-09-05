@@ -30,7 +30,6 @@ class _CustomFilterState extends State<CustomFilter>
       ..addListener(() {
         setState(() {});
       });
-    ;
   }
 
   @override

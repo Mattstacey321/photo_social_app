@@ -42,18 +42,16 @@ class PostController extends GetxController {
     _currentIndicatorIndex.value = index;
   }
 
-  Future<bool> likePost({String forumId, String postId}) async {
+  Future<bool> likePost({String forumId, String postId, bool isLiked}) async {
     if (await isAuth()) {
-      _isLike.value =
-          await PostRepository.likePost(forumId: forumId, postId: postId);
-      update();
-      Get.defaultDialog(title: "Thanks");
-      return true;
+      // _isLike.value =
+      //     await PostRepository.likePost(forumId: forumId, postId: postId);
+      //  update();
+      //Get.defaultDialog(title: "Thanks");
+      return !isLiked;
     } else {
-      Get.defaultDialog(
-          title:
-              "Remember. You can only see and can't react to this post, please log in");
-      return false;
+      //once(_, callback)
+      return !isLiked;
     }
     //_isLike.value = await PostRepository.likePost(forumId: forumId, postId: postId);
   }

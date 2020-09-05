@@ -2,7 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/controllers/preferencesController.dart';
+import 'package:photo_social/controllers/preferences_controller.dart';
 
 import 'config/global_config.dart';
 import 'controllers/controller.dart';

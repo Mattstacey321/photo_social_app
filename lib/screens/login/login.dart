@@ -8,7 +8,6 @@ import 'package:photo_social/utils/social_icon.dart';
 import 'package:photo_social/widgets/clickable_text.dart';
 import 'package:photo_social/widgets/custom_button.dart';
 import 'package:photo_social/widgets/custom_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'widgets/skip_login_dialog.dart';
 
@@ -204,7 +203,7 @@ class Login extends StatelessWidget {
   }
 }
 
-void skipLogin() async{
+void skipLogin() async {
   Get.dialog(
       SkipLoginDialog(
         onBack: () => Get.back(),

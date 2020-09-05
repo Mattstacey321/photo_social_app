@@ -22,13 +22,13 @@ class UpdateRepository {
     return packageInfo.version;
   }
 
-  static Future<bool> checkUpdate(String latestVersion) async {
+  static Future<bool> compareVersion(String latestVersion) async {
     return Version.prioritize(Version.parse(latestVersion),
             Version.parse(await getAppVersion())) ==
         1;
   }
 
-  static Future getUpdateFromServer() async {
+  static Future<AppVersionModel> getUpdateFromServer() async {
     var result = await BaseRepository.pubClient.checkLatest();
     return AppVersionModel.fromMap(result.data['checkLatest']);
   }

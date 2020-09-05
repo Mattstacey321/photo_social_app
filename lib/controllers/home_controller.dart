@@ -12,7 +12,7 @@ class HomeController extends GetxController {
   static HomeController get to => Get.find();
   RefreshController refreshController = RefreshController();
   RxBool _isSkipLogin = false.obs;
-
+  RxBool isCollapsed = false.obs;
   bool get loginAsGuest => _isSkipLogin.value;
 
   int get countPostForum => ForumController.to.countPostForum;
@@ -44,6 +44,10 @@ class HomeController extends GetxController {
             align: Alignment(0, 0.9),
             duration: Duration(seconds: 2),
           );
+  }
+
+  void openSideBar() {
+    isCollapsed.value = !isCollapsed.value;
   }
 
   String getAvatar() {
