@@ -2,10 +2,10 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:photo_social/api/client_provider.dart';
 
 class GraphQL {
-  GraphQLClient authClient() => authAPI();
+  GraphQLClient authClient() => authAPI;
   GraphQLClient mainClient(String token) => mainAPI(token);
-  GraphQLClient guestClient() => anonymousAPI();
-  GraphQLClient pubClient() => pubAPI();
+  GraphQLClient guestClient() => anonymousAPI;
+  GraphQLClient pubClient() => pubAPI;
 }
 
 extension AuthQuery on GraphQLClient {
@@ -29,6 +29,31 @@ extension AuthQuery on GraphQLClient {
         }
     """;
     return this.query(QueryOptions(documentNode: gql(register)));
+  }
+}
+
+extension PubQuery on GraphQLClient {
+  Future<QueryResult> checkLatest() async {
+    final String checkLatest = """
+      query{
+           checkLatest{
+              download_url
+              version
+              file_name
+              publishDate
+            }
+        }
+    """;
+    return this.query(QueryOptions(documentNode: gql(checkLatest)));
+  }
+
+  Future<QueryResult> checkServerStatus() async {
+    final String checkServerStatus = """
+      query{
+          status
+        } 
+    """;
+    return this.query(QueryOptions(documentNode: gql(checkServerStatus)));
   }
 }
 
@@ -97,28 +122,5 @@ extension GqlQuery on GraphQLClient {
         }
     """;
     return this.query(QueryOptions(documentNode: gql(likePost)));
-  }
-
-  Future<QueryResult> checkLatest() async {
-    final String checkLatest = """
-      query{
-           checkLatest{
-              download_url
-              version
-              file_name
-              publishDate
-            }
-        }
-    """;
-    return this.query(QueryOptions(documentNode: gql(checkLatest)));
-  }
-
-  Future<QueryResult> checkServerStatus() async {
-    final String checkServerStatus = """
-      query{
-          status
-        } 
-    """;
-    return this.query(QueryOptions(documentNode: gql(checkServerStatus)));
   }
 }

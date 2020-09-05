@@ -6,3 +6,4 @@ export 'post_controller.dart';
 export 'register_controller.dart';
 export 'signIn_controller.dart';
 export 'startup_controller.dart';
+export 'preferencesController.dart';

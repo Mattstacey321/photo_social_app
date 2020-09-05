@@ -4,7 +4,12 @@ class AppVersionModel {
   String donwloadUrl;
   String fileName;
   DateTime publishDate;
-  AppVersionModel({this.version, this.minVersion, this.fileName,this.donwloadUrl, this.publishDate});
+  AppVersionModel(
+      {this.version,
+      this.minVersion,
+      this.fileName,
+      this.donwloadUrl,
+      this.publishDate});
   factory AppVersionModel.fromMap(Map data) {
     return AppVersionModel(
         version: data['version'],

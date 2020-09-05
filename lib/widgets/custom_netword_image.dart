@@ -20,6 +20,7 @@ class CustomNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("imageheight $imageHeight, imageWith $imageWidth");
     Widget defaultPlaceHolder = blurHash == ""
         ? PlaceHolderWidget(
             imageBorder: imageBorder,
@@ -50,12 +51,15 @@ class CustomNetworkImage extends StatelessWidget {
               errorWidget: (context, url, error) => defaultErrorHolder,
               placeholderFadeInDuration: Duration(milliseconds: 300),
               imageBuilder: (context, imageProvider) => Container(
-                height: imageHeight > imageWidth ? imageHeight / 2 : imageHeight,
+                height: imageHeight,
                 width: imageWidth,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(imageBorder),
                     image: DecorationImage(
                       image: imageProvider,
+                      alignment: (imageHeight < imageWidth)
+                          ? Alignment.center
+                          : Alignment.topCenter,
                       fit: BoxFit.cover,
                     )),
               ),

@@ -9,13 +9,13 @@ class ForumController extends GetxController {
 
   static ForumController get to => Get.find();
 
-  RxList<ForumModel> forumsData = List<ForumModel>().obs;
+  var _forumsData = List<ForumModel>().obs;
   var _currentPage = 1.obs;
   var _countForumPost = 0.obs;
 
   int get countPostForum => _countForumPost.value;
-  int get countForum => forumsData.value.length;
-  List<ForumModel> get forums => forumsData.value;
+  int get countForum => _forumsData.length;
+  List<ForumModel> get forums => _forumsData;
   int get currentPage => _currentPage.value;
 
   @override
@@ -25,18 +25,18 @@ class ForumController extends GetxController {
 
   void initForum() async {
     try {
-      forumsData.value =
+      _forumsData.value =
           await ForumRepository.getForums(page: currentPage, limit: 10);
       _countForumPost.value =
           await ForumRepository.countForumPost(forumId: forumId);
     } catch (e) {
       print(e);
-      forumsData.value = [];
+      _forumsData.value = [];
     }
   }
 
   Future refresh(RefreshController controller) async {
-    forumsData.clear();
+    _forumsData.clear();
     initForum();
     _currentPage.value = 1;
     controller.refreshCompleted();
@@ -47,12 +47,14 @@ class ForumController extends GetxController {
     RxList<ForumModel> newData = List<ForumModel>().obs;
 
     newData.value = await ForumRepository.getForums(limit: 10, page: nextPage);
-    if (newData.value.isEmpty) {
+    if (newData.isEmpty) {
       controller.loadNoData();
     } else {
-      forumsData.addAllIf(newData.value.isNotEmpty, newData.value);
+      _forumsData.addAllIf(newData.isNotEmpty, newData);
       _currentPage.value++;
       controller.loadComplete();
     }
   }
+
+  void sortList() {}
 }

@@ -6,15 +6,15 @@ class CustomAppBar extends PreferredSize {
   final List<Widget> childs;
   final double height;
   final Widget homeIcon;
-  final Function onTap;
+  final Function onTapBack;
   final Color color;
 
   CustomAppBar(
       {@required this.childs,
-      @required this.height,
+      this.height = 50,
       this.color = Colors.transparent,
       this.homeIcon: const Icon(FeatherIcons.arrow_left),
-      @required this.onTap});
+      @required this.onTapBack});
 
   @override
   Size get preferredSize => Size.fromHeight(height);
@@ -27,7 +27,8 @@ class CustomAppBar extends PreferredSize {
       decoration: BoxDecoration(color: color, boxShadow: []),
       child: Row(
         children: [
-          CircleIcon(onTap: () => onTap(), tooltip: "Home", child: homeIcon),
+          CircleIcon(
+              onTap: () => onTapBack(), tooltip: "Home", child: homeIcon),
           SizedBox(
             width: 10,
           ),

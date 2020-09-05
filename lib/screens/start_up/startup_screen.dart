@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/startup_controller.dart';
+import 'package:photo_social/utils/server_status.dart';
 import 'package:photo_social/widgets/custom_button.dart';
 
 class StartUpScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class _StartUpScreenState extends State<StartUpScreen>
           height: Get.height,
           width: Get.width,
           child: Center(
-            child: Obx(() => _.waitGetLatest == null
+            child: Obx(() => _.isServerOnline == ServerStatus.checking
                 ? FadeTransition(
                     opacity: _animation,
                     child: Column(
@@ -57,27 +58,49 @@ class _StartUpScreenState extends State<StartUpScreen>
                       ],
                     ),
                   )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomButton(
-                        onPress: null,
-                        isClickable: false,
-                        iconColor: Colors.green,
-                        height: 60,
-                        width: 60,
-                        icon: EvaIcons.checkmarkCircle,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Checking complete",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  )),
+                : _.isServerOnline == ServerStatus.offline
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomButton(
+                            onPress: () {
+                              _.checkAgain();
+                            },
+                            tooltip: "Recheck server",
+                            iconColor: Colors.red,
+                            icon: EvaIcons.refresh,
+                            radius: 1000,
+                            height: 50,
+                            width: 50,
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            "Server Offline",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CustomButton(
+                            onPress: null,
+                            isClickable: false,
+                            iconColor: Colors.green,
+                            height: 60,
+                            width: 60,
+                            icon: EvaIcons.checkmarkCircle,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "Checking complete",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )),
           ),
         ),
       ),

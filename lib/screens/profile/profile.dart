@@ -24,7 +24,7 @@ class Profile extends StatelessWidget {
                   )
                 ],
                 height: 50,
-                onTap: () {
+                onTapBack: () {
                   Get.back();
                 }),
             body: Container(
@@ -67,7 +67,8 @@ class Profile extends StatelessWidget {
                       children: [
                         Flexible(
                           child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.only(

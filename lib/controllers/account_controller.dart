@@ -1,18 +1,19 @@
 import 'package:get/get.dart';
 import 'package:photo_social/constraint.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:photo_social/controllers/controller.dart';
 
 class AccountController extends GetxController {
   String getAvatar() {
-    bool isSkipLogin = Get.find<SharedPreferences>().getBool('isSkipLogin');
+    bool isSkipLogin = PreferencesController.getPrefs.getBool('isSkipLogin');
     return isSkipLogin
         ? AppConstraint.defaultAvatar
-        : Get.find<SharedPreferences>().getString("userAvatar");
+        : PreferencesController.getPrefs.getString("userAvatar");
   }
-  String getName(){
-    bool isSkipLogin = Get.find<SharedPreferences>().getBool('isSkipLogin');
+
+  String getName() {
+    bool isSkipLogin = PreferencesController.getPrefs.getBool('isSkipLogin');
     return isSkipLogin
         ? "Guest"
-        : Get.find<SharedPreferences>().getString("userName");
+        : PreferencesController.getPrefs.getString("userName");
   }
 }

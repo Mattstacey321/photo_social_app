@@ -204,13 +204,13 @@ class Login extends StatelessWidget {
   }
 }
 
-void skipLogin() {
+void skipLogin() async{
   Get.dialog(
       SkipLoginDialog(
         onBack: () => Get.back(),
         onSkip: () {
-          Get.find<SharedPreferences>().setBool("isSkipLogin", true);
-          Get.find<SharedPreferences>().setString("token", "");
+          PreferencesController.getPrefs.setBool("isSkipLogin", true);
+          PreferencesController.getPrefs.setString("token", "");
           return Get.offAndToNamed('/home');
         },
       ),

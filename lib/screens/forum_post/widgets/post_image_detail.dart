@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/post_detail_controller.dart';
 import 'package:photo_social/models/postModel.dart';
@@ -34,9 +35,14 @@ class PostImageInfo extends StatelessWidget {
                         imageProvider: NetworkImage(media[index].original),
                         initialScale: PhotoViewComputedScale.contained * 1,
                         tightMode: true,
-                        heroAttributes: PhotoViewHeroAttributes(tag: media[index].id),
+                        /*heroAttributes:
+                            PhotoViewHeroAttributes(tag: media[index].id),*/
                       );
                     },
+                    loadFailedChild: Center(
+                      child: Text("Load fail"),
+                    ),
+                    //loadingBuilder: (context, event) => ,
                   ),
                   /*CarouselSlider.builder(
                 carouselController: _.buttonCarouselController,
@@ -72,8 +78,9 @@ class PostImageInfo extends StatelessWidget {
                               Get.back();
                             },
                             tooltip: "Close",
-                            iconColor: Colors.black.withOpacity(0.4),
-                            backgroundColor: Colors.white.withOpacity(0.6),
+                            iconColor: Colors.white,
+                            backgroundColor: Colors.transparent,
+                            //backgroundColor: Colors.white.withOpacity(0.6),
                             showElevation: true,
                             height: 40,
                             width: 40,
@@ -81,6 +88,7 @@ class PostImageInfo extends StatelessWidget {
                             childs: [
                               Icon(
                                 FeatherIcons.x,
+                                color: Colors.white,
                               ),
                             ],
                           ),
@@ -91,17 +99,17 @@ class PostImageInfo extends StatelessWidget {
                             },
                             isClickable: false,
                             tooltip: "More",
-                            iconColor: Colors.black.withOpacity(0.4),
-                            backgroundColor: Colors.white.withOpacity(0.6),
+                            iconColor: Colors.white,
+                            backgroundColor: Colors.transparent,
                             showElevation: true,
                             height: 40,
-                            width: 60,
+                            width: 40,
                             radius: 10,
                             childs: [
-                              Text(
-                                "More",
-                                style: TextStyle(),
-                              )
+                              Icon(
+                                FeatherIcons.more_vertical,
+                                color: Colors.white,
+                              ),
                             ],
                           ),
                         ],

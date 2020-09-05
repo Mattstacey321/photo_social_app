@@ -1,11 +1,12 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/controllers/forum_controller.dart';
 import 'package:photo_social/models/forumModel.dart';
+import 'package:photo_social/repository/update_repository.dart';
 import 'package:photo_social/repository/user_repository.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.find();
@@ -17,13 +18,17 @@ class HomeController extends GetxController {
   int get countPostForum => ForumController.to.countPostForum;
   int get countForum => ForumController.to.countForum;
   List<ForumModel> get forumsData => ForumController.to.forums;
-  
+
   refreshForum() => ForumController.to.refresh(refreshController);
   loadMoreForum() => ForumController.to.loadMore(refreshController);
 
+  get curentVersion async => await UpdateRepository.getAppVersion();
+  get latestVersion async => await UpdateRepository.getUpdateFromServer()
+    ..version;
+
   @override
   void onReady() {
-    bool isSkipLogin = Get.find<SharedPreferences>().getBool("isSkipLogin");
+    bool isSkipLogin = PreferencesController.getPrefs.getBool("isSkipLogin");
     _isSkipLogin.value = isSkipLogin;
     isSkipLogin
         ? BotToast.showText(
@@ -47,5 +52,10 @@ class HomeController extends GetxController {
     } else {
       return UserRepository.signInAsGuest();
     }
+  }
+
+  void skipUpdate() {
+    PreferencesController.getPrefs.setBool("installLater", true);
+    Get.back();
   }
 }

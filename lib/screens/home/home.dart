@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
         return Scaffold(
           appBar: CustomAppBar(
               homeIcon: Icon(FeatherIcons.hash),
-              onTap: () {},
+              onTapBack: () {},
               childs: [
                 Text(
                   "Available Forum",
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
                     Get.to(SavedPost());
                     //Get.dialog(SkipLoginDialog(onBack: () {}, onSkip: () {}));
                   },
-                  tooltip: "Request forum",
+                  tooltip: "Suggestion",
                   iconColor: Colors.red,
                   icon: FeatherIcons.zap,
                   width: 40,
@@ -68,7 +68,7 @@ class _HomeState extends State<Home> {
               child: Obx(
                 () => _.forumsData.isEmpty
                     ? SpinKitDoubleBounce(color: Colors.black, size: 35)
-                    : _.forumsData.isEmpty
+                    : _.countForum == 0
                         ? Text("No forums now")
                         : SmartRefresher(
                             controller: _.refreshController,
@@ -77,7 +77,8 @@ class _HomeState extends State<Home> {
                             onRefresh: () => _.refreshForum(),
                             onLoading: () => _.loadMoreForum(),
                             child: ListView.separated(
-                              separatorBuilder: (context, index) => SizedBox(height: 15),
+                              separatorBuilder: (context, index) =>
+                                  SizedBox(height: 15),
                               itemCount: _.countForum,
                               itemBuilder: (context, index) {
                                 List<ForumModel> forum = _.forumsData;

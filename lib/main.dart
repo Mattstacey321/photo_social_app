@@ -1,11 +1,10 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
+import 'package:photo_social/controllers/preferencesController.dart';
 
-import 'package:timeago/timeago.dart' as timeago;
-
+import 'config/global_config.dart';
 import 'controllers/controller.dart';
 import 'routes/app_routes.dart';
 import 'screens/start_up/startup_screen.dart';
@@ -13,12 +12,13 @@ import 'theme/theme.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDownloader.initialize(
-    debug: true
-  );
+  final PreferencesController preferencesController =
+      await PreferencesController.load();
+  Get.put<PreferencesController>(preferencesController, permanent: true);
+
+  await GlobalConfig.initializeDownloader();
   //set timeago locate
-  timeago.setLocaleMessages('vi', timeago.ViMessages());
-  timeago.setLocaleMessages('vi_short', timeago.ViShortMessages());
+  await GlobalConfig.setLocate();
   //redirect if not auth
   runApp(MyApp(home: StartUpScreen()));
   SystemChrome.setEnabledSystemUIOverlays([]);

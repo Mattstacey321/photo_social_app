@@ -47,17 +47,22 @@ class CustomButton extends StatelessWidget {
               Container(
                 height: height,
                 width: width,
+                //padding: EdgeInsets.symmetric(horizontal: 5),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(radius),
                     gradient: gradient,
                     boxShadow: showElevation
-                        ? [BoxShadow(color: Colors.black.withOpacity(0.1), offset: Offset(1, 2))]
+                        ? [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                offset: Offset(1, 2))
+                          ]
                         : null,
-                    color:
-                        backgroundColor == null ? iconColor.withOpacity(opacity) : backgroundColor),
+                    color: backgroundColor == null
+                        ? iconColor.withOpacity(opacity)
+                        : backgroundColor),
                 child: Row(
-                  
                   mainAxisAlignment: mainAxisAlignment,
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -65,7 +70,9 @@ class CustomButton extends StatelessWidget {
                         ? Icon(icon, color: iconColor, size: height * 0.60)
                         : SizedBox(width: 0),
                     childs != null
-                        ? icon != null ? SizedBox(width: 10) : SizedBox(width: 0)
+                        ? icon != null
+                            ? SizedBox(width: 10)
+                            : SizedBox(width: 0)
                         : SizedBox(width: 0),
                     for (var widget in childs ?? []) widget
                   ],

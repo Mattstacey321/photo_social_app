@@ -1,4 +1,5 @@
 class PostModel {
+  String userId;
   String postId;
   String postTitle;
   List<Media> medias;
@@ -9,7 +10,8 @@ class PostModel {
   int get countMedia => medias.length;
 
   PostModel(
-      {this.postId,
+      {this.userId,
+      this.postId,
       this.postTitle,
       this.tags,
       this.medias,

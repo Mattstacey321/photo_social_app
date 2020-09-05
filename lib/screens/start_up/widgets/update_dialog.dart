@@ -3,6 +3,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/controller.dart';
+import 'package:photo_social/repository/update_repository.dart';
 import 'package:photo_social/widgets/custom_button.dart';
 
 class UpdateDialog extends StatelessWidget {
@@ -11,7 +12,7 @@ class UpdateDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<StartUpController>(builder: (_) {
+    return GetBuilder<HomeController>(builder: (_) {
       return Center(
         child: Material(
           borderRadius: BorderRadius.circular(10),
@@ -48,6 +49,22 @@ class UpdateDialog extends StatelessWidget {
                           text: _.curentVersion,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.black))
+                      /*FutureBuilder(
+                          future: _.curentVersion,
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Text("...",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black));
+                            } else
+                              return TextSpan(
+                                  text: snapshot.data,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black));
+                          },),*/
                     ])),
                     SizedBox(height: 10),
                     RichText(
@@ -67,7 +84,7 @@ class UpdateDialog extends StatelessWidget {
                   children: [
                     FlatButton(
                       onPressed: () async {
-                        _.goToDestinationPage();
+                        _.skipUpdate();
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -81,7 +98,7 @@ class UpdateDialog extends StatelessWidget {
                     CustomButton(
                       onPress: () async {
                         try {
-                          await _.downloadUpdate();
+                          await UpdateRepository.downloadUpdate();
                         } catch (e) {
                           print(e);
                           BotToast.showSimpleNotification(

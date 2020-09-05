@@ -28,15 +28,15 @@ class PostController extends GetxController {
 
   void initPost() async {
     refreshController.requestRefresh();
-    postData.value =
-        await PostRepository.getForumPost(forumId: forumId, page: currentPage, limit: 10);
+    postData.value = await PostRepository.getForumPost(
+        forumId: forumId, page: currentPage, limit: 10);
     if (postData.isEmpty) {
       refreshController.loadNoData();
     }
     refreshController.refreshCompleted();
   }
 
-  int get countPost => postData.value.length;
+  int get countPost => postData.length;
 
   void setIndicatorIndex(int index) {
     _currentIndicatorIndex.value = index;
@@ -44,13 +44,15 @@ class PostController extends GetxController {
 
   Future<bool> likePost({String forumId, String postId}) async {
     if (await isAuth()) {
-      _isLike.value = await PostRepository.likePost(forumId: forumId, postId: postId);
+      _isLike.value =
+          await PostRepository.likePost(forumId: forumId, postId: postId);
       update();
       Get.defaultDialog(title: "Thanks");
       return true;
     } else {
       Get.defaultDialog(
-          title: "Remember. You can only see and can't react to this post, please log in");
+          title:
+              "Remember. You can only see and can't react to this post, please log in");
       return false;
     }
     //_isLike.value = await PostRepository.likePost(forumId: forumId, postId: postId);
@@ -66,11 +68,12 @@ class PostController extends GetxController {
     int nextPage = currentPage + 1;
     RxList<PostModel> newData = List<PostModel>().obs;
 
-    newData.value = await PostRepository.getForumPost(forumId: forumId, limit: 10, page: nextPage);
-    if (newData.value.isEmpty) {
+    newData.value = await PostRepository.getForumPost(
+        forumId: forumId, limit: 10, page: nextPage);
+    if (newData.isEmpty) {
       refreshController.loadNoData();
     } else {
-      postData.addAllIf(newData.value.isNotEmpty, newData.value);
+      postData.addAllIf(newData.isNotEmpty, newData);
       _currentPage.value++;
       refreshController.loadComplete();
     }

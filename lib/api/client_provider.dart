@@ -17,7 +17,8 @@ final OptimisticCache cache = OptimisticCache(
 );
 
 GraphQLClient mainAPI(String token) {
-  HttpLink httpLink = HttpLink(uri: getEndpoint.main, headers: {"authentication": token});
+  HttpLink httpLink =
+      HttpLink(uri: getEndpoint.main, headers: {"authentication": token});
 
   return GraphQLClient(
     cache: cache,
@@ -25,17 +26,8 @@ GraphQLClient mainAPI(String token) {
   );
 }
 
-GraphQLClient pubAPI() {
+GraphQLClient get pubAPI {
   HttpLink httpLink = HttpLink(uri: getEndpoint.pub);
-
-  return GraphQLClient(
-    cache: cache,
-    link: httpLink,
-  );
-}
-
-GraphQLClient anonymousAPI() {
-  HttpLink httpLink = HttpLink(uri: getEndpoint.main, headers: {"guest": 'true'});
 
   return GraphQLClient(
     cache: NormalizedInMemoryCache(dataIdFromObject: typenameDataIdFromObject),
@@ -43,7 +35,17 @@ GraphQLClient anonymousAPI() {
   );
 }
 
-GraphQLClient authAPI() {
+GraphQLClient get anonymousAPI {
+  HttpLink httpLink =
+      HttpLink(uri: getEndpoint.main, headers: {"guest": 'true'});
+
+  return GraphQLClient(
+    cache: NormalizedInMemoryCache(dataIdFromObject: typenameDataIdFromObject),
+    link: httpLink,
+  );
+}
+
+GraphQLClient get authAPI {
   HttpLink httpLink = HttpLink(uri: getEndpoint.auth);
 
   return GraphQLClient(
