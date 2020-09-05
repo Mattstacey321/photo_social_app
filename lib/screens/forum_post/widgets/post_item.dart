@@ -17,12 +17,14 @@ import 'post_image_detail.dart';
 
 class PostItem extends StatefulWidget {
   final PostModel model;
+  final bool hideHashTag;
   final double imageBorder;
   final bool isLike;
   final String imageQuality;
   PostItem(
       {@required this.model,
       @required this.isLike,
+      this.hideHashTag = false,
       this.imageQuality = 'medium',
       this.imageBorder = 10});
 
@@ -32,6 +34,7 @@ class PostItem extends StatefulWidget {
 
 class _PostItemState extends State<PostItem> {
   int _currentPage = 0;
+
   Widget buildTotalImage() {
     return Container(
         height: 30,
@@ -61,19 +64,21 @@ class _PostItemState extends State<PostItem> {
   }
 
   Widget buildHashTag() {
-    return Container(
-      height: 20,
-      child: ListView.separated(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          separatorBuilder: (context, index) => SizedBox(width: 8),
-          itemCount: widget.model.tags.length,
-          physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) => Text(
-                "#${widget.model.tags[index]}",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              )),
-    );
+    return widget.hideHashTag
+        ? Container()
+        : Container(
+            height: 20,
+            child: ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                separatorBuilder: (context, index) => SizedBox(width: 8),
+                itemCount: widget.model.tags.length,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => Text(
+                      "#${widget.model.tags[index]}",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+          );
   }
 
   @override
@@ -185,7 +190,7 @@ class _PostItemState extends State<PostItem> {
                           });
                         }),
                   ),
-                  Positioned(top: 5, right: 8, child: buildTotalImage()),
+                  Positioned(top: 6, right: 10, child: buildTotalImage()),
                 ],
               ),
             ),
@@ -204,6 +209,7 @@ class _PostItemState extends State<PostItem> {
                           children: [
                             LikeButton(
                               size: 30,
+                              isLiked: widget.isLike,
                               circleColor: CircleColor(
                                   start: Colors.pink,
                                   end: Colors.pink.withOpacity(0.5)),

@@ -1,6 +1,7 @@
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:photo_social/screens/search/search_by_hashtag.dart';
 
 class HashTagDashboard extends StatefulWidget {
   @override
@@ -45,6 +46,10 @@ class _HashTagDashboardState extends State<HashTagDashboard>
             countryCode: 'jp',
             hashtag: "japanese",
           ),
+          CustomItem(
+            countryCode: '',
+            hashtag: "cosplay",
+          ),
         ],
       ),
     );
@@ -58,7 +63,13 @@ class CustomItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Get.to(
+          SearchByHashTag(
+            hashTag: hashtag,
+          ),
+        );
+      },
       child: Container(
         height: 40,
         width: 200,
@@ -71,11 +82,24 @@ class CustomItem extends StatelessWidget {
             ),
             SizedBox(width: 10),
             Spacer(),
-            Flag(
-              countryCode,
-              height: 20,
-              width: 30,
-            ),
+            countryCode != ""
+                ? Container(
+                    decoration: BoxDecoration(
+                        boxShadow: countryCode != ''
+                            ? [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    offset: Offset(0, 1),
+                                    blurRadius: 3)
+                              ]
+                            : []),
+                    child: Flag(
+                      countryCode,
+                      height: 20,
+                      width: 30,
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),

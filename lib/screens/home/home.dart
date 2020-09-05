@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
   }
 
   Widget dashboard(HomeController _) {
-    bool isCollapsed = _.isCollapsed.value;
+    bool isCollapsed = !_.isCollapsed.value;
 
     return AnimatedPositioned(
       duration: duration,

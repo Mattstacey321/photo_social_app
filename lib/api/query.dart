@@ -123,4 +123,35 @@ extension GqlQuery on GraphQLClient {
     """;
     return this.query(QueryOptions(documentNode: gql(likePost)));
   }
+
+  Future<QueryResult> getPostByHashTag(
+      {String hashTag, int page = 1, int limit = 10}) async {
+    final String getPostByHashTag = """
+      query{
+           getPostByHashtag(hashTag:"$hashTag",page:$page, limit: $limit){
+              _id
+              title
+              user_id
+              content
+              media{
+                id
+                original
+                thumb1
+                thumb2
+                format
+                name
+                size
+                blur_hash
+                height
+                width
+              }
+              tag
+              created_time
+              total_comment
+              total_reaction
+            }
+        }
+    """;
+    return this.query(QueryOptions(documentNode: gql(getPostByHashTag)));
+  }
 }
