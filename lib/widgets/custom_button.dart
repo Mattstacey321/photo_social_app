@@ -85,17 +85,52 @@ class CustomButton extends StatelessWidget {
                 ),
               ),
               Positioned.fill(
-                  child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        splashColor: Colors.grey.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(radius),
-                        onTap: isClickable ? () => onPress() : null,
-                      ))),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    splashColor: Colors.grey.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(radius),
+                    onTap: isClickable ? () => onPress() : null,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  static square({
+    @required double size,
+    @required Function onPress,
+    String tooltip = "",
+    double radius = 15,
+    IconData icon,
+    Color iconColor = Colors.transparent,
+    double opacity = 0.2,
+    bool isClickable = true,
+    @required Color backgroundColor,
+    bool showElevation = false,
+    Gradient gradient,
+    MainAxisAlignment mainAxisAlignment = MainAxisAlignment.center,
+    List<Widget> childs,
+  }) {
+    return CustomButton(
+      onPress: onPress,
+      iconColor: iconColor,
+      backgroundColor: backgroundColor,
+      childs: childs,
+      height: size,
+      width: size,
+      icon: icon,
+      tooltip: tooltip,
+      isClickable: isClickable,
+      gradient: gradient,
+      mainAxisAlignment: mainAxisAlignment,
+      opacity: opacity,
+      radius: radius,
+      showElevation: showElevation,
     );
   }
 }

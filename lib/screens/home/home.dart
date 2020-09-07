@@ -32,7 +32,7 @@ class _HomeState extends State<Home> {
 
     return AnimatedPositioned(
       duration: duration,
-      curve: Curves.fastOutSlowIn,
+      curve: Curves.easeInOut,
       top: isCollapsed ? 0 : 0.0 * Get.height,
       bottom: isCollapsed ? 0 : 0.0 * Get.width,
       left: isCollapsed ? 0 : 0.6 * Get.width,

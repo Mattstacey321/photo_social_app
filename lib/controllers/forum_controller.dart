@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:photo_social/models/forumModel.dart';
+import 'package:photo_social/models/hashTagModel.dart';
 import 'package:photo_social/repository/forum_repository.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -10,17 +11,32 @@ class ForumController extends GetxController {
   static ForumController get to => Get.find();
 
   var _forumsData = List<ForumModel>().obs;
+  var _hashTagData = List<HashTagModel>().obs;
   var _currentPage = 1.obs;
   var _countForumPost = 0.obs;
 
+  List<ForumModel> get forums => _forumsData;
+  List<HashTagModel> get hashTags => _hashTagData;
+
   int get countPostForum => _countForumPost.value;
   int get countForum => _forumsData.length;
-  List<ForumModel> get forums => _forumsData;
+  int get countHashTag => _hashTagData.length;
+
   int get currentPage => _currentPage.value;
 
   @override
   void onReady() {
     initForum();
+    initHashTag();
+  }
+
+  void initHashTag() async {
+    try {
+      _hashTagData.value = await ForumRepository.getHashTagStats();
+    } catch (e) {
+      print(e);
+      _hashTagData.value = [];
+    }
   }
 
   void initForum() async {

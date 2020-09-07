@@ -23,23 +23,22 @@ class UpdateRepository {
   }
 
   static Future<bool> compareVersion(String latestVersion) async {
-    return Version.prioritize(Version.parse(latestVersion),
-            Version.parse(await getAppVersion())) ==
-        1;
+    var result = Version.prioritize(
+        Version.parse(latestVersion), Version.parse(await getAppVersion()));
+    if (result == 0) return false;
+    if (result == -1) return false;
+    return true;
   }
 
   static Future<AppVersionModel> getUpdateFromServer() async {
     var result = await BaseRepository.pubClient.checkLatest();
-    return AppVersionModel.fromMap(result.data['checkLatest']);
+    return _appUpdateInfo = AppVersionModel.fromMap(result.data['checkLatest']);
   }
 
   static Future downloadUpdate() async {
     await getUpdateFromServer();
-    var _localPath = (await _findLocalPath()) +
-        Platform.pathSeparator +
-        'Download' +
-        Platform.pathSeparator +
-        'PhotoSocial_Update';
+    var _localPath =
+        (await _findLocalPath()) + Platform.pathSeparator + 'Download';
     var savedDir = Directory(_localPath);
     bool hasDirectoryExisted = await savedDir.exists();
     if (!hasDirectoryExisted) {

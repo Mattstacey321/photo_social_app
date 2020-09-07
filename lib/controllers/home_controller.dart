@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/controllers/forum_controller.dart';
 import 'package:photo_social/models/forumModel.dart';
-import 'package:photo_social/repository/update_repository.dart';
+import 'package:photo_social/models/hashTagModel.dart';
 import 'package:photo_social/repository/user_repository.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -15,16 +15,19 @@ class HomeController extends GetxController {
   RxBool isCollapsed = false.obs;
   bool get loginAsGuest => _isSkipLogin.value;
 
+  List<ForumModel> get forumsData => ForumController.to.forums;
+  List<HashTagModel> get hashTagData => ForumController.to.hashTags;
+
   int get countPostForum => ForumController.to.countPostForum;
   int get countForum => ForumController.to.countForum;
-  List<ForumModel> get forumsData => ForumController.to.forums;
+  int get countHashTag => ForumController.to.countHashTag;
 
   refreshForum() => ForumController.to.refresh(refreshController);
   loadMoreForum() => ForumController.to.loadMore(refreshController);
 
-  get curentVersion async => await UpdateRepository.getAppVersion();
+  /*get curentVersion async => await UpdateRepository.getAppVersion();
   get latestVersion async => await UpdateRepository.getUpdateFromServer()
-    ..version;
+    ..version;*/
 
   @override
   void onReady() {

@@ -154,4 +154,25 @@ extension GqlQuery on GraphQLClient {
     """;
     return this.query(QueryOptions(documentNode: gql(getPostByHashTag)));
   }
+
+  Future<QueryResult> countPostByHashTag({String hashtag}) async {
+    final String countPostByHashTag = """
+      query{
+          countPostByHashtag(hashTag:"$hashtag")
+        }
+    """;
+    return this.query(QueryOptions(documentNode: gql(countPostByHashTag)));
+  }
+
+  Future<QueryResult> getHashTagStats() async {
+    final String getHashTagStats = """
+      query{   
+         getHashTagStats{
+           _id
+            count
+         }
+        }
+    """;
+    return this.query(QueryOptions(documentNode: gql(getHashTagStats)));
+  }
 }

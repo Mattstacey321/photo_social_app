@@ -22,4 +22,10 @@ class PostRepository {
         .getPostByHashTag(hashTag: hashTag, limit: limit, page: page);
     return PostsModel.fromList((result).data['getPostByHashtag']).posts;
   }
+
+  static Future<int> countPostByHashTag({String hashTag}) async {
+    var result =
+        await BaseRepository.selectClient.countPostByHashTag(hashtag: hashTag);
+    return result.data['countPostByHashtag'];
+  }
 }
