@@ -1,6 +1,7 @@
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/material.dart';
 
 class CustomSVG extends StatelessWidget {
   @override
@@ -13,11 +14,11 @@ class CustomSVG extends StatelessWidget {
         children: [
           Positioned(
             right: -8,
-            bottom:-8,
+            bottom: -8,
             child: Transform.rotate(
               angle: -math.pi / 12.0,
               child: Icon(
-                FeatherIcons.image,
+                EvaIcons.image,
                 size: 40,
                 color: Color(mainColor),
               ),
@@ -27,7 +28,7 @@ class CustomSVG extends StatelessWidget {
             right: 32,
             bottom: 30,
             child: Icon(
-              FeatherIcons.triangle,
+              EvaIcons.pricetagsOutline,
               size: 30,
               color: Color(mainColor),
             ),
@@ -36,7 +37,7 @@ class CustomSVG extends StatelessWidget {
             right: 42,
             bottom: -10,
             child: Icon(
-              FeatherIcons.circle,
+              EvaIcons.radioButtonOffOutline,
               size: 30,
               color: Color(mainColor),
             ),

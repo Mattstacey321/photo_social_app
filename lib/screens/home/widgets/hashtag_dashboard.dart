@@ -1,4 +1,3 @@
-import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/controller.dart';
@@ -27,57 +26,32 @@ class _HashTagDashboardState extends State<HashTagDashboard>
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       builder: (_) => Container(
-          height: Get.height,
-          width: Get.width,
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(boxShadow: []),
-          child: Center(
-            child: Obx(() => _.hashTagData.isEmpty
-                    ? AppStyle.defaultLoading()
-                    : _.countHashTag == 0
-                        ? Text("No hashtag found now")
-                        : ListView.separated(
-                            separatorBuilder: (context, index) =>
-                                SizedBox(height: 10),
-                            itemCount: _.countHashTag,
-                            itemBuilder: (context, index) {
-                              List<HashTagModel> tags = _.hashTagData;
-                              return CustomItem(
-                                countryCode: '',
-                                hashtag: tags[index].hashtag,
-                                total: tags[index].total,
-                              );
-                            },
-                          )
-
-                /*Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        CustomItem(
-                          countryCode: 'vn',
-                          hashtag: "vietnamese",
-                        ),
-                        CustomItem(
-                          countryCode: 'kr',
-                          hashtag: "korean",
-                        ),
-                        CustomItem(
-                          countryCode: 'cn',
-                          hashtag: "chinese",
-                        ),
-                        CustomItem(
-                          countryCode: 'jp',
-                          hashtag: "japanese",
-                        ),
-                        CustomItem(
-                          countryCode: '',
-                          hashtag: "cosplay",
-                        ),
-                      ],
-                    ),*/
-                ),
-          )),
+        height: Get.height,
+        width: Get.width,
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(boxShadow: []),
+        child: Center(
+          child: Obx(
+            () => _.hashTagData.isEmpty
+                ? AppStyle.defaultLoading()
+                : _.countHashTag == 0
+                    ? Text("No hashtag found now")
+                    : ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 10),
+                        itemCount: _.countHashTag,
+                        itemBuilder: (context, index) {
+                          List<HashTagModel> tags = _.hashTagData;
+                          return CustomItem(
+                            countryCode: '',
+                            hashtag: tags[index].hashtag,
+                            total: tags[index].total,
+                          );
+                        },
+                      ),
+          ),
+        ),
+      ),
     );
   }
 }

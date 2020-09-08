@@ -1,4 +1,4 @@
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_social/widgets/circle_icon.dart';
 
@@ -13,7 +13,7 @@ class CustomAppBar extends PreferredSize {
       {@required this.childs,
       this.height = 50,
       this.color = Colors.transparent,
-      this.homeIcon: const Icon(FeatherIcons.arrow_left),
+      this.homeIcon: const Icon(EvaIcons.arrowCircleLeft),
       @required this.onTapBack});
 
   @override

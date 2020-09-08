@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 class CustomAvatar extends StatelessWidget {
@@ -54,8 +54,9 @@ class CustomAvatar extends StatelessWidget {
                   height: size,
                   width: size,
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(1000)),
-                  child: Icon(FeatherIcons.x_circle),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(1000)),
+                  child: Icon(EvaIcons.closeCircle),
                 ),
                 imageBuilder: (context, imageProvider) => Container(
                   height: size,

@@ -12,8 +12,6 @@ dependencies:
   #cupertino_icons: ^0.1.3
   get: ^3.8.0
   cached_network_image: ^2.3.1
-  feather_icons_flutter:
-    git: git://github.com/MaterialTime/feathericons.flutter.git
   dio: ^3.0.10
   flutter_spinkit: ^4.1.2+1
   pull_to_refresh: ^1.6.1
@@ -34,9 +32,8 @@ dependencies:
   pub_semver: ^1.4.4
   flutter_downloader: ^1.5.0
   permission_handler: ^5.0.1+1
-
-  #world flag
-  flag: ^3.0.5
+  #loading effect
+  shimmer: ^1.1.1 
 dev_dependencies:
   flutter_test:
     sdk: flutter

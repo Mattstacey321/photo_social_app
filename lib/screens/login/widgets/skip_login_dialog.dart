@@ -1,4 +1,4 @@
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_social/widgets/custom_button.dart';
 
@@ -15,12 +15,13 @@ class SkipLoginDialog extends StatelessWidget {
           height: 200,
           width: 300,
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10), color: Colors.white),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Icon(
-                FeatherIcons.coffee,
+                EvaIcons.trendingUp,
                 size: 35,
               ),
               Text(
@@ -39,7 +40,8 @@ class SkipLoginDialog extends StatelessWidget {
                     ),
                     child: Text(
                       "Back to login",
-                      style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          color: Colors.indigo, fontWeight: FontWeight.bold),
                     ),
                   ),
                   CustomButton(
@@ -50,7 +52,8 @@ class SkipLoginDialog extends StatelessWidget {
                     childs: [
                       Text(
                         "Skip now",
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       )
                     ],
                   )

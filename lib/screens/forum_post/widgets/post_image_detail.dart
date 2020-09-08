@@ -1,5 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/post_detail_controller.dart';
@@ -86,7 +86,7 @@ class PostImageInfo extends StatelessWidget {
                             radius: 10,
                             childs: [
                               Icon(
-                                FeatherIcons.x,
+                                EvaIcons.close,
                                 color: Colors.white,
                               ),
                             ],
@@ -106,7 +106,7 @@ class PostImageInfo extends StatelessWidget {
                             radius: 10,
                             childs: [
                               Icon(
-                                FeatherIcons.more_vertical,
+                                EvaIcons.moreVertical,
                                 color: Colors.white,
                               ),
                             ],
