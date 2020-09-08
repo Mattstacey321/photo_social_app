@@ -13,7 +13,7 @@ class CustomAppBar extends PreferredSize {
       {@required this.childs,
       this.height = 50,
       this.color = Colors.transparent,
-      this.homeIcon: const Icon(EvaIcons.arrowCircleLeft),
+      this.homeIcon: const Icon(EvaIcons.arrowBack),
       @required this.onTapBack});
 
   @override

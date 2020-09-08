@@ -11,8 +11,7 @@ import 'package:photo_view/photo_view_gallery.dart';
 class PostImageInfo extends StatelessWidget {
   final int index;
   final List<Media> media;
-  final String blurHash;
-  PostImageInfo({this.index = 0, this.media, this.blurHash = ""});
+  PostImageInfo({this.index = 0, this.media});
 
   @override
   Widget build(BuildContext context) {

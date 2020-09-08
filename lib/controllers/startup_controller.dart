@@ -41,6 +41,7 @@ class StartUpController extends GetxController {
       var statusResult = await BaseRepository.pubClient
           .checkServerStatus()
           .timeout(Duration(seconds: 15));
+      print(statusResult);
       _isServerOnline.value = statusResult.data['status']
           ? ServerStatus.online
           : ServerStatus.offline;
