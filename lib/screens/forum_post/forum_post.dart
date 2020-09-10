@@ -26,8 +26,8 @@ class ForumPost extends StatelessWidget {
                 ),
                 Spacer(),
                 Padding(
-                  padding: EdgeInsets.only(right: 5),
-                  child: CustomDropdownList()),
+                    padding: EdgeInsets.only(right: 5),
+                    child: CustomDropdownList()),
                 /*CustomButton(
                   onPress: () {},
                   iconColor: Colors.green,
@@ -54,6 +54,8 @@ class ForumPost extends StatelessWidget {
                     onRefresh: () => _.refresh(),
                     onLoading: () => _.loadMorePost(),
                     child: ListView.separated(
+                      cacheExtent: 100,
+                      addAutomaticKeepAlives: true,
                       separatorBuilder: (context, index) =>
                           SizedBox(height: 20),
                       itemCount: _.countPost,

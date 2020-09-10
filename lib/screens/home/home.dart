@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
 
     return AnimatedPositioned(
       duration: duration,
-      curve: Curves.easeInOut,
+      curve: Curves.fastOutSlowIn,
       top: isCollapsed ? 0 : 0.0 * Get.height,
       bottom: isCollapsed ? 0 : 0.0 * Get.width,
       left: isCollapsed ? 0 : 0.6 * Get.width,
@@ -122,10 +122,10 @@ class _HomeState extends State<Home> {
                 ],
                 height: 50),
             body: GestureDetector(
-              onHorizontalDragStart: (details) {
+              onHorizontalDragEnd: (details) {
                 _.openSideBar();
               },
-              behavior: HitTestBehavior.opaque,
+              behavior: HitTestBehavior.translucent,
               child: Stack(
                 children: [
                   menu(),

@@ -32,7 +32,10 @@ dependencies:
   flutter_downloader: ^1.5.0
   permission_handler: ^5.0.1+1
   #loading effect
-  shimmer: ^1.1.1 
+  shimmer: ^1.1.1
+  # launch app from url
+  url_launcher: ^5.5.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -41,9 +44,8 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/launcher/icon.png"
-  adaptive_icon_background: "#ffffff"
-
+  image_path : "assets/launcher/icon.png"
+  adaptive_icon_background: "assets/launcher/icon.png"
 flutter:
   uses-material-design: true
 
