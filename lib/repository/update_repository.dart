@@ -48,7 +48,7 @@ class UpdateRepository {
     await FlutterDownloader.enqueue(
       url: _appUpdateInfo.donwloadUrl,
       savedDir: _localPath,
-      fileName: _appUpdateInfo.fileName,
+      fileName: "${_appUpdateInfo.fileName}.apk",
       showNotification:
           true, // show download progress in status bar (for Android)
       openFileFromNotification:

@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
@@ -5,7 +6,7 @@ import 'package:photo_social/repository/forum_repository.dart';
 import 'package:photo_social/style.dart';
 import 'package:photo_social/widgets/custom_loading_state.dart';
 
-class CustomForumBanner extends StatelessWidget {
+class CustomForumBanner extends StatefulWidget {
   final String id;
   final String url;
   final String title;
@@ -27,41 +28,47 @@ class CustomForumBanner extends StatelessWidget {
       @required this.imageWidth});
 
   @override
+  _CustomForumBannerState createState() => _CustomForumBannerState();
+}
+
+class _CustomForumBannerState extends State<CustomForumBanner> {
+  final AsyncMemoizer _memoizer = AsyncMemoizer();
+  @override
   Widget build(BuildContext context) {
-    Widget defaultPlaceHolder = blurHash == ""
+    Widget defaultPlaceHolder = widget.blurHash == ""
         ? PlaceHolderWidget(
-            imageBorder: imageBorder,
-            imageHeight: imageHeight,
-            imageWidth: imageWidth,
+            imageBorder: widget.imageBorder,
+            imageHeight: widget.imageHeight,
+            imageWidth: widget.imageWidth,
           )
         : ClipRRect(
-            borderRadius: BorderRadius.circular(imageBorder),
-            child: BlurHash(hash: "r$blurHash"),
+            borderRadius: BorderRadius.circular(widget.imageBorder),
+            child: BlurHash(hash: "r${widget.blurHash}"),
           );
     Widget defaultErrorHolder = ErrorHolderWidget(
-      imageBorder: imageBorder,
-      imageHeight: imageHeight,
-      imageWidth: imageWidth,
+      imageBorder: widget.imageBorder,
+      imageHeight: widget.imageHeight,
+      imageWidth: widget.imageWidth,
     );
 
     return Material(
       color: Colors.transparent,
       child: InkWell(
         splashColor: Colors.grey.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(imageBorder),
-        onTap: onTap,
+        borderRadius: BorderRadius.circular(widget.imageBorder),
+        onTap: widget.onTap,
         child: Stack(
           children: [
             CachedNetworkImage(
-              imageUrl: url,
+              imageUrl: widget.url,
               placeholder: (context, url) => defaultPlaceHolder,
               errorWidget: (context, url, error) => defaultErrorHolder,
               placeholderFadeInDuration: Duration(milliseconds: 300),
               imageBuilder: (context, imageProvider) => Container(
-                height: imageHeight,
-                width: imageWidth,
+                height: widget.imageHeight,
+                width: widget.imageWidth,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(imageBorder),
+                    borderRadius: BorderRadius.circular(widget.imageBorder),
                     image: DecorationImage(
                       image: imageProvider,
                       fit: BoxFit.cover,
@@ -78,16 +85,19 @@ class CustomForumBanner extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        title,
+                        widget.title,
                         style: AppStyle.bannerTitle,
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       FutureBuilder(
-                          future: ForumRepository.countForumPost(forumId: id),
+                          future: _memoizer.runOnce(() =>
+                              ForumRepository.countForumPost(
+                                  forumId: widget.id)),
                           builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
                               return Text(
                                 "loading...",
                                 style: AppStyle.bannerNumber,
@@ -109,7 +119,7 @@ class CustomForumBanner extends StatelessWidget {
                     color: Colors.transparent,
                     child: InkWell(
                       splashColor: Colors.grey.withOpacity(0.2),
-                      onTap: onTap,
+                      onTap: widget.onTap,
                     ))),
           ],
         ),

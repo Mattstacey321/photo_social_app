@@ -1,6 +1,6 @@
 name: photo_social
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.6+1
+version: 1.0.6+2
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -35,7 +35,7 @@ dependencies:
   shimmer: ^1.1.1
   # launch app from url
   url_launcher: ^5.5.2
-
+  async: ^2.4.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -45,7 +45,7 @@ flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path : "assets/launcher/icon.png"
-  adaptive_icon_background: "assets/launcher/icon.png"
+  adaptive_icon_background: "#ffffff"
 flutter:
   uses-material-design: true
 
