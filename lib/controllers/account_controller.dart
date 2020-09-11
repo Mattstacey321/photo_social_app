@@ -44,6 +44,8 @@ class AccountController extends GetxController {
       checkingUpdate.value =
           await UpdateRepository.compareVersion(updateResult.version);
       return checkingUpdate.value ? c() : null;
-    } on TimeoutException {}
+    } on TimeoutException {} catch (err) {
+      c();
+    }
   }
 }

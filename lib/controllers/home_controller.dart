@@ -32,15 +32,17 @@ class HomeController extends GetxController {
   @override
   void onReady() {
     bool isSkipLogin = PreferencesController.getPrefs.getBool("isSkipLogin");
+    bool loginAsGuest = PreferencesController.getPrefs.getBool("loginAsGuest");
     _isSkipLogin.value = isSkipLogin;
     isSkipLogin
-        ? BotToast.showText(
-            text: "You are now sign in as guest",
-            contentPadding: EdgeInsets.symmetric(vertical: 10),
-            borderRadius: BorderRadius.circular(10),
-            align: Alignment(0, 0.9),
-            duration: Duration(seconds: 2),
-          )
+        ? loginAsGuest ??
+            BotToast.showText(
+              text: "You are now sign in as guest",
+              contentPadding: EdgeInsets.symmetric(vertical: 10),
+              borderRadius: BorderRadius.circular(10),
+              align: Alignment(0, 0.9),
+              duration: Duration(seconds: 2),
+            )
         : BotToast.showText(
             text: "Wellcome back, ABCDEF",
             borderRadius: BorderRadius.circular(10),

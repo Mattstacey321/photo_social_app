@@ -209,6 +209,7 @@ void skipLogin() async {
         onBack: () => Get.back(),
         onSkip: () {
           PreferencesController.getPrefs.setBool("isSkipLogin", true);
+          PreferencesController.getPrefs.setBool("loginAsGuest", true);
           PreferencesController.getPrefs.setString("token", "");
           return Get.offAndToNamed('/home');
         },

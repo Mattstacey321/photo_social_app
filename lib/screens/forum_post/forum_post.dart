@@ -64,6 +64,7 @@ class ForumPost extends StatelessWidget {
                         return PostItem(
                           model: posts[index],
                           isLike: _.isLike,
+                          hideHashTag: posts[index].tags.isEmpty,
                         );
                       },
                     ),

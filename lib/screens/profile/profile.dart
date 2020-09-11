@@ -126,6 +126,8 @@ class Profile extends StatelessWidget {
                                                 ),
                                               );
                                             },
+                                            backButtonBehavior:
+                                                BackButtonBehavior.close,
                                             allowClick: true,
                                             crossPage: false,
                                             clickClose: true);

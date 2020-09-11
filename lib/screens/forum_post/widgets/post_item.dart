@@ -8,6 +8,9 @@ import 'package:like_button/like_button.dart';
 import 'package:photo_social/constraint.dart';
 import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/models/postModel.dart';
+import 'package:photo_social/theme/gradient.dart';
+import 'package:photo_social/utils/get_social_id.dart';
+import 'package:photo_social/utils/social_icon.dart';
 import 'package:photo_social/utils/time_ago.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 import 'package:photo_social/widgets/custom_button.dart';
@@ -34,6 +37,12 @@ class PostItem extends StatefulWidget {
 
 class _PostItemState extends State<PostItem> {
   int _currentPage = 0;
+  var listSocial = [];
+  @override
+  void initState() {
+    super.initState();
+    listSocial = getUserSocial(widget.model.postTitle);
+  }
 
   Widget buildTotalImage() {
     return Container(
@@ -59,7 +68,52 @@ class _PostItemState extends State<PostItem> {
 
   Widget buildPostTitle() {
     return widget.model.postTitle != ""
-        ? Text(widget.model.postTitle)
+        ? Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  buildHashTag(),
+                  Spacer(),
+                  for (var social in getUserSocial(widget.model.postTitle))
+                    social.type == 'fb'
+                        ? CustomButton.square(
+                            onPress: () {},
+                            tooltip: "Open with Facebook",
+                            iconColor: Colors.white,
+                            backgroundColor: Color(0xff3b5998),
+                            icon: SocialIcon.facebook_f,
+                            padding: 10,
+                            radius: 10,
+                            size: 25)
+                        : social.type == 'ig'
+                            ? CustomButton.square(
+                                onPress: () {},
+                                tooltip: "Open with Instagram",
+                                iconColor: Colors.white,
+                                backgroundColor: Colors.white,
+                                gradient: AppGradient.instagram,
+                                icon: SocialIcon.instagram,
+                                radius: 10,
+                                padding: 10,
+                                size: 25)
+                            : CustomButton.square(
+                                onPress: () {},
+                                tooltip: "Open with Twitter",
+                                iconColor: Colors.white,
+                                backgroundColor: Colors.lightBlue,
+                                icon: SocialIcon.twitter,
+                                radius: 10,
+                                padding: 10,
+                                size: 25),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          )
         : Container();
   }
 
@@ -69,15 +123,16 @@ class _PostItemState extends State<PostItem> {
         : Container(
             height: 20,
             child: ListView.separated(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                separatorBuilder: (context, index) => SizedBox(width: 8),
-                itemCount: widget.model.tags.length,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => Text(
-                      "#${widget.model.tags[index]}",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )),
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              separatorBuilder: (context, index) => SizedBox(width: 8),
+              itemCount: widget.model.tags.length,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) => Text(
+                "#${widget.model.tags[index]}",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
           );
   }
 
@@ -194,48 +249,56 @@ class _PostItemState extends State<PostItem> {
   }
 
   Widget buildCreator() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 0.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomAvatar(
-            url: AppConstraint.defaultAvatar,
-            onTap: () {
-              //go to profle
-            },
-            size: 40,
-            toolTip: "Avatar",
-          ),
-          SizedBox(width: 10),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 0.0),
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              CustomAvatar(
+                url: AppConstraint.defaultAvatar,
+                onTap: () {
+                  //go to profle
+                },
+                size: 40,
+                toolTip: "Avatar",
+              ),
+              SizedBox(width: 10),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Admin",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Admin",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      SizedBox(width: 5),
+                      Icon(
+                        EvaIcons.checkmarkCircle2,
+                        color: Colors.green,
+                        size: 15,
+                      )
+                    ],
                   ),
-                  SizedBox(width: 5),
-                  Icon(
-                    EvaIcons.checkmarkCircle2,
-                    color: Colors.green,
-                    size: 15,
-                  )
+                  Text("Creator"),
                 ],
               ),
-              Text("Creator"),
+              Spacer(),
+              SizedBox(width: 10),
+              Text(getTime(
+                  time: widget.model.createdTime.toString(), locale: 'en')),
             ],
           ),
-          Spacer(),
-          SizedBox(width: 10),
-          Text(
-              getTime(time: widget.model.createdTime.toString(), locale: 'en')),
-        ],
-      ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+      ],
     );
   }
 
@@ -300,17 +363,8 @@ class _PostItemState extends State<PostItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildCreator(),
-            SizedBox(
-              height: 10,
-            ),
             buildPostTitle(),
-            SizedBox(
-              height: 10,
-            ),
-            buildHashTag(),
-            SizedBox(
-              height: 10,
-            ),
+            //buildHashTag(),
             buildPostImage(),
             buildLikeComment(_),
           ],

@@ -69,8 +69,10 @@ class CustomNetworkImage extends StatelessWidget {
             Positioned.fill(
               child: Material(
                 color: Colors.transparent,
+                borderRadius: BorderRadius.circular(imageBorder),
                 child: InkWell(
                   splashColor: Colors.grey.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(imageBorder),
                   onTap: onTap,
                 ),
               ),
