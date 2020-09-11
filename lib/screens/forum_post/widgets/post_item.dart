@@ -35,9 +35,15 @@ class PostItem extends StatefulWidget {
   _PostItemState createState() => _PostItemState();
 }
 
-class _PostItemState extends State<PostItem> {
+class _PostItemState extends State<PostItem>
+    with AutomaticKeepAliveClientMixin {
   int _currentPage = 0;
   var listSocial = [];
+
+  List get tags => widget.model.tags;
+  int get tagCount => widget.model.tags.length;
+  int get mediaCount => widget.model.medias.length;
+  List<Media> get medias => widget.model.medias;
   @override
   void initState() {
     super.initState();
@@ -66,7 +72,7 @@ class _PostItemState extends State<PostItem> {
         ]));
   }
 
-  Widget buildPostTitle() {
+  Widget buildPostTitle(PostController _) {
     return widget.model.postTitle != ""
         ? Column(
             children: [
@@ -79,7 +85,9 @@ class _PostItemState extends State<PostItem> {
                   for (var social in getUserSocial(widget.model.postTitle))
                     social.type == 'fb'
                         ? CustomButton.square(
-                            onPress: () {},
+                            onPress: () {
+                              _.openInFacebook(id: social.id);
+                            },
                             tooltip: "Open with Facebook",
                             iconColor: Colors.white,
                             backgroundColor: Color(0xff3b5998),
@@ -89,7 +97,9 @@ class _PostItemState extends State<PostItem> {
                             size: 25)
                         : social.type == 'ig'
                             ? CustomButton.square(
-                                onPress: () {},
+                                onPress: () {
+                                  _.openInInstagram(id: social.id);
+                                },
                                 tooltip: "Open with Instagram",
                                 iconColor: Colors.white,
                                 backgroundColor: Colors.white,
@@ -99,7 +109,9 @@ class _PostItemState extends State<PostItem> {
                                 padding: 10,
                                 size: 25)
                             : CustomButton.square(
-                                onPress: () {},
+                                onPress: () {
+                                  _.openInTwitter(id: social.id);
+                                },
                                 tooltip: "Open with Twitter",
                                 iconColor: Colors.white,
                                 backgroundColor: Colors.lightBlue,
@@ -126,10 +138,10 @@ class _PostItemState extends State<PostItem> {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               separatorBuilder: (context, index) => SizedBox(width: 8),
-              itemCount: widget.model.tags.length,
+              itemCount: tagCount,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) => Text(
-                "#${widget.model.tags[index]}",
+                "#${tags[index]}",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
@@ -141,7 +153,7 @@ class _PostItemState extends State<PostItem> {
       height: 50,
       child: Align(
         alignment: Alignment.centerRight,
-        child: widget.model.medias.length > 1
+        child: mediaCount > 1
             ? Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
@@ -309,15 +321,14 @@ class _PostItemState extends State<PostItem> {
           CarouselSlider.builder(
             itemCount: widget.model.countMedia,
             itemBuilder: (context, index) {
-              double imageHeight = widget.model.medias[index].height;
-              double imageWidth = widget.model.medias[index].width;
+              double imageHeight = medias[index].height;
+              double imageWidth = medias[index].width;
               String imageUrl = widget.imageQuality == "hight"
                   ? widget.model.medias[index].original
                   : widget.imageQuality == "medium"
-                      ? widget.model.medias[index].thumb1
-                      : widget.model.medias[index].thumb2;
-              String blurHash = widget.model.medias[index].blurHash;
-              List<Media> medias = widget.model.medias;
+                      ? medias[index].thumb1
+                      : medias[index].thumb2;
+              String blurHash = medias[index].blurHash;
 
               return CustomNetworkImage(
                   url: imageUrl,
@@ -353,6 +364,7 @@ class _PostItemState extends State<PostItem> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return GetBuilder<PostController>(builder: (_) {
       return Container(
         height: Get.height * 0.45,
@@ -363,7 +375,7 @@ class _PostItemState extends State<PostItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildCreator(),
-            buildPostTitle(),
+            buildPostTitle(_),
             //buildHashTag(),
             buildPostImage(),
             buildLikeComment(_),
@@ -381,4 +393,7 @@ class _PostItemState extends State<PostItem> {
         ),
         useRootNavigator: true);
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
