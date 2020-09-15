@@ -10,7 +10,7 @@ dependencies:
     sdk: flutter
 
   #cupertino_icons: ^0.1.3
-  get: ^3.8.0
+  get: ^3.10.2
   cached_network_image: ^2.3.1
   dio: ^3.0.10
   flutter_spinkit: ^4.1.2+1
