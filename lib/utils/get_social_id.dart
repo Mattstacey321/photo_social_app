@@ -16,7 +16,7 @@ List<_SocialID> getUserSocial(String data) {
         if (s[i] == 'fb:') {
           array.add(_SocialID(type: 'fb', id: s[i + 1]));
         }
-        if (s[i] == 'tw:') {
+        if (s[i] == 'twitter:') {
           array.add(_SocialID(type: 'tw', id: s[i + 1]));
         }
       }

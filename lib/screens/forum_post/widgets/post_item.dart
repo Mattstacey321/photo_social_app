@@ -44,6 +44,8 @@ class _PostItemState extends State<PostItem>
   int get tagCount => widget.model.tags.length;
   int get mediaCount => widget.model.medias.length;
   List<Media> get medias => widget.model.medias;
+  String get postTitle => widget.model.postTitle;
+
   @override
   void initState() {
     super.initState();
@@ -66,14 +68,14 @@ class _PostItemState extends State<PostItem>
             ),
           ),
           Text(
-            "${_currentPage + 1} / ${widget.model.medias.length}",
+            "${_currentPage + 1} / $mediaCount",
             style: TextStyle(color: Colors.white),
           ),
         ]));
   }
 
   Widget buildPostTitle(PostController _) {
-    return widget.model.postTitle != ""
+    return postTitle != ""
         ? Column(
             children: [
               Row(
@@ -324,7 +326,7 @@ class _PostItemState extends State<PostItem>
               double imageHeight = medias[index].height;
               double imageWidth = medias[index].width;
               String imageUrl = widget.imageQuality == "hight"
-                  ? widget.model.medias[index].original
+                  ? medias[index].original
                   : widget.imageQuality == "medium"
                       ? medias[index].thumb1
                       : medias[index].thumb2;

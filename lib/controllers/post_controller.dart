@@ -84,9 +84,9 @@ class PostController extends GetxController {
   void _launchApp([String url, String fallbackUrl = ""]) async {
     try {
       bool launched =
-          await launch(url, forceSafariVC: false, forceWebView: false);
+          await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
       if (!launched) {
-        await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
+        await launch(url, forceSafariVC: false, forceWebView: false);
       }
     } catch (e) {
       await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);

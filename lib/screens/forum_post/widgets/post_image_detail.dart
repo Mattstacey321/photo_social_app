@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/post_detail_controller.dart';
 import 'package:photo_social/models/postModel.dart';
+import 'package:photo_social/utils/custom_exception.dart';
 import 'package:photo_social/widgets/custom_button.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -111,7 +112,7 @@ class PostImageInfo extends StatelessWidget {
                             radius: 10,
                             childs: [
                               Icon(
-                                EvaIcons.link2,
+                                EvaIcons.link,
                                 color: Colors.white,
                               ),
                             ],
@@ -119,13 +120,20 @@ class PostImageInfo extends StatelessWidget {
                           SizedBox(width: 10),
                           CustomButton(
                             onPress: () async {
-                              _
-                                  .saveImage(
-                                      media[index].name, media[index].original)
-                                  .then((value) => BotToast.showText(
-                                      text: "Download finished"))
-                                  .catchError((err) => BotToast.showText(
-                                      text: "Download failed"));
+                              try {
+                                _
+                                    .saveImage(media[index].name,
+                                        media[index].original)
+                                    .then((value) => BotToast.showText(
+                                        text: "Download finished"))
+                                    .catchError((err) => BotToast.showText(
+                                        text: "Download failed"));
+                              } on PermissionException {
+                                BotToast.showText(
+                                    text:
+                                        "You must granted storage permission to download image",
+                                    duration: Duration(seconds: 1));
+                              }
                             },
                             tooltip: "Saved to device",
                             iconColor: Colors.white,
@@ -136,7 +144,7 @@ class PostImageInfo extends StatelessWidget {
                             radius: 10,
                             childs: [
                               Icon(
-                                EvaIcons.save,
+                                EvaIcons.download,
                                 color: Colors.white,
                               ),
                             ],
