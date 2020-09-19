@@ -115,12 +115,14 @@ class _CustomForumBannerState extends State<CustomForumBanner> {
             ),
             // must add here to give splash effect
             Positioned.fill(
-                child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      splashColor: Colors.grey.withOpacity(0.2),
-                      onTap: widget.onTap,
-                    ))),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  splashColor: Colors.grey.withOpacity(0.2),
+                  onTap: widget.onTap,
+                ),
+              ),
+            ),
           ],
         ),
       ),

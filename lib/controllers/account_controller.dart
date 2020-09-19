@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/constraint.dart';
 import 'package:photo_social/controllers/controller.dart';
@@ -9,10 +10,12 @@ class AccountController extends GetxController {
   RxString currentVersion = "".obs;
   var _latestVersion = "".obs;
   Rx<bool> checkingUpdate = Rx<bool>();
+  RxBool isDarkMode = false.obs;
 
   @override
   void onReady() {
     getCurrenAppVersion();
+    getAppTheme();
   }
 
   //String get currentVersion => _currentVersion.value;
@@ -20,6 +23,11 @@ class AccountController extends GetxController {
 
   void getCurrenAppVersion() async {
     currentVersion.value = await UpdateRepository.getAppVersion();
+  }
+
+  void getAppTheme() async {
+    isDarkMode.value = await ThemeController.to.getThemeModeFromPreferences();
+    print("dark mode : ${isDarkMode.value}");
   }
 
   String getAvatar() {
@@ -47,5 +55,11 @@ class AccountController extends GetxController {
     } on TimeoutException {} catch (err) {
       c();
     }
+  }
+
+  void switchTheme() {
+    isDarkMode.value = !isDarkMode.value;
+    Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+    ThemeController.to.updateThemeModeToPreferences(value: isDarkMode.value);
   }
 }

@@ -6,6 +6,7 @@ class BaseController extends Bindings {
   @override
   void dependencies() {
     Get.put(() => BaseRepository());
+    Get.put<ThemeController>(ThemeController());
     Get.lazyPut(() => ForumController());
     Get.lazyPut(() => HomeController());
   }

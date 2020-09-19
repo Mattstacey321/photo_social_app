@@ -95,7 +95,7 @@ class _HomeState extends State<Home> {
                 },
                 childs: [
                   Text(
-                    "Available Forum",
+                    "Home",
                     style: AppStyle.appBarTitle,
                   ),
                   Spacer(),

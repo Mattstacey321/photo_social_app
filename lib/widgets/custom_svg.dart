@@ -13,8 +13,8 @@ class CustomSVG extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            right: -8,
-            bottom: -8,
+            right: -0,
+            bottom: -0,
             child: Transform.rotate(
               angle: -math.pi / 12.0,
               child: Icon(

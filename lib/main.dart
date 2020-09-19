@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/preferences_controller.dart';
+import 'package:photo_social/services/config_services.dart';
 
 import 'config/global_config.dart';
 import 'controllers/controller.dart';
@@ -12,21 +13,22 @@ import 'theme/theme.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initServices();
   final PreferencesController preferencesController =
       await PreferencesController.load();
   Get.put<PreferencesController>(preferencesController, permanent: true);
 
-  await GlobalConfig.initializeDownloader();
-  //set timeago locate
-  await GlobalConfig.setLocate();
-  //redirect if not auth
-  runApp(MyApp(home: StartUpScreen()));
+  runApp(MyApp(
+    home: StartUpScreen(),
+    isDarkMode: PreferencesController.getPrefs.getBool('darkMode') ?? false,
+  ));
   SystemChrome.setEnabledSystemUIOverlays([]);
 }
 
 class MyApp extends StatelessWidget {
   final Widget home;
-  MyApp({this.home});
+  final bool isDarkMode;
+  MyApp({this.home, this.isDarkMode});
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -34,6 +36,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
+      themeMode: isDarkMode ? ThemeMode.light : ThemeMode.dark,
       builder: BotToastInit(),
       navigatorObservers: [BotToastNavigatorObserver()],
       initialRoute: '/',
