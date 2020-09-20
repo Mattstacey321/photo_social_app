@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_social/colors.dart';
 
 class ThemeSwitcher extends StatefulWidget {
   final Function onTap;
@@ -96,10 +97,9 @@ class _ThemeSwitcherState extends State<ThemeSwitcher>
                   width: _widgetWidth,
                   height: _widgetHeight,
                   decoration: BoxDecoration(
-                    color:
-                        isCheck ? ThemeData.dark().primaryColor : Colors.white,
+                    color: isCheck ? ColorStyle.darkGrey800 : Colors.white,
                     border: Border.all(
-                        color: Colors.grey.withOpacity(0.2), width: 2),
+                        color: Colors.grey.withOpacity(0.0), width: 2),
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
@@ -121,12 +121,16 @@ class _ThemeSwitcherState extends State<ThemeSwitcher>
                       ? Text(
                           "Dark",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         )
                       : Text(
                           "Light",
                           style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
                 ),
               ),

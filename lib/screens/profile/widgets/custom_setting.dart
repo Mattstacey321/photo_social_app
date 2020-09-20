@@ -10,11 +10,13 @@ class CustomSetting extends StatelessWidget {
   final Function onTap;
   final double padding;
   final Widget widget;
+  final bool addPadding;
   CustomSetting(
       {@required this.icon,
       @required this.title,
       this.iconSize,
       this.iconColor,
+      this.addPadding = true,
       this.widget = const SizedBox(),
       @required this.onTap,
       this.padding = 10});
@@ -22,8 +24,10 @@ class CustomSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
+      borderRadius: BorderRadius.circular(10),
       child: InkWell(
         onTap: onTap,
+        borderRadius: BorderRadius.circular(10),
         child: Container(
           height: 60,
           padding: EdgeInsets.symmetric(horizontal: padding),
@@ -46,7 +50,9 @@ class CustomSetting extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Spacer(),
-              widget
+              Padding(
+                  padding: EdgeInsets.only(right: addPadding ? 10 : 0),
+                  child: widget)
             ],
           ),
         ),

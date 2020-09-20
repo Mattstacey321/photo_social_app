@@ -4,6 +4,7 @@ import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/style.dart';
 import 'package:photo_social/widgets/custom_appBar.dart';
 import 'package:photo_social/widgets/custom_dropdown_list.dart';
+import 'package:photo_social/widgets/custom_footer_loading.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'widgets/post_item.dart';
@@ -26,16 +27,9 @@ class ForumPost extends StatelessWidget {
                 ),
                 Spacer(),
                 Padding(
-                    padding: EdgeInsets.only(right: 5),
-                    child: CustomDropdownList()),
-                /*CustomButton(
-                  onPress: () {},
-                  iconColor: Colors.green,
-                  icon: EvaIcons.funnel,
-                  tooltip: "Filter",
-                  height: 30,
-                  childs: [Text("Newest")],
-                )*/
+                  padding: EdgeInsets.only(right: 5),
+                  child: CustomDropdownList(),
+                ),
               ],
               height: 50,
               onTapBack: () {
@@ -51,6 +45,7 @@ class ForumPost extends StatelessWidget {
                     controller: _.refreshController,
                     enablePullDown: true,
                     enablePullUp: true,
+                    footer: LoadingState.loadMore,
                     onRefresh: () => _.refresh(),
                     onLoading: () => _.loadMorePost(),
                     child: ListView.separated(

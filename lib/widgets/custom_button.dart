@@ -76,7 +76,7 @@ class CustomButton extends StatelessWidget {
                       icon != null
                           ? Icon(icon,
                               color: isClickable ? iconColor : iconColor,
-                              size: height * 0.60)
+                              size: height * 0.55)
                           : SizedBox(width: 0),
                       childs != null
                           ? icon != null

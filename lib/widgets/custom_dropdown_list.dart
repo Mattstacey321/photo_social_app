@@ -24,28 +24,30 @@ class CustomDropdownListState extends State<CustomDropdownList> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<DropdownItem>(
-        //hint: DropdownItem(title: "",icon: ""),
-        value: _selectedItem,
-        onChanged: (DropdownItem value) {
-          setState(() {
-            _selectedItem = value;
-          });
-        },
-        items: items.map((DropdownItem item) {
-          return DropdownMenuItem<DropdownItem>(
-            value: item,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                item.icon,
-                SizedBox(width:5),
-                Text(
-                  item.title,
-                  style: TextStyle(color: Colors.black),
-                ),
-              ],
-            ),
-          );
-        }).toList(),underline: Container(),icon: Container(),);
+      //hint: DropdownItem(title: "",icon: ""),
+      value: _selectedItem,
+      onChanged: (DropdownItem value) {
+        setState(() {
+          _selectedItem = value;
+        });
+      },
+      items: items.map((DropdownItem item) {
+        return DropdownMenuItem<DropdownItem>(
+          value: item,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              item.icon,
+              SizedBox(width: 5),
+              Text(
+                item.title,
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+      underline: Container(),
+      icon: Container(),
+    );
   }
 }

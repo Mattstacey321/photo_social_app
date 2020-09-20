@@ -104,7 +104,7 @@ class _CustomForumBannerState extends State<CustomForumBanner> {
                               );
                             } else
                               return Text(
-                                "${snapshot.data.toString()} photos",
+                                "${snapshot.data.toString()} post",
                                 style: AppStyle.bannerNumber,
                               );
                           })

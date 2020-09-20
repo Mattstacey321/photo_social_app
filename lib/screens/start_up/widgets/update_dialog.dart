@@ -17,11 +17,10 @@ class UpdateDialog extends StatelessWidget {
         child: Material(
           borderRadius: BorderRadius.circular(10),
           child: Container(
-            height: 200,
+            height: 230,
             width: 300,
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.white),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -35,21 +34,26 @@ class UpdateDialog extends StatelessWidget {
                   children: [
                     Text(
                       "There is an update now. Do you want to update ?",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 20),
                     RichText(
-                        text: TextSpan(children: [
-                      TextSpan(
-                          text: "Current version: ",
-                          style: TextStyle(color: Colors.black)),
-                      TextSpan(
-                          text: _.currentVersion.value,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.black))
-                      /*FutureBuilder(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Current version: ",
+                          ),
+                          TextSpan(
+                            text: _.currentVersion.value,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                          /*FutureBuilder(
                           future: _.curentVersion,
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
@@ -65,17 +69,21 @@ class UpdateDialog extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black));
                           },),*/
-                    ])),
+                        ],
+                      ),
+                    ),
                     SizedBox(height: 10),
                     RichText(
                         text: TextSpan(children: [
                       TextSpan(
-                          text: "Latest version: ",
-                          style: TextStyle(color: Colors.black)),
+                        text: "Latest version: ",
+                      ),
                       TextSpan(
-                          text: _.latestVersion,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.black))
+                        text: _.latestVersion,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
                     ]))
                   ],
                 ),
@@ -115,7 +123,7 @@ class UpdateDialog extends StatelessWidget {
                           "Update now",
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
-                        )
+                        ),
                       ],
                     )
                   ],

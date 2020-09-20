@@ -1,8 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/startup_controller.dart';
+import 'package:photo_social/style.dart';
 import 'package:photo_social/utils/server_status.dart';
 import 'package:photo_social/widgets/custom_button.dart';
 
@@ -49,10 +49,7 @@ class _StartUpScreenState extends State<StartUpScreen>
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SpinKitPulse(
-                          color: Colors.black,
-                          size: 50,
-                        ),
+                        AppStyle.defaultLoading(),
                         SizedBox(height: 10),
                         Text("Check server...")
                       ],

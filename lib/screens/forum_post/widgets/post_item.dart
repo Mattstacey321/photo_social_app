@@ -96,7 +96,8 @@ class _PostItemState extends State<PostItem>
                             icon: SocialIcon.facebook_f,
                             padding: 10,
                             radius: 10,
-                            size: 25)
+                            size: 25,
+                          )
                         : social.type == 'ig'
                             ? CustomButton.square(
                                 onPress: () {
@@ -109,7 +110,8 @@ class _PostItemState extends State<PostItem>
                                 icon: SocialIcon.instagram,
                                 radius: 10,
                                 padding: 10,
-                                size: 25)
+                                size: 25,
+                              )
                             : CustomButton.square(
                                 onPress: () {
                                   _.openInTwitter(id: social.id);
@@ -120,7 +122,8 @@ class _PostItemState extends State<PostItem>
                                 icon: SocialIcon.twitter,
                                 radius: 10,
                                 padding: 10,
-                                size: 25),
+                                size: 25,
+                              ),
                 ],
               ),
               SizedBox(
@@ -182,83 +185,86 @@ class _PostItemState extends State<PostItem>
   }
 
   Widget buildLikeComment(PostController _) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        //blur like and comment icon
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Container(
-            height: 35,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Row(
-                  children: [
-                    LikeButton(
-                      size: 30,
-                      isLiked: widget.isLike,
-                      circleColor: CircleColor(
-                          start: Colors.pink,
-                          end: Colors.pink.withOpacity(0.5)),
-                      bubblesColor: BubblesColor(
-                        dotPrimaryColor: Colors.pink,
-                        dotSecondaryColor: Colors.pink.withOpacity(0.5),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          //blur like and comment icon
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              height: 35,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Row(
+                    children: [
+                      LikeButton(
+                        size: 30,
+                        isLiked: widget.isLike,
+                        circleColor: CircleColor(
+                            start: Colors.pink,
+                            end: Colors.pink.withOpacity(0.5)),
+                        bubblesColor: BubblesColor(
+                          dotPrimaryColor: Colors.pink,
+                          dotSecondaryColor: Colors.pink.withOpacity(0.5),
+                        ),
+                        onTap: (isLiked) {
+                          return _.likePost(
+                              postId: widget.model.postId, isLiked: isLiked);
+                        },
+                        likeBuilder: (bool isLiked) {
+                          return Icon(
+                            isLiked ? EvaIcons.heart : EvaIcons.heart,
+                            color: isLiked ? Colors.pink : Colors.grey,
+                            size: 26,
+                          );
+                        },
+                        likeCount: widget.model.totalReaction,
+                        countBuilder: (int count, bool isLiked, String text) {
+                          Widget result;
+                          result = Text(
+                            text,
+                            style: TextStyle(
+                                color: isLiked ? Colors.pink : Colors.grey,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          );
+                          return result;
+                        },
+                        animationDuration: Duration(milliseconds: 250),
                       ),
-                      onTap: (isLiked) {
-                        return _.likePost(
-                            postId: widget.model.postId, isLiked: isLiked);
-                      },
-                      likeBuilder: (bool isLiked) {
-                        return Icon(
-                          isLiked ? EvaIcons.heart : EvaIcons.heart,
-                          color: isLiked ? Colors.pink : Colors.grey,
-                          size: 26,
-                        );
-                      },
-                      likeCount: widget.model.totalReaction,
-                      countBuilder: (int count, bool isLiked, String text) {
-                        Widget result;
-                        result = Text(
-                          text,
-                          style: TextStyle(
-                              color: isLiked ? Colors.pink : Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                        );
-                        return result;
-                      },
-                      animationDuration: Duration(milliseconds: 250),
-                    ),
-                    SizedBox(width: 10),
-                    CustomButton(
-                      onPress: () {
-                        //show comment
-                      },
-                      tooltip: "",
-                      opacity: 0,
-                      iconColor: Colors.grey,
-                      icon: EvaIcons.messageCircle,
-                      width: 50,
-                      childs: [
-                        Text(
-                          widget.model.totalComment.toString(),
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                      SizedBox(width: 10),
+                      CustomButton(
+                        onPress: () {
+                          //show comment
+                        },
+                        tooltip: "",
+                        opacity: 0,
+                        iconColor: Colors.grey,
+                        icon: EvaIcons.messageCircle,
+                        width: 50,
+                        childs: [
+                          Text(
+                            widget.model.totalComment.toString(),
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        /*Spacer(),
-        buildIndicator()*/
-      ],
+          /*Spacer(),
+          buildIndicator()*/
+        ],
+      ),
     );
   }
 
@@ -331,7 +337,6 @@ class _PostItemState extends State<PostItem>
                       ? medias[index].thumb1
                       : medias[index].thumb2;
               String blurHash = medias[index].blurHash;
-
               return CustomNetworkImage(
                   url: imageUrl,
                   onTap: () {
@@ -346,7 +351,7 @@ class _PostItemState extends State<PostItem>
                   imageWidth: imageWidth);
             },
             options: CarouselOptions(
-                height: 250,
+                height: 400,
                 enableInfiniteScroll: false,
                 enlargeCenterPage: true,
                 enlargeStrategy: CenterPageEnlargeStrategy.scale,
@@ -369,7 +374,7 @@ class _PostItemState extends State<PostItem>
     super.build(context);
     return GetBuilder<PostController>(builder: (_) {
       return Container(
-        height: Get.height * 0.45,
+        height: Get.height * 0.55,
         width: Get.width,
         padding: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),

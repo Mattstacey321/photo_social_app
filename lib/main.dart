@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/controllers/preferences_controller.dart';
 import 'package:photo_social/services/config_services.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import 'config/global_config.dart';
 import 'controllers/controller.dart';
 import 'routes/app_routes.dart';
 import 'screens/start_up/startup_screen.dart';
@@ -31,19 +31,22 @@ class MyApp extends StatelessWidget {
   MyApp({this.home, this.isDarkMode});
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Photo Social',
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      debugShowCheckedModeBanner: false,
-      themeMode: isDarkMode ? ThemeMode.light : ThemeMode.dark,
-      builder: BotToastInit(),
-      navigatorObservers: [BotToastNavigatorObserver()],
-      initialRoute: '/',
-      getPages: AppPages.routes,
-      initialBinding: BaseController(),
-      transitionDuration: Duration(milliseconds: 500),
-      home: home,
+    return RefreshConfiguration(
+      hideFooterWhenNotFull: true,
+      child: GetMaterialApp(
+        title: 'Photo Social',
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        debugShowCheckedModeBanner: false,
+        themeMode: isDarkMode ? ThemeMode.light : ThemeMode.dark,
+        builder: BotToastInit(),
+        navigatorObservers: [BotToastNavigatorObserver()],
+        initialRoute: '/',
+        getPages: AppPages.routes,
+        initialBinding: BaseController(),
+        transitionDuration: Duration(milliseconds: 500),
+        home: home,
+      ),
     );
   }
 }

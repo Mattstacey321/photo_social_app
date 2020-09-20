@@ -1,6 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:eva_icons_flutter/icon_data.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -87,7 +86,6 @@ class _RequestFeatureState extends State<RequestFeature> {
                               : RichText(
                                   text: TextSpan(
                                     style: TextStyle(
-                                        color: Colors.black,
                                         fontFamily: AppFonts.gSansItalic,
                                         fontWeight: FontWeight.bold),
                                     children: [
@@ -126,6 +124,7 @@ class _RequestFeatureState extends State<RequestFeature> {
                                       height: 50,
                                       width: Get.width,
                                       backgroundColor: Colors.indigo,
+                                      tooltip: "Submit",
                                       isClickable:
                                           (submitValue.value && isAuth.value),
                                       childs: [

@@ -1,7 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:photo_social/colors.dart';
 import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/models/forumModel.dart';
 import 'package:photo_social/screens/home/widgets/hashtag_dashboard.dart';
@@ -11,6 +11,7 @@ import 'package:photo_social/style.dart';
 import 'package:photo_social/widgets/custom_appBar.dart';
 import 'package:photo_social/widgets/custom_avatar.dart';
 import 'package:photo_social/widgets/custom_button.dart';
+import 'package:photo_social/widgets/custom_footer_loading.dart';
 import 'package:photo_social/widgets/custom_forum_banner.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -22,7 +23,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   Duration duration = const Duration(milliseconds: 250);
 
-  Widget menu() {
+  Widget sidebar() {
     return HashTagDashboard();
   }
 
@@ -39,12 +40,12 @@ class _HomeState extends State<Home> {
       child: Container(
         height: Get.height,
         width: Get.width,
-        color: Colors.white,
+        color: PreferencesController.colorTheme,
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Center(
           child: Obx(
             () => _.forumsData.isEmpty
-                ? SpinKitDoubleBounce(color: Colors.black, size: 35)
+                ? AppStyle.defaultLoading()
                 : _.countForum == 0
                     ? Text("No forums now")
                     : SmartRefresher(
@@ -53,6 +54,7 @@ class _HomeState extends State<Home> {
                         enablePullDown: true,
                         onRefresh: () => _.refreshForum(),
                         onLoading: () => _.loadMoreForum(),
+                        footer: LoadingState.loadMore,
                         child: ListView.separated(
                           separatorBuilder: (context, index) =>
                               SizedBox(height: 15),
@@ -61,10 +63,12 @@ class _HomeState extends State<Home> {
                             List<ForumModel> forum = _.forumsData;
                             return CustomForumBanner(
                               onTap: () {
-                                Get.to(ForumPost(
-                                  forumId: forum[index].id,
-                                  forumName: forum[index].name,
-                                ));
+                                Get.to(
+                                  ForumPost(
+                                    forumId: forum[index].id,
+                                    forumName: forum[index].name,
+                                  ),
+                                );
                               },
                               id: forum[index].id,
                               url: forum[index].banner,
@@ -107,8 +111,8 @@ class _HomeState extends State<Home> {
                     tooltip: "Request Feature",
                     iconColor: Colors.red,
                     icon: EvaIcons.paperPlane,
-                    width: 40,
                     height: 40,
+                    width: 40,
                   ),
                   SizedBox(width: 10),
                   CustomAvatar(
@@ -127,8 +131,9 @@ class _HomeState extends State<Home> {
               },
               behavior: HitTestBehavior.translucent,
               child: Stack(
+                overflow: Overflow.visible,
                 children: [
-                  menu(),
+                  sidebar(),
                   dashboard(_),
                 ],
               ),

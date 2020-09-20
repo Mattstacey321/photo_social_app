@@ -13,15 +13,6 @@ class HashTagDashboard extends StatefulWidget {
 
 class _HashTagDashboardState extends State<HashTagDashboard>
     with TickerProviderStateMixin {
-  AnimationController _animationController;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 200));
-  }
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
@@ -63,6 +54,7 @@ class CustomItem extends StatelessWidget {
   CustomItem({this.countryCode, this.hashtag, this.total = 0});
   @override
   Widget build(BuildContext context) {
+    Color bg = Colors.red;
     return InkWell(
       onTap: () {
         Get.to(
@@ -86,14 +78,17 @@ class CustomItem extends StatelessWidget {
                 ? CustomButton(
                     onPress: null,
                     iconColor: Colors.transparent,
-                    backgroundColor: Colors.red,
+                    backgroundColor: bg,
+                    opacity: 0.1,
                     height: 22,
                     width: 30,
                     childs: [
                       Text(
                         "$total",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 12),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: Colors.red),
                       )
                     ],
                   )

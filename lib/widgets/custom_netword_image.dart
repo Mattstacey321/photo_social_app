@@ -20,14 +20,14 @@ class CustomNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("imageheight $imageHeight, imageWith $imageWidth");
-    Widget defaultPlaceHolder = blurHash == ""
-        ? PlaceHolderWidget(
+    Widget defaultPlaceHolder;
+    blurHash == ""
+        ? defaultPlaceHolder = PlaceHolderWidget(
             imageBorder: imageBorder,
             imageHeight: imageHeight,
             imageWidth: imageWidth,
           )
-        : ClipRRect(
+        : defaultPlaceHolder = ClipRRect(
             borderRadius: BorderRadius.circular(imageBorder),
             child: BlurHash(hash: "r$blurHash"),
           );
@@ -54,14 +54,15 @@ class CustomNetworkImage extends StatelessWidget {
                 height: imageHeight,
                 width: imageWidth,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(imageBorder),
-                    image: DecorationImage(
-                      image: imageProvider,
-                      alignment: (imageHeight < imageWidth)
-                          ? Alignment.center
-                          : Alignment.topCenter,
-                      fit: BoxFit.fitWidth,
-                    )),
+                  borderRadius: BorderRadius.circular(imageBorder),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    alignment: (imageHeight < imageWidth)
+                        ? Alignment.center
+                        : Alignment.topCenter,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
               ),
             ),
 
