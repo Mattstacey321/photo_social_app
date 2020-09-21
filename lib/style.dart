@@ -17,15 +17,15 @@ class AppStyle {
           {Color color = Colors.black, double size = 25}) =>
       SpinKitDoubleBounce(
         color: PreferencesController.isDarkMode == true
-            ? ColorStyle.darkGreyBG
-            : ColorStyle.white,
+            ? ColorStyle.white
+            : ColorStyle.darkGreyBG,
         size: size,
       );
   static SpinKitThreeBounce get defaultCheckingUpdateLoading =>
       SpinKitThreeBounce(
         size: 20,
         color: PreferencesController.isDarkMode == true
-            ? ColorStyle.darkGreyBG
-            : ColorStyle.white,
+            ? ColorStyle.white
+            : ColorStyle.darkGreyBG,
       );
 }

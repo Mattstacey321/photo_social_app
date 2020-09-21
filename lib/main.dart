@@ -18,17 +18,13 @@ Future main() async {
       await PreferencesController.load();
   Get.put<PreferencesController>(preferencesController, permanent: true);
 
-  runApp(MyApp(
-    home: StartUpScreen(),
-    isDarkMode: PreferencesController.getPrefs.getBool('darkMode') ?? false,
-  ));
+  runApp(MyApp(home: StartUpScreen()));
   SystemChrome.setEnabledSystemUIOverlays([]);
 }
 
 class MyApp extends StatelessWidget {
   final Widget home;
-  final bool isDarkMode;
-  MyApp({this.home, this.isDarkMode});
+  MyApp({this.home});
   @override
   Widget build(BuildContext context) {
     return RefreshConfiguration(
@@ -38,7 +34,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         debugShowCheckedModeBanner: false,
-        themeMode: isDarkMode ? ThemeMode.light : ThemeMode.dark,
+        themeMode: PreferencesController.themeMode,
         builder: BotToastInit(),
         navigatorObservers: [BotToastNavigatorObserver()],
         initialRoute: '/',

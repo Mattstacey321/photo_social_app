@@ -60,7 +60,7 @@ class CustomNetworkImage extends StatelessWidget {
                     alignment: (imageHeight < imageWidth)
                         ? Alignment.center
                         : Alignment.topCenter,
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),

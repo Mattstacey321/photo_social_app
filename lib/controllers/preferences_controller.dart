@@ -17,8 +17,12 @@ class PreferencesController extends GetxController {
   }
 
   static Color get colorTheme {
-    return !PreferencesController.isDarkMode
+    return PreferencesController.isDarkMode
         ? ColorStyle.darkGreyBG
         : Colors.white;
+  }
+
+  static ThemeMode get themeMode {
+    return isDarkMode ? ThemeMode.dark : ThemeMode.light;
   }
 }

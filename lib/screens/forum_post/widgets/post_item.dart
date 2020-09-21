@@ -351,7 +351,7 @@ class _PostItemState extends State<PostItem>
                   imageWidth: imageWidth);
             },
             options: CarouselOptions(
-                height: 400,
+                height: 300,
                 enableInfiniteScroll: false,
                 enlargeCenterPage: true,
                 enlargeStrategy: CenterPageEnlargeStrategy.scale,

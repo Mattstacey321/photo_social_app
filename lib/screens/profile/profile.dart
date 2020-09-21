@@ -73,7 +73,7 @@ class Profile extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
-                            color: !PreferencesController.isDarkMode
+                            color: PreferencesController.isDarkMode
                                 ? ColorStyle.darkGrey900
                                 : Colors.white,
                             boxShadow: [

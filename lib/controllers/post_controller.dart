@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:photo_social/models/postModel.dart';
@@ -88,7 +89,8 @@ class PostController extends GetxController {
         await launch(url, forceSafariVC: false, forceWebView: false);
       }
     } catch (e) {
-      await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
+      BotToast.showText(text: "Can not open link. Try again");
+      //await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
       //BotToast.showText(text: "Can not open url");
     }
   }

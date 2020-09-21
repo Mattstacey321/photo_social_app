@@ -98,10 +98,12 @@ class _HomeState extends State<Home> {
                   _.openSideBar();
                 },
                 childs: [
-                  Text(
-                    "Home",
-                    style: AppStyle.appBarTitle,
-                  ),
+                  ObxValue((data) {
+                    return Text(
+                      data.value ? "Tag" : "Home",
+                      style: AppStyle.appBarTitle,
+                    );
+                  }, _.isCollapsed),
                   Spacer(),
                   CustomButton(
                     onPress: () {
