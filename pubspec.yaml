@@ -1,6 +1,6 @@
 name: photo_social
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.6+4
+version: 1.0.6+5
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -34,7 +34,7 @@ dependencies:
   #loading effect
   shimmer: ^1.1.1
   # launch app from url
-  url_launcher: ^5.5.2
+  url_launcher: ^5.7.0
   async: ^2.4.2
 dev_dependencies:
   flutter_test:

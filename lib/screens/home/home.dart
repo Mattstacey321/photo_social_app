@@ -1,7 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/colors.dart';
 import 'package:photo_social/controllers/controller.dart';
 import 'package:photo_social/models/forumModel.dart';
 import 'package:photo_social/screens/home/widgets/hashtag_dashboard.dart';

@@ -83,15 +83,17 @@ class PostController extends GetxController {
 
   void _launchApp([String url, String fallbackUrl = ""]) async {
     try {
-      bool launched =
-          await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
+      bool launched = await launch(url,
+          forceSafariVC: false, forceWebView: false, enableJavaScript: true);
       if (!launched) {
-        await launch(url, forceSafariVC: false, forceWebView: false);
+        await launch(fallbackUrl,
+            forceSafariVC: false, forceWebView: false, enableJavaScript: true);
       }
     } catch (e) {
-      BotToast.showText(text: "Can not open link. Try again");
-      //await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
-      //BotToast.showText(text: "Can not open url");
+      //BotToast.showText(text: "Can not open link. Try again");
+      await launch(fallbackUrl,
+              forceSafariVC: false, forceWebView: false, enableJavaScript: true)
+          .catchError((err) => BotToast.showText(text: "Can not open url"));
     }
   }
 
