@@ -1,5 +1,5 @@
 name: photo_social
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.6+5
 
 environment:
@@ -10,18 +10,18 @@ dependencies:
     sdk: flutter
 
   #cupertino_icons: ^0.1.3
-  get: ^3.10.2
-  cached_network_image: ^2.3.1
+  get: ^3.11.1
+  cached_network_image: ^2.3.2
   dio: ^3.0.10
   flutter_spinkit: ^4.1.2+1
-  pull_to_refresh: ^1.6.1
+  pull_to_refresh: ^1.6.2
   graphql_flutter: ^3.1.0
-  shared_preferences: ^0.5.8
-  bot_toast: ^3.0.1
-  carousel_slider: ^2.2.1
+  shared_preferences: ^0.5.12
+  bot_toast: ^3.0.4
+  carousel_slider: ^2.3.1
   flutter_staggered_grid_view: ^0.3.2
   eva_icons_flutter: ^2.0.1
-  timeago: ^2.0.26
+  timeago: ^2.0.27
   # image placeholder
   flutter_blurhash: ^0.5.0
   like_button: ^1.0.1
@@ -34,17 +34,17 @@ dependencies:
   #loading effect
   shimmer: ^1.1.1
   # launch app from url
-  url_launcher: ^5.7.0
+  url_launcher: ^5.7.2
   async: ^2.4.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.7.3
+  flutter_launcher_icons: ^0.8.0
 
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path : "assets/launcher/icon.png"
+  image_path: "assets/launcher/icon.png"
   adaptive_icon_background: "#ffffff"
 flutter:
   uses-material-design: true
@@ -55,22 +55,21 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   fonts:
-  - family: GoogleSans-Regular     
-    fonts:
-    - asset: assets/fonts/GoogleSans-Regular.ttf
-  - family: GoogleSans-Medium     
-    fonts:
-    - asset: assets/fonts/GoogleSans-Medium.ttf
-  - family: GoogleSans-Bold     
-    fonts:
-    - asset: assets/fonts/GoogleSans-Bold.ttf
-  - family: GoogleSans-Italic
-    fonts:
-    - asset: assets/fonts/GoogleSans-Italic.ttf
-  - family: GoogleSans-Bold-Italic
-    fonts:
-    - asset: assets/fonts/GoogleSans-BoldItalic.ttf
-  - family:  SocialIcon
-    fonts:
-    - asset: assets/custom/SocialIcon.ttf
-   
+    - family: GoogleSans-Regular
+      fonts:
+        - asset: assets/fonts/GoogleSans-Regular.ttf
+    - family: GoogleSans-Medium
+      fonts:
+        - asset: assets/fonts/GoogleSans-Medium.ttf
+    - family: GoogleSans-Bold
+      fonts:
+        - asset: assets/fonts/GoogleSans-Bold.ttf
+    - family: GoogleSans-Italic
+      fonts:
+        - asset: assets/fonts/GoogleSans-Italic.ttf
+    - family: GoogleSans-Bold-Italic
+      fonts:
+        - asset: assets/fonts/GoogleSans-BoldItalic.ttf
+    - family: SocialIcon
+      fonts:
+        - asset: assets/custom/SocialIcon.ttf
