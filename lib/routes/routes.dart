@@ -6,4 +6,8 @@ abstract class Routes {
   static const SIGNUP = '/signup';
   static const EDITPROFILE = '/editprofile';
   static const FORUMPOST = '/forumpost';
+  static const SAVEDPOST = '/saved';
+  static const SAVEDPOSTDETAIL = '/saved-detail';
+  static const COMMENTPOST = '/comment/';
+  static const BOOKMARK = "/bookmark";
 }

@@ -1,55 +1,40 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:photo_social/api/config.dart';
-
-String uuidFromObject(Object object) {
-  if (object is Map<String, Object>) {
-    final String typeName = object['__typename'] as String;
-    final String id = object['id'].toString();
-    if (typeName != null && id != null) {
-      return <String>[typeName, id].join('/');
-    }
-  }
-  return null;
-}
-
-final OptimisticCache cache = OptimisticCache(
-  dataIdFromObject: uuidFromObject,
-);
+import 'package:photo_social/config/connection.dart';
 
 GraphQLClient mainAPI(String token) {
-  HttpLink httpLink =
-      HttpLink(uri: getEndpoint.main, headers: {"authentication": token});
+  HttpLink httpLink = HttpLink(getEndpoint.main,
+      defaultHeaders: {"token": token, "guest": "false"});
 
   return GraphQLClient(
-    cache: cache,
+    cache: GraphQLCache(store: HiveStore()),
     link: httpLink,
   );
 }
 
 GraphQLClient get pubAPI {
-  HttpLink httpLink = HttpLink(uri: getEndpoint.pub);
+  HttpLink httpLink = HttpLink(getEndpoint.pub);
 
   return GraphQLClient(
-    cache: NormalizedInMemoryCache(dataIdFromObject: typenameDataIdFromObject),
+    cache: GraphQLCache(store: HiveStore()),
     link: httpLink,
   );
 }
 
-GraphQLClient get anonymousAPI {
+GraphQLClient get guestAPI {
   HttpLink httpLink =
-      HttpLink(uri: getEndpoint.main, headers: {"guest": 'true'});
+      HttpLink(getEndpoint.main, defaultHeaders: {"guest": "true"});
 
   return GraphQLClient(
-    cache: NormalizedInMemoryCache(dataIdFromObject: typenameDataIdFromObject),
+    cache: GraphQLCache(store: HiveStore()),
     link: httpLink,
   );
 }
 
 GraphQLClient get authAPI {
-  HttpLink httpLink = HttpLink(uri: getEndpoint.auth);
+  HttpLink httpLink = HttpLink(getEndpoint.auth);
 
   return GraphQLClient(
-    cache: NormalizedInMemoryCache(dataIdFromObject: typenameDataIdFromObject),
+    cache: GraphQLCache(store: HiveStore()),
     link: httpLink,
   );
 }

@@ -1,8 +1,7 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:photo_social/modules/local_authentication/local_authentication_controller.dart';
 
 Future<bool> isAuth() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String token = prefs.getString("token") ?? "";
-  bool isSkipLogin = prefs.getBool("isSkipLogin") ?? false;
-  return (token == "" && isSkipLogin == false);
+  LocalAuthentication _authentication = LocalAuthentication();
+  final result = await _authentication.getUserInfo();
+  return !result.guest;
 }

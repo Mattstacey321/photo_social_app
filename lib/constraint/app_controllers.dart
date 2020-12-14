@@ -1,0 +1,16 @@
+export 'package:photo_social/modules/account/account_controller.dart';
+export 'package:photo_social/modules/authentication/auth_controller.dart';
+export 'package:photo_social/modules/base/base_controller.dart';
+export 'package:photo_social/modules/bookmark/bookmark_controller.dart';
+export 'package:photo_social/modules/collection/collection_controller.dart';
+export 'package:photo_social/modules/collection/collection_detail_controller.dart';
+export 'package:photo_social/modules/comment/comment_controller.dart';
+export 'package:photo_social/modules/forum/forum_controller.dart';
+export 'package:photo_social/modules/forum_post/post_controller.dart';
+export 'package:photo_social/modules/hash_tag/hashtag_controller.dart';
+export 'package:photo_social/modules/home/home_controller.dart';
+export 'package:photo_social/modules/local_authentication/local_authentication_controller.dart';
+export 'package:photo_social/modules/request_feature/request_feature_controller.dart';
+export 'package:photo_social/modules/theme/theme_controller.dart';
+export 'package:photo_social/modules/account/account_controller.dart';
+export 'package:photo_social/modules/update/update_controller.dart';

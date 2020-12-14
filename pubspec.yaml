@@ -1,6 +1,6 @@
 name: photo_social
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
-version: 1.0.6+5
+publish_to: "none"
+version: 1.0.7+5
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -10,36 +10,41 @@ dependencies:
     sdk: flutter
 
   #cupertino_icons: ^0.1.3
-  get: ^3.11.1
-  cached_network_image: ^2.3.2
+  get: ^3.22.2
+  cached_network_image: ^2.4.1
   dio: ^3.0.10
   flutter_spinkit: ^4.1.2+1
-  pull_to_refresh: ^1.6.2
-  graphql_flutter: ^3.1.0
-  shared_preferences: ^0.5.12
-  bot_toast: ^3.0.4
+  pull_to_refresh: ^1.6.3
+  graphql_flutter: ^4.0.0-beta.5
+  flutter_secure_storage: ^3.3.5
+  bot_toast: ^3.0.5
   carousel_slider: ^2.3.1
   flutter_staggered_grid_view: ^0.3.2
   eva_icons_flutter: ^2.0.1
-  timeago: ^2.0.27
+  timeago: ^2.0.29
   # image placeholder
   flutter_blurhash: ^0.5.0
-  like_button: ^1.0.1
-  photo_view: ^0.10.2
+  like_button: ^1.0.4
+  photo_view: ^0.10.3
   #these package for update app
-  package_info: ^0.4.3
+  package_info: ^0.4.3+2
   pub_semver: ^1.4.4
   flutter_downloader: ^1.5.0
   permission_handler: ^5.0.1+1
   #loading effect
-  shimmer: ^1.1.1
+  shimmer: ^1.1.2
   # launch app from url
-  url_launcher: ^5.7.2
-  async: ^2.4.2
+  url_launcher: ^5.7.10
+  # bottom bar
+  google_nav_bar: ^3.1.0
+  # persistent data
+  hive: ^1.5.0-pre
+  hive_flutter: ^0.3.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.8.0
+  pedantic: ^1.10.0-nullsafety
 
 flutter_icons:
   android: "launcher_icon"
@@ -48,11 +53,6 @@ flutter_icons:
   adaptive_icon_background: "#ffffff"
 flutter:
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
 
   fonts:
     - family: GoogleSans-Regular

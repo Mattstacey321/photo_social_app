@@ -19,6 +19,9 @@ List<_SocialID> getUserSocial(String data) {
         if (s[i] == 'twitter:') {
           array.add(_SocialID(type: 'tw', id: s[i + 1]));
         }
+        if (s[i] == 'weibo:') {
+          array.add(_SocialID(type: 'weibo', id: s[i + 1]));
+        }
       }
     }
     return array;
