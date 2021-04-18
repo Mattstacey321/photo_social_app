@@ -114,9 +114,6 @@ class SignIn extends GetView<SignInController> {
                               : null,
                           initialWidget: Text(
                             "Login",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Get.isDarkMode ? Colors.white : Colors.black),
                           ),
                           successWidget: Icon(EvaIcons.checkmark),
                           errorWidget: Icon(EvaIcons.close),
@@ -126,7 +123,7 @@ class SignIn extends GetView<SignInController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text("Don't have account ? "),
+                          Text("Don't have account ?"),
                           GestureDetector(
                               onTap: () {
                                 controller.goToRegister();

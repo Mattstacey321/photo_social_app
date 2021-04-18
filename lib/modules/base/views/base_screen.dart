@@ -19,7 +19,7 @@ class BaseScreen extends GetResponsiveView<BaseController> {
       body: Container(
         height: Get.height,
         width: Get.width,
-        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: Row(
           children: <Widget>[
             SideBar(),

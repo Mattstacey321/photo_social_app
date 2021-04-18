@@ -1,9 +1,7 @@
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -15,14 +13,13 @@ Future initServices() async {
   //await Get.putAsync(() => ConfigServices().initializeDownloader());
   await Get.putAsync(() => ConfigServices().initializeTimeAgo());
   await Get.putAsync(() => ConfigServices().initializeHive());
-  await Get.putAsync(() => ConfigServices().initializeGraphqlCache());
+  await Get.putAsync(() => ConfigServices().initializeGraphQLCache());
   await Get.putAsync(() => ConfigServices().initializeSetting());
 }
 
 class ConfigServices extends GetxService {
-
   Future initializeSetting() async {
-    Get.lazyPut(() => FlutterSecureStorage());
+    Get.lazyPut(() => GetStorage());
     await Get.putAsync<LocalAuthentication>(() async {
       final _authentication = LocalAuthentication();
       await _authentication.initSession();
@@ -32,7 +29,7 @@ class ConfigServices extends GetxService {
     });
   }
 
-  Future initializeGraphqlCache() async {
+  Future initializeGraphQLCache() async {
     if (GetPlatform.isMobile) {
       await initHiveForFlutter();
     } else {
@@ -52,13 +49,14 @@ class ConfigServices extends GetxService {
   }
 
   Future initializeHive() async {
-    await Hive.initFlutter();
-    final box = await Hive.openBox("themeBox");
-    var _currentTheme = box.get("currentTheme");
+    await GetStorage.init("themeBox");
+    final box = GetStorage("themeBox");
+    //final box = await Hive.openBox("themeBox");
+    var _currentTheme = box.read("currentTheme");
     if (_currentTheme == null) {
-      box.put("currentTheme", false);
+      await box.write("currentTheme", false);
     }
-    Get.put<ThemeController>(ThemeController(
+    Get.put(ThemeController(
         themeBox: box, currentTheme: _currentTheme == null ? false : _currentTheme));
     return this;
   }

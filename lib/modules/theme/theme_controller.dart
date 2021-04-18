@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../data/themes/index.dart';
 class ThemeController extends GetxController {
   static ThemeController get to => Get.find();
-  final Box _themeBox;
+  final GetStorage  _themeBox;
   final bool _currentTheme;
-  ThemeController({@required Box themeBox, bool currentTheme})
+  ThemeController({@required GetStorage themeBox, bool currentTheme})
       : _themeBox = themeBox,
         _currentTheme = currentTheme ?? false;
   // for local state change
@@ -29,9 +29,9 @@ class ThemeController extends GetxController {
   Color get loadingIndicatorColor =>
       _currentTheme ? Colors.white : AppColors.darkGreyBG;
 
-  void switchTheme(bool value) {
+  void switchTheme(bool value) async{
     isDarkMode.value = value;
-    _themeBox.put("currentTheme", value);
+    await _themeBox.write("currentTheme", value);
   }
 
   void getCurrentTheme() async {

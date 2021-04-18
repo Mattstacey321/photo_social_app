@@ -1,6 +1,6 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../config/connection.dart';
+import 'config/connection.dart';
 
 GraphQLClient mainAPI(String token) {
   final HttpLink httpLink = HttpLink(getEndpoint.main,

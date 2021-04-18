@@ -35,7 +35,7 @@ class HashTagDetail extends StatelessWidget {
                     controller.loadingStatus,
                     child: Scrollbar(
                       controller: controller.scrollController,
-                      interactive: true,
+                      isAlwaysShown: true,
                       child: SmartRefresher(
                         controller: controller.controller,
                         enablePullUp: true,

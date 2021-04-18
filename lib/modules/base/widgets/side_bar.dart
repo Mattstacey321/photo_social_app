@@ -1,6 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:photo_social/modules/theme/theme_controller.dart';
 
 import '../../hash_tag/controllers/hashtag_controller.dart';
 import '../../hash_tag/widgets/hashtag_item.dart';
@@ -69,6 +70,7 @@ class SideBar extends GetView<BaseController> {
                     child: Obx(
                       () {
                         return ListView.separated(
+                          padding: EdgeInsets.only(right: 10),
                           separatorBuilder: (context, index) => SizedBox(height: 10),
                           itemCount: hashTagController.hashTags.length,
                           itemBuilder: (_, index) {
@@ -101,8 +103,10 @@ class SideBar extends GetView<BaseController> {
       @required String title,
       @required IconData selectedIcon,
       @required IconData unSelectedIcon}) {
-    Color iconColor = itemIndex == currentIndex ? Colors.blue : Colors.white;
-    Color textColor = itemIndex == currentIndex ? Colors.blue : Colors.white;
+    var themeController = ThemeController.to;
+    Color baseColor = themeController.isDarkMode.value ? Colors.white : Colors.black;
+    Color iconColor = itemIndex == currentIndex ? Colors.blue : baseColor;
+    Color textColor = itemIndex == currentIndex ? Colors.blue : baseColor;
     FontWeight fontWeight = itemIndex == currentIndex ? FontWeight.bold : FontWeight.w100;
     Color selectedColor =
         itemIndex == currentIndex ? Colors.blue.withOpacity(0.2) : Colors.transparent;
