@@ -1,5 +1,6 @@
 abstract class Routes {
   static const INITIAL = '/';
+  static const STARTUP = '/start-up';
   static const HOME = '/home';
   static const LOGIN = '/login';
   static const PROFILE = '/profile';
@@ -9,5 +10,5 @@ abstract class Routes {
   static const SAVEDPOST = '/saved';
   static const SAVEDPOSTDETAIL = '/saved-detail';
   static const COMMENTPOST = '/comment/';
-  static const BOOKMARK = "/bookmark";
+  static const COLLECTION = "/collection";
 }

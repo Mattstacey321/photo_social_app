@@ -1,22 +1,37 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/modules/bookmark/bookmark_controller.dart';
-import 'package:photo_social/modules/bookmark/navigator/add_collection.dart';
-import 'package:photo_social/modules/bookmark/navigator/add_existing_collection.dart';
-import 'package:photo_social/modules/bookmark/navigator/modify_collection.dart';
-import 'package:photo_social/modules/collection/collection_controller.dart';
-import 'package:photo_social/utils/nested_key.dart';
-import 'package:photo_social/widgets/app_bar/custom_appBar.dart';
-import 'package:photo_social/widgets/button/loading_button.dart';
+
+import '../../data/utils/nested_key.dart';
+import '../../global_widgets/index.dart';
+import '../../modules/bookmark/controllers/bookmark_controller.dart';
+import '../../modules/bookmark/navigator/add_collection.dart';
+import '../../modules/bookmark/navigator/add_existing_collection.dart';
+import '../../modules/bookmark/navigator/modify_collection.dart';
+import '../../modules/collection/controllers/collection_controller.dart';
+import '../../modules/theme/theme_controller.dart';
+
+Future showBookmarkBottomsheet() => Get.bottomSheet(
+      CollectionAction(),
+      backgroundColor: ThemeController.to.colorScheme,
+      elevation: 1,
+      isDismissible: true,
+      persistent: true,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
+    );
 
 class CollectionAction extends StatelessWidget {
-  final String namedRoute;
-  CollectionAction({this.namedRoute});
+  //final String namedRoute;
+  //CollectionAction({this.namedRoute});
   @override
   Widget build(BuildContext context) {
-    return GetX<BookmarkController>(
-      init: BookmarkController(namedRoute: namedRoute),
+    return GetX<BookmarkController>( 
       builder: (_) {
         return Container(
           height: Get.height / 2,
@@ -27,26 +42,27 @@ class CollectionAction extends StatelessWidget {
             children: <Widget>[
               Flexible(
                 child: Navigator(
-                  initialRoute: namedRoute,
+                  initialRoute: '/',
                   key: Get.nestedKey(NestedKey.addCollection),
                   onPopPage: (route, result) {
-                    print(route);
                     if (!route.didPop(result)) return false;
                     return true;
                   },
                   onGenerateRoute: (settings) {
-                    print(settings.name);
                     switch (settings.name) {
                       case "/new":
                         return GetPageRoute(
+                            routeName: "new",
                             page: () => AddCollection(),
                             transition: Transition.fadeIn);
                       case "/modify":
                         return GetPageRoute(
+                            routeName: "modify",
                             page: () => ModifyCollection(),
                             transition: Transition.fadeIn);
                       case "/existing":
                         return GetPageRoute(
+                            routeName: "existing",
                             page: () => AddExistingCollection(),
                             transition: Transition.fadeIn);
                       default:
@@ -62,29 +78,28 @@ class CollectionAction extends StatelessWidget {
                 controller: _.bookmarkCtrl,
                 height: 50,
                 width: Get.width,
-                onPressed: CollectionController.to.collectionLength > 0 &&
-                        _.collectionSelected.isNotEmpty
-                    ? () async {
-                        print("on page add to exist");
-                        await BookmarkController.to.addToExistingCollection();
-                      }
-                    : CollectionController.to.collectionLength < 0 &&
-                            _.isCollectionNameValidated.value
+                onPressed:
+                    CollectionController.to.collectionLength > 0 && _.collectionSelected.isNotEmpty
                         ? () async {
-                            print("on page add new collection");
-                            await BookmarkController.to.addToNewCollection();
+                            print("on page add to exist");
+                            await BookmarkController.to.addToExistingCollection();
                           }
-                        : _.isCollectionNameValidated.value
+                        : CollectionController.to.collectionLength < 0 &&
+                                _.isCollectionNameValidated.value
                             ? () async {
-                                print("on page modify");
+                                print("on page add new collection");
+                                await BookmarkController.to.addToNewCollection();
                               }
-                            : null,
+                            : _.isCollectionNameValidated.value
+                                ? () async {
+                                    print("on page modify");
+                                  }
+                                : null,
                 radius: 10,
                 buttonColor: Colors.blue,
                 initialWidget: Text(
                   "Done",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                 ),
                 successWidget: Icon(EvaIcons.checkmark),
                 errorWidget: Icon(EvaIcons.close),
@@ -157,19 +172,3 @@ Widget buildAppBar(String namedRoute) {
       return SizedBox();
   }
 }
-/*_.currentPage.value == 0
-                        ? GestureDetector(
-                            onTap: () => _.onCloseModal(),
-                            child: Icon(
-                              EvaIcons.close,
-                              size: 20,
-                            ))
-                        : GestureDetector(
-                            onTap: () {
-                              _.goToAddExistingCollectionPage();
-                            },
-                            child: Icon(
-                              EvaIcons.arrowBack,
-                              size: 20,
-                            ),
-                          ),*/

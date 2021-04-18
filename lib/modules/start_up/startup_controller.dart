@@ -1,15 +1,18 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/src/dialogs/index.dart';
-import 'package:photo_social/utils/check_token.dart';
-import 'package:photo_social/src/enum/index.dart';
+import 'package:photo_social/routes/routes.dart';
 
-import 'start_up_repository.dart';
+import '../../data/repositories/start_up_repository.dart';
+import '../../data/utils/check_token.dart';
+import '../../src/enum/index.dart';
 
 class StartUpController extends GetxController {
   static StartUpController get to => Get.find();
-  StartUpRepository _startupRepository = StartUpRepository();
+  final StartUpRepository _startupRepository;
+  StartUpController({@required StartUpRepository startUpRepository})
+      : _startupRepository = startUpRepository;
   var isServerOnline = ServerStatus.checking.obs;
 
   @override
@@ -41,11 +44,8 @@ class StartUpController extends GetxController {
       await _startupRepository
           .checkServerStatus()
           .timeout(Duration(seconds: 15))
-          .then(
-            (value) => setServerStatus(value),
-          );
+          .then((value) => setServerStatus(value));
     } on TimeoutException catch (_) {
-      //print(e);
       isServerOnline(ServerStatus.offline);
     }
   }
@@ -54,11 +54,7 @@ class StartUpController extends GetxController {
     isServerOnline(isRunning ? ServerStatus.online : ServerStatus.offline);
   }
 
-  void showUpdateDialog() async {
-    await Get.dialog(UpdateDialog(), barrierDismissible: false);
-  }
-
   void goToDestinationPage() async {
-    await Get.offAllNamed(await isAuth() ? '/home' : '/login');
+    await Get.offAllNamed(await isAuth() ? Routes.HOME : Routes.LOGIN);
   }
 }

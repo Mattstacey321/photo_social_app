@@ -1,7 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/widgets/index.dart';
+
+import '../../global_widgets/index.dart';
 
 Future skipLogin() async {
   return Get.dialog(
@@ -49,15 +50,16 @@ class SkipLoginDialog extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FlatButton(
+                  TextButton(
                     onPressed: onBack,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                     child: Text(
                       "Back to login",
-                      style: TextStyle(
-                          color: Colors.indigo, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold),
                     ),
                   ),
                   CustomButton(
@@ -68,8 +70,7 @@ class SkipLoginDialog extends StatelessWidget {
                     childs: [
                       Text(
                         "Skip now",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                       )
                     ],
                   )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:photo_social/modules/theme/theme_controller.dart';
+
+import '../../modules/theme/theme_controller.dart';
 
 class LoadingIndicator {
   static SpinKitThreeBounce get defaultCheckingUpdateLoading =>
@@ -15,7 +16,7 @@ class LoadingIndicator {
         size: size,
       );
   static SpinKitThreeBounce footerLoading(
-          {Color color = Colors.black, double size = 25}) =>
+          {Color color = Colors.black, double size = 20}) =>
       SpinKitThreeBounce(
         color: ThemeController.to.loadingIndicatorColor,
         size: size,

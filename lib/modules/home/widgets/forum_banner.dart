@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
-import 'package:photo_social/models/forum_model.dart';
-import 'package:photo_social/themes/app_styles.dart';
-import 'package:photo_social/widgets/index.dart';
 
+import '../../../data/models/forum_model.dart';
+import '../../../data/themes/index.dart';
+import '../../../global_widgets/index.dart';
 class ForumBanner extends StatefulWidget {
   final ForumModel forum;
   final Function onTap;

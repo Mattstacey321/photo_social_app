@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/models/comment_model.dart';
-import 'package:photo_social/widgets/app_bar/custom_appBar.dart';
 
+import '../../../data/models/comment_model.dart';
+import '../../../global_widgets/index.dart';
 import '../widgets/comment_item.dart';
 
 class ReplyComment extends StatelessWidget {

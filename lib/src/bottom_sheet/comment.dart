@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/modules/app_screen.dart';
-import 'package:photo_social/modules/theme/theme_controller.dart';
+
+import '../../modules/comment/views/comment_root.dart';
+import '../../modules/theme/theme_controller.dart';
 
 Future showComment({@required String postId}) async {
   Get.bottomSheet(

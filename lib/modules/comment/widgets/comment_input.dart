@@ -1,15 +1,13 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/widgets/index.dart';
 
-import '../comment_controller.dart';
+import '../../../global_widgets/index.dart';
+import '../controllers/comment_controller.dart';
 
 class CommentInput extends GetView<CommentController> {
   @override
   Widget build(BuildContext context) {
-    CommentController _ = controller;
     return Container(
       height: 50,
       width: Get.width,
@@ -24,7 +22,7 @@ class CommentInput extends GetView<CommentController> {
         children: [
           Expanded(
             child: TextField(
-              controller: _.commentCtrl,
+              controller: controller.commentCtrl,
               decoration: InputDecoration.collapsed(
                 hintText: "What do you think ?",
               ),
@@ -32,15 +30,10 @@ class CommentInput extends GetView<CommentController> {
           ),
           CircleIcon(
               onTap: () {
-                _.addComment().then(
-                      (value) => BotToast.showText(
-                        text: "Comment Success",
-                      ),
-                      onError: (err) =>
-                          BotToast.showText(text: "Comment fail. Try again"),
-                    );
+                controller.addComment();
               },
-              child: Icon(EvaIcons.cornerDownLeft))
+              tooltip: "Comment",
+              icon: Icon(EvaIcons.cornerDownLeft))
         ],
       ),
     );

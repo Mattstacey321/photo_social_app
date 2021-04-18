@@ -3,8 +3,9 @@ import 'dart:ui';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:photo_social/constraint/app_controllers.dart';
-import 'package:photo_social/widgets/index.dart';
+
+import '../../../global_widgets/index.dart';
+import '../controllers/collection_detail_controller.dart';
 
 class DeletePostButton extends GetView<CollectionDetailController> {
   @override
@@ -35,11 +36,10 @@ class DeletePostButton extends GetView<CollectionDetailController> {
                                   height: 200,
                                   width: 300,
                                   padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10)),
+                                  decoration:
+                                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       CustomButton(
                                         onPress: () {},
@@ -57,22 +57,24 @@ class DeletePostButton extends GetView<CollectionDetailController> {
                                         "Delete $totalSelection post ?",
                                       ),
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.end,
                                         children: <Widget>[
-                                          FlatButton(
+                                          TextButton(
                                               onPressed: () {
                                                 Get.back();
                                               },
-                                              color: Colors.indigo,
+                                              style: TextButton.styleFrom(
+                                                  backgroundColor: Colors.indigo),
                                               child: Text("Cancel")),
                                           SizedBox(width: 5),
-                                          FlatButton(
+                                          TextButton(
                                               onPressed: () {
                                                 Get.back();
                                                 controller.removePost();
                                               },
-                                              color: Colors.red,
+                                              style: TextButton.styleFrom(
+                                                backgroundColor: Colors.red,
+                                              ),
                                               child: Text("Confirm"))
                                         ],
                                       )
@@ -104,12 +106,10 @@ class DeletePostButton extends GetView<CollectionDetailController> {
                               totalSelection <= 0
                                   ? SizedBox()
                                   : Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5),
+                                      padding: const EdgeInsets.symmetric(horizontal: 5),
                                       child: Text(
                                         "($totalSelection)",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                        style: TextStyle(fontWeight: FontWeight.bold),
                                       ),
                                     )
                             ],

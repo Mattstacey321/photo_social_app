@@ -1,0 +1,5 @@
+linter:
+  rules:
+    - avoid_print
+    - prefer_const_declarations
+    #- avoid_catches_without_on_clauses

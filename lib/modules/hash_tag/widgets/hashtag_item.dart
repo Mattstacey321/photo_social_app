@@ -1,30 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
-import '../hashtag_detail.dart';
+import '../../../data/models/hash_tag_model.dart';
+import '../controllers/hashtag_controller.dart';
 
-class HashTagItem extends StatelessWidget {
-  final String hashtag;
-  final int total;
-  HashTagItem({this.hashtag, this.total = 0});
+class HashTagItem extends GetView<HashTagController> {
+  final HashTagModel hashTag;
+  final VoidCallback onTap;
+  HashTagItem({this.hashTag, @required this.onTap});
   @override
   Widget build(BuildContext context) {
     //Color bg = Colors.red;
+    String name = hashTag.hashtag;
+    int total = hashTag.total;
+    //bool isSelected = hashTag.isSelected;
+
     return InkWell(
-      onTap: () {
-        Get.to(
-          HashTagDetail(
-            hashTag: hashtag,
-          ),
-        );
-      },
+      onTap: onTap,
       child: Container(
         height: 40,
-        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
         child: Row(
           children: [
+            ObxValue<RxList<HashTagModel>>(
+              (res) {
+                return AnimatedSwitcher(
+                  duration: 200.milliseconds,
+                  child: res.contains(hashTag)
+                      ? VerticalDivider(
+                          thickness: 3,
+                          color: Colors.white,
+                          width: 0,
+                        )
+                      : const SizedBox(),
+                );
+              },
+              controller.selectHashTag,
+            ),
+            SizedBox(width: 10),
             Text(
-              "# $hashtag",
+              "# $name",
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             Spacer(),
@@ -44,7 +61,7 @@ class HashTagItem extends StatelessWidget {
                       ),
                     ),
                   )
-                : Container(),
+                : const SizedBox(),
           ],
         ),
       ),

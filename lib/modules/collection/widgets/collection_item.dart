@@ -2,21 +2,22 @@ import 'dart:ui';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:photo_social/models/collection_model.dart';
-import 'package:photo_social/widgets/index.dart';
+
+import '../../../data/models/collection_model.dart';
+import '../../../global_widgets/index.dart';
 
 class CollectionItem extends StatefulWidget {
   final double height, width;
   final BookmarkCollectionModel collection;
   final VoidCallback onTap;
   final VoidCallback onLongTap;
-  const CollectionItem(
-      {this.height,
-      this.width,
-      @required this.collection,
-      this.onTap,
-      this.onLongTap});
+  CollectionItem({
+    this.height,
+    this.width,
+    @required this.collection,
+    this.onTap,
+    this.onLongTap,
+  });
 
   @override
   _CollectionItemState createState() => _CollectionItemState();
@@ -24,10 +25,10 @@ class CollectionItem extends StatefulWidget {
 
 class _CollectionItemState extends State<CollectionItem> {
   BookmarkCollectionModel get collection => widget.collection;
-  int get total => widget.collection.total;
-  List<CollectionModel> get images => widget.collection.item;
-  String get coverUrl => widget.collection.item.first.image.thumb1;
-  String imageUrl(i) => images[i].image.thumb1;
+  int get total => collection.total;
+  List<CollectionModel> get images => collection.item;
+  String get coverUrl => images.first.image.thumb1;
+  String imageUrl(index) => images[index].image.thumb1;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class _CollectionItemState extends State<CollectionItem> {
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: total == 1 ? 1 : 2,
-                childAspectRatio: Get.width / (Get.height / 2),
+                childAspectRatio: widget.width / (widget.height),
               ),
               itemBuilder: (context, i) {
                 return (total == 1) // display first image as thumbnail
@@ -52,23 +53,21 @@ class _CollectionItemState extends State<CollectionItem> {
                         url: coverUrl,
                         onTap: null,
                         imageBorder: 0,
-                        imageHeight: 300,
-                        imageWidth: 300)
-                    : (total > 4 &&
-                            i ==
-                                3) // display 3 image with remain image in this collection
+                        imageHeight: widget.height,
+                        imageWidth: widget.width)
+                    : (total > 4 && i == 3) // display 3 image with remain image in this collection
                         ? Stack(
                             children: [
                               CustomNetworkImage(
                                 url: imageUrl(i),
                                 onTap: null,
                                 imageBorder: 0,
-                                imageHeight: 100,
-                                imageWidth: 100,
+                                imageHeight: widget.height / 4,
+                                imageWidth: widget.width / 4,
                               ),
                               Container(
-                                height: 100,
-                                width: 100,
+                                height: widget.height / 4,
+                                width: widget.width / 4,
                                 alignment: Alignment.center,
                                 color: Colors.grey.withOpacity(0.4),
                                 child: Text(
@@ -83,8 +82,8 @@ class _CollectionItemState extends State<CollectionItem> {
                                 url: imageUrl(i),
                                 onTap: null,
                                 imageBorder: 0,
-                                imageHeight: 100,
-                                imageWidth: 100,
+                                imageHeight: widget.height / 4,
+                                imageWidth: widget.width / 4,
                               )
                             : Container();
               },
@@ -94,9 +93,7 @@ class _CollectionItemState extends State<CollectionItem> {
         Positioned.fill(
           child: Material(
             borderRadius: BorderRadius.circular(10),
-            color: collection.isSelected
-                ? Colors.grey.withOpacity(0.6)
-                : Colors.transparent,
+            color: collection.isSelected ? Colors.grey.withOpacity(0.6) : Colors.transparent,
             child: InkWell(
               borderRadius: BorderRadius.circular(10),
               splashColor: Colors.grey.withOpacity(0.1),

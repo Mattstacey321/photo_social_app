@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:photo_social/themes/app_colors.dart';
 
+import '../../data/themes/index.dart';
 class ThemeController extends GetxController {
   static ThemeController get to => Get.find();
   final Box _themeBox;
@@ -36,6 +36,5 @@ class ThemeController extends GetxController {
 
   void getCurrentTheme() async {
     isDarkMode.value = _currentTheme;
-    print("Your currentTheme is ${_currentTheme ? "dark" : "light"}");
   }
 }

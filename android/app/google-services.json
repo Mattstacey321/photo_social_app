@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "15055271455",
+    "project_id": "photo-social-44972",
+    "storage_bucket": "photo-social-44972.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15055271455:android:7d27bfa130454862ea472a",
+        "android_client_info": {
+          "package_name": "com.mattstacey.photo_social"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15055271455-i1b8of52j686q3f0m86q9891bs0kbg2e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mattstacey.photo_social",
+            "certificate_hash": "ce133eaafb49537573207d633353a1bbf19bed90"
+          }
+        },
+        {
+          "client_id": "15055271455-e001rnp3dok478k9got9ik6utbcbv3cm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3DTaHKL5mEgbeKaK60zz0BDwFFVTiA1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "15055271455-e001rnp3dok478k9got9ik6utbcbv3cm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
